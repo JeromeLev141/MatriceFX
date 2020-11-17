@@ -35,6 +35,14 @@ public class Operation {
         return r;
     }
 
+    public static Matrice transposition(Matrice a){
+        Matrice t = new Matrice(a.getN(), a.getM());
+        for (int n = 0; n < a.getN(); n++)
+            for (int m = 0; m < a.getM(); m++)
+                t.getElements().add(a.getElements().get(n * 3 + m));
+        return t;
+    }
+
     private static boolean memeFormat(Matrice a, Matrice b){
         return a.getM() == b.getM() && a.getN() == b.getN();
     }
