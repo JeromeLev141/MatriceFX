@@ -17,21 +17,19 @@ public class Matrice {
 
     public List<Double> getElements() { return elements; }
 
-    public void setElements(List<Double> elements) { this.elements = elements; }
-
     public int getM() { return m; }
 
     public int getN() { return n; }
 
     @Override
     public String toString() {
-        String matrice = "";
+        StringBuilder matrice = new StringBuilder();
         for (int x = 1; x <= m; x++) {
             for (int y = 1; y <= n; y++) {
-                matrice += elements.get((x - 1) * n + y - 1) + " ";
+                matrice.append(elements.get((x - 1) * n + y - 1)).append(" ");
             }
-            matrice += "\n";
+            matrice.append("\n");
         }
-        return matrice;
+        return matrice.toString();
     }
 }
