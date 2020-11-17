@@ -1,5 +1,6 @@
 package sample.modele;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Matrice {
@@ -9,6 +10,7 @@ public class Matrice {
     private int n; //nombre de colonne
 
     public Matrice(int m, int n) {
+        elements = new ArrayList<>();
         this.m = m;
         this.n = n;
     }
@@ -23,10 +25,13 @@ public class Matrice {
 
     @Override
     public String toString() {
-        return "Matrice{" +
-                "elements=" + elements +
-                ", m=" + m +
-                ", n=" + n +
-                '}';
+        String matrice = "";
+        for (int x = 1; x <= m; x++) {
+            for (int y = 1; y <= n; y++) {
+                matrice += "a" + x + "" + y + ":" + elements.get((x - 1) * n + y - 1) + " ";
+            }
+            matrice += "\n";
+        }
+        return matrice;
     }
 }
