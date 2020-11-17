@@ -9,7 +9,7 @@ public class Operation {
     }
 
     public static Matrice addition(Matrice a, Matrice b){
-        if (verif1(a,b)) {
+        if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
                 r.getElements().add(a.getElements().get(x) + b.getElements().get(x));
@@ -19,7 +19,7 @@ public class Operation {
     }
 
     public static Matrice soustraction(Matrice a, Matrice b){
-        if (verif1(a,b)) {
+        if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
                 r.getElements().add(a.getElements().get(x) - b.getElements().get(x));
@@ -35,7 +35,7 @@ public class Operation {
         return r;
     }
 
-    private static boolean verif1(Matrice a, Matrice b){
+    private static boolean memeFormat(Matrice a, Matrice b){
         return a.getM() == b.getM() && a.getN() == b.getN();
     }
 }
