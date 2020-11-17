@@ -11,6 +11,7 @@ public class Main2 {
         Matrice a = GenererMatrice.genererMatrice(3,3);
         System.out.println(a.toString());
         System.out.println(Operation.listeFraction(a).toString());
+        System.out.println(Operation.transposition(a).toString());
         Matrice b = GenererMatrice.genererMatrice(3,3);
         System.out.println(b.toString());
         Matrice c = Operation.addition(a,b);
