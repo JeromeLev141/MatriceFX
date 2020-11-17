@@ -43,7 +43,26 @@ public class Operation {
         return t;
     }
 
+    public static Matrice multiplicationDeMatrice(Matrice a, Matrice b){
+        Matrice r = new Matrice(a.getM(), b.getN());
+        if (bonFormat(a,b)){
+            for (int x = 0; x < a.getM(); x++)
+                for (int y = 0; y < b.getN(); y++){
+                    double resultat = 0;
+                    for (int m = 0, n = 0; n * m < a.getN() * b.getM(); n++,m++)
+                            resultat += a.getElements().get(m + x * a.getM()) * b.getElements().get(n * b.getN() + y);
+                    r.getElements().add(resultat);
+                }
+            return r;
+        }
+        return null;
+    }
+
     private static boolean memeFormat(Matrice a, Matrice b){
         return a.getM() == b.getM() && a.getN() == b.getN();
+    }
+
+    private static boolean bonFormat(Matrice a, Matrice b){
+        return a.getN()==b.getM();
     }
 }
