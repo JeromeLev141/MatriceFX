@@ -11,11 +11,11 @@ public class Operation {
     }
 
     public static Matrice addition(Matrice a,Matrice b){
-        Matrice c = new Matrice(m)
+        Matrice r = new Matrice(a.getM(), a.getN());
         if (verif1(a,b)) {
             for (int x = 0; x < a.getElements().size(); x++)
-                a.getElements().set(x, a.getElements().get(x) + b.getElements().get(x));
-            return a;
+                r.getElements().add(a.getElements().get(x) + b.getElements().get(x));
+            return r;
         }
         else
             return null;
@@ -25,9 +25,10 @@ public class Operation {
 
     public static Matrice soustraction(Matrice a,Matrice b){
         if (verif1(a,b)) {
+            Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
-                a.getElements().set(x, a.getElements().get(x) - b.getElements().get(x));
-            return a;
+                r.getElements().add(a.getElements().get(x) - b.getElements().get(x));
+            return r;
         }
         else
             return null;
@@ -36,10 +37,10 @@ public class Operation {
     }
 
     public static Matrice multiplication(Matrice a,double x){
+        Matrice r = new Matrice(a.getM(), a.getN());
         for (int i = 0;i<a.getElements().size();i++)
-            a.getElements().set(i, a.getElements().get(i)*x);
-
-        return a;
+            r.getElements().add(a.getElements().get(i) * x);
+        return r;
     }
 
     private static boolean verif1(Matrice matice1, Matrice matice2){
