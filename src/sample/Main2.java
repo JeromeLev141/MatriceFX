@@ -13,12 +13,12 @@ public class Main2 {
         System.out.println(Operation.listeFraction(a).toString());
         Matrice b = GenererMatrice.genererMatrice(3,3);
         System.out.println(b.toString());
-        /*Matrice c = Operation.addition(a,b);
+        Matrice c = Operation.addition(a,b);
         System.out.println(c.toString());
         Matrice d = Operation.soustraction(a,b);
         System.out.println(d.toString());
         Matrice e = Operation.multiplication(a, 2);
-        System.out.println(e.toString());*/
+        System.out.println(e.toString());
         Matrice g = Operation.multiplicationDeMatrice(a,b );
         System.out.println(g.toString());
     }
