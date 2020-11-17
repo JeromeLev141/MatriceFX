@@ -43,25 +43,20 @@ public class Operation {
         return t;
     }
 
-    public static Matrice multiplicationDeMatrice(Matrice a, Matrice b) {
+    public static Matrice produitVectorielle(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
-        if (!bonFormat(a, b)) {
+        if (!bonFormat(a, b))
             return null;
-        } else {
-            for(int x = 0; x < a.getM(); ++x) {
-                for(int y = 0; y < b.getN(); ++y) {
-                    double resultat = 0.0D;
-                    int m = 0;
+        else {
+            for(int x = 0; x < a.getM(); x++)
+                for(int y = 0; y < b.getN(); y++) {
 
-                    for(int n = 0; n * m < a.getN() * b.getM(); ++m) {
-                        resultat += (Double)a.getElements().get(m + x * a.getM()) * (Double)b.getElements().get(n * b.getN() + y);
-                        ++n;
-                    }
+                    double resultat = 0.0D;
+                    for (int n = 0, m = 0; n * m < a.getN() * b.getM(); m++, n++)
+                        resultat += (Double) a.getElements().get(m + x * a.getM()) * (Double) b.getElements().get(n * b.getN() + y);
 
                     r.getElements().add(resultat);
                 }
-            }
-
             return r;
         }
     }
