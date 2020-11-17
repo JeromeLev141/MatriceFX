@@ -20,7 +20,7 @@ public class Main2 {
         System.out.println(d.toString());
         Matrice e = Operation.multiplication(a, 2);
         System.out.println(e.toString());
-        Matrice g = Operation.produitVectorielle(a,b );
+        Matrice g = Operation.produitVectoriel(a,b );
         System.out.println(g.toString());
     }
 }

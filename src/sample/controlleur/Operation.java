@@ -46,7 +46,7 @@ public class Operation {
         return t;
     }
 
-    public static Matrice produitVectorielle(Matrice a, Matrice b) {
+    public static Matrice produitVectoriel(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
         if (!bonFormat(a, b))
             return null;
