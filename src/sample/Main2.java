@@ -7,8 +7,10 @@ import sample.modele.Matrice;
 public class Main2 {
 
     public static void main(String[] args) {
+
         Matrice a = GenererMatrice.genererMatrice(3,3);
         System.out.println(a.toString());
+        System.out.println(Operation.listeFraction(a).toString());
         Matrice b = GenererMatrice.genererMatrice(3,3);
         System.out.println(b.toString());
         Matrice c = Operation.addition(a,b);
