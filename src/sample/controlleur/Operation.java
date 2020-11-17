@@ -59,7 +59,7 @@ public class Operation {
     public static String doubleAFraction(double d) {
         String nombre = String.format("%.2f", d);
         String entier = nombre.substring(0, nombre.indexOf(','));
-        String decimal = nombre.substring(nombre.indexOf(',') + 1, nombre.length());
+        String decimal = nombre.substring(nombre.indexOf(',') + 1);
 
         if (!decimal.equals("00")) {
             for (int x = 100; x > 0; x--) {
@@ -67,12 +67,14 @@ public class Operation {
                 String numerateur = String.valueOf((double) Integer.parseInt(decimal) / x);
                 String denominateur = String.valueOf((double) 100 / x);
 
-                if (numerateur.substring(numerateur.indexOf('.') + 1, numerateur.length()).equals("0") &&
-                        denominateur.substring(denominateur.indexOf('.') + 1, denominateur.length()).equals("0"))
+                if (numerateur.substring(numerateur.indexOf('.') + 1).equals("0") &&
+                        denominateur.substring(denominateur.indexOf('.') + 1).equals("0")) {
 
-                    return String.valueOf(Integer.parseInt(entier) * Integer.parseInt(denominateur.substring(0, denominateur.indexOf('.'))) +
-                        Integer.parseInt(numerateur.substring(0, numerateur.indexOf('.')))) +
-                            "/" + String.valueOf(Integer.parseInt(denominateur.substring(0, denominateur.indexOf('.'))));
+                    int numerateurInt = Integer.parseInt(numerateur.substring(0, numerateur.indexOf('.')));
+                    int denominateurInt = Integer.parseInt(denominateur.substring(0, denominateur.indexOf('.')));
+
+                    return Integer.parseInt(entier) * denominateurInt + numerateurInt + "/" + denominateurInt;
+                }
             }
         }
         return entier;
