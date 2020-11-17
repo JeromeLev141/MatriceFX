@@ -2,6 +2,8 @@ package sample.controlleur;
 
 import sample.modele.Matrice;
 
+import javax.swing.*;
+
 public class Operation {
 
     public Operation() {
@@ -12,6 +14,8 @@ public class Operation {
         if (verif1(a,b))
             for (int x=0 ; x<a.getElements().size();x++)
                 a.getElements().set(x, a.getElements().get(x)+b.getElements().get(x));
+        else
+            return null;
 
         return a;
     }
@@ -20,6 +24,8 @@ public class Operation {
         if (verif1(a,b))
             for (int x=0 ; x<a.getElements().size();x++)
                 a.getElements().set(x, a.getElements().get(x)-b.getElements().get(x));
+        else
+            return null;
 
         return a;
     }
@@ -30,8 +36,6 @@ public class Operation {
 
         return a;
     }
-
-
 
     private static boolean verif1(Matrice matice1, Matrice matice2){
 
