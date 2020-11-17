@@ -39,7 +39,7 @@ public class Operation {
         Matrice t = new Matrice(a.getN(), a.getM());
         for (int n = 0; n < a.getN(); n++)
             for (int m = 0; m < a.getM(); m++)
-                t.getElements().add(a.getElements().get(n + m * 3));
+                t.getElements().add(a.getElements().get(n + m * a.getN()));
         return t;
     }
 
