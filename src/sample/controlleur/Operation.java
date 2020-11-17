@@ -40,7 +40,7 @@ public class Operation {
         return r;
     }
 
-    public static Matrice transposition(Matrice a){
+    public static Matrice transposition(Matrice a) {
         Matrice t = new Matrice(a.getN(), a.getM());
         for (int n = 0; n < a.getN(); n++)
             for (int m = 0; m < a.getM(); m++)
@@ -48,7 +48,7 @@ public class Operation {
         return t;
     }
 
-    private static boolean memeFormat(Matrice a, Matrice b){
+    private static boolean memeFormat(Matrice a, Matrice b) {
         return a.getM() == b.getM() && a.getN() == b.getN();
     }
 
