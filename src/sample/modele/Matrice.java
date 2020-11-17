@@ -28,7 +28,7 @@ public class Matrice {
         String matrice = "";
         for (int x = 1; x <= m; x++) {
             for (int y = 1; y <= n; y++) {
-                matrice += "a" + x + "" + y + ":" + elements.get((x - 1) * n + y - 1) + " ";
+                matrice += elements.get((x - 1) * n + y - 1) + " ";
             }
             matrice += "\n";
         }
