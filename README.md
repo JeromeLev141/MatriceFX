@@ -7,8 +7,7 @@ Membre de l'équipe : Jérôme Lévesque et Jérémi Girard
        - Addition et soustraction de matrices
        - Multiplication
        - Transposition
-       - Multiplication de matrices
-           -Produit vectoriel
+       - Produit vectoriel
            
 - Le programme compile et est stable
 
