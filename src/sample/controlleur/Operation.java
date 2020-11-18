@@ -7,10 +7,6 @@ import java.util.stream.Collectors;
 
 public class Operation {
 
-    public Operation() {
-
-    }
-
     public static Matrice addition(Matrice a, Matrice b) {
         if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
@@ -46,27 +42,21 @@ public class Operation {
         return t;
     }
 
-    public static Matrice multiplicationDeMatrice(Matrice a, Matrice b) {
+    public static Matrice produitVectoriel(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
-        if (!bonFormat(a, b)) {
-            return null;
-        } else {
-            for(int x = 0; x < a.getM(); ++x) {
-                for(int y = 0; y < b.getN(); ++y) {
-                    double resultat = 0.0D;
-                    int m = 0;
-
-                    for(int n = 0; n * m < a.getN() * b.getM(); ++m) {
-                        resultat += (Double)a.getElements().get(m + x * a.getM()) * (Double)b.getElements().get(n * b.getN() + y);
-                        ++n;
+        if (bonFormat(a, b)) {
+            for(int m = 0; m < a.getM(); m++) {
+                for(int n = 0; n < b.getN(); n++) {
+                    double sommeProduits = 0;
+                    for(int i = 0; i < a.getN(); i++) {
+                        sommeProduits += a.getElements().get(i + m * a.getN()) * b.getElements().get(i * b.getN() + n);
                     }
-
-                    r.getElements().add(resultat);
+                    r.getElements().add(sommeProduits);
                 }
             }
-
             return r;
         }
+        else return null;
     }
 
 

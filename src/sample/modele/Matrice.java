@@ -24,9 +24,9 @@ public class Matrice {
     @Override
     public String toString() {
         StringBuilder matrice = new StringBuilder();
-        for (int x = 1; x <= m; x++) {
-            for (int y = 1; y <= n; y++) {
-                matrice.append(elements.get((x - 1) * n + y - 1)).append(" ");
+        for (int x = 0; x < m; x++) {
+            for (int y = 0; y < n; y++) {
+                matrice.append(elements.get(x * n + y)).append(" ");
             }
             matrice.append("\n");
         }
