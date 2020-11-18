@@ -8,6 +8,8 @@ public class Main2 {
 
     public static void main(String[] args) {
 
+        Matrice test = new Matrice(2,2);
+        System.out.println(test.toString());
         Matrice a = GenererMatrice.genererMatrice(2,3);
         System.out.println(a.toString());
         System.out.println(Operation.listeFraction(a).toString());

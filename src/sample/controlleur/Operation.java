@@ -28,7 +28,6 @@ public class Operation {
     }
 
     public static Matrice multiplication(Matrice a, double k) {
-        System.out.println(a.toString());
         Matrice r = new Matrice(a.getM(), a.getN());
         r.setElements(a.getElements().stream().map((nombre) -> nombre * k).collect(Collectors.toList()));
         return r;

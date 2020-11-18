@@ -2,9 +2,6 @@ package sample.modele;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
 
 public class Matrice {
 
@@ -14,7 +11,7 @@ public class Matrice {
 
     public Matrice(int m, int n) {
         elements = new ArrayList<>(m * n);
-        elements = DoubleStream.iterate(0, (nombre) -> nombre).limit(m * n).boxed().collect(Collectors.toList());
+        while (elements.size() < m * n) elements.add(null);
         this.m = m;
         this.n = n;
     }
@@ -34,9 +31,9 @@ public class Matrice {
     @Override
     public String toString() {
         StringBuilder matrice = new StringBuilder();
-        for (int x = 0; x < m; x++) {
-            for (int y = 0; y < n; y++) {
-                matrice.append(elements.get(x * n + y)).append(" ");
+        for (int m = 0; m < this.m; m++) {
+            for (int n = 0; n < this.n; n++) {
+                matrice.append(elements.get(m * this.n + n)).append(" ");
             }
             matrice.append("\n");
         }
