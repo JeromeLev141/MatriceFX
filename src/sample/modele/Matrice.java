@@ -17,6 +17,10 @@ public class Matrice {
 
     public List<Double> getElements() { return elements; }
 
+    public double getElement(int m, int n) { return elements.get((m - 1) * this.n + n - 1); }
+
+    public void setElement(int m, int n, double element) { elements.set((m - 1) * this.n + n - 1, element); }
+
     public int getM() { return m; }
 
     public int getN() { return n; }
