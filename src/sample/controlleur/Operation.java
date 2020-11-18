@@ -11,7 +11,7 @@ public class Operation {
         if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
-                r.getElements().add(a.getElements().get(x) + b.getElements().get(x));
+                r.getElements().set(x, a.getElements().get(x) + b.getElements().get(x));
             return r;
         }
         else return null;
@@ -21,36 +21,37 @@ public class Operation {
         if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
-                r.getElements().add(a.getElements().get(x) - b.getElements().get(x));
+                r.getElements().set(x, a.getElements().get(x) - b.getElements().get(x));
             return r;
         }
         else return null;
     }
 
     public static Matrice multiplication(Matrice a, double k) {
+        System.out.println(a.toString());
         Matrice r = new Matrice(a.getM(), a.getN());
-        r.getElements().addAll(a.getElements().stream().map((nombre) -> nombre * k).collect(Collectors.toList()));
+        r.setElements(a.getElements().stream().map((nombre) -> nombre * k).collect(Collectors.toList()));
         return r;
     }
 
     public static Matrice transposition(Matrice a) {
         Matrice t = new Matrice(a.getN(), a.getM());
-        for (int n = 0; n < a.getN(); n++)
-            for (int m = 0; m < a.getM(); m++)
-                t.getElements().add(a.getElements().get(n + m * a.getN()));
+        for (int m = 1; m <= t.getM(); m++)
+            for (int n = 1; n <= t.getN(); n++)
+                t.setElement(m, n, a.getElement(n, m));
         return t;
     }
 
     public static Matrice produitVectoriel(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
         if (bonFormat(a, b)) {
-            for(int m = 0; m < a.getM(); m++) {
-                for(int n = 0; n < b.getN(); n++) {
+            for(int m = 1; m <= a.getM(); m++) {
+                for(int n = 1; n <= b.getN(); n++) {
                     double sommeProduits = 0;
-                    for(int i = 0; i < a.getN(); i++) {
-                        sommeProduits += a.getElements().get(i + m * a.getN()) * b.getElements().get(i * b.getN() + n);
+                    for(int x = 1; x <= a.getN(); x++) {
+                        sommeProduits += a.getElement(m, x) * b.getElement(x, n);
                     }
-                    r.getElements().add(sommeProduits);
+                    r.setElement(m, n, sommeProduits);
                 }
             }
             return r;

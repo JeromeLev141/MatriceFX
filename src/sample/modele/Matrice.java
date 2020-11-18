@@ -2,6 +2,9 @@ package sample.modele;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 
 public class Matrice {
 
@@ -10,12 +13,15 @@ public class Matrice {
     private int n; //nombre de colonne
 
     public Matrice(int m, int n) {
-        elements = new ArrayList<>();
+        elements = new ArrayList<>(m * n);
+        elements = DoubleStream.iterate(0, (nombre) -> nombre).limit(m * n).boxed().collect(Collectors.toList());
         this.m = m;
         this.n = n;
     }
 
     public List<Double> getElements() { return elements; }
+
+    public void setElements(List<Double> elements) { this.elements = elements; }
 
     public double getElement(int m, int n) { return elements.get((m - 1) * this.n + n - 1); }
 

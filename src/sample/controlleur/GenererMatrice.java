@@ -12,7 +12,8 @@ public class GenererMatrice {
         for (int x = 1; x <= matrice.getM(); x++) {
             for (int y = 1; y <= matrice.getN(); y++) {
                 System.out.println("Éléments a" + x + "" + y);
-                matrice.getElements().add(sc.nextDouble());
+                //matrice.getElements().add(sc.nextDouble());
+                matrice.setElement(x, y, sc.nextDouble());
             }
         }
         return matrice;
