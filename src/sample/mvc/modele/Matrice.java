@@ -41,6 +41,8 @@ public class Matrice {
         return true;
     }
 
+    public boolean isEstCarre() { return estCarre; }
+
     @Override
     public String toString() {
         StringBuilder matrice = new StringBuilder();

@@ -2,6 +2,7 @@ package sample.mvc.controlleur;
 
 import sample.mvc.modele.Matrice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,65 @@ public class Operation {
         else return null;
     }
 
-    public static double determinant;
+    public static Matrice determinant(Matrice a){
+
+
+        if (a.getM() == 1 && a.isEstCarre()){
+
+            Matrice r = new Matrice(1, 1);
+            r.setElement(1,1,a.getElements().get(0));
+            return r;
+        }
+        else if (a.getM() == 2 && a.isEstCarre()){
+
+            Matrice r = new Matrice(1, 1);
+            r.setElement(1,1,((a.getElement(1, 1) * a.getElement(2,2)) - (a.getElement(1,2) * a.getElement(2,1))));
+            return r;
+        }
+
+        else if (a.isEstCarre()){
+            double resultat = 0;
+            List<Matrice> liste = new ArrayList<>();
+            for (int m = 1; m <= a.getM(); m++) {
+                Matrice r = new Matrice(a.getM()-1, a.getN()-1);
+                r.getElements().clear();
+                System.out.println(r.getElements().size());
+                for (int m2 = 1; m2 <= a.getM(); m2++) {
+                    for (int n = 1; n <= a.getN(); n++) {
+                        if (n != 1 && m2 != m) {
+
+                            r.getElements().add(a.getElement(m2, n));
+                        }
+                    }
+                }
+                r = Operation.multiplication(Operation.determinant(r), a.getElement(m, 1) * (Math.pow(-1, m+1)));
+                liste.add(r);
+
+            }
+            for (Matrice t: liste
+                 ) { resultat += t.getElements().get(0);
+
+            }
+
+            Matrice t = new Matrice(1, 1);
+            t.setElement(1, 1, resultat);
+            return t;
+        }
+        else
+            return null;
+    }
+
+    public static Matrice puissance(Matrice a , int pow){
+        Matrice r =  new Matrice(a.getM(),a.getN());
+        for (int m = 1; m <= a.getM(); m++ )
+            for (int n = 1; n <= a.getN(); n++)
+                r.setElement(m,n,a.getElement(m, n) );
+
+        for (int x = 0; x < pow; x++){
+            r = Operation.produitVectoriel(r,a );
+        }
+        return r;
+    }
 
 
     private static boolean memeFormat(Matrice a, Matrice b){
