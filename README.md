@@ -8,6 +8,9 @@ Membre de l'équipe : Jérôme Lévesque et Jérémi Girard
        - Multiplication
        - Transposition
        - Produit vectoriel
+       - Calcul du déterminant
+       
+- Le programme permet d'entrer directement les matrices     
            
 - Le programme compile et est stable
 
@@ -17,5 +20,9 @@ Membre de l'équipe : Jérôme Lévesque et Jérémi Girard
 
 - Le code est lisible
 
-- Le projet utilise adéquatement les fonctionnalités de Git
+- Le programme possède des tests unitaires qui testent les fonctions critiques
+       - Les tests unitaires sont efficaces et s’exécutent rapidement
+
+- Le projet est remis sur Github
+       - Le projet utilise adéquatement les fonctionnalités de Git
  
