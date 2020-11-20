@@ -58,6 +58,8 @@ public class Operation {
         else return null;
     }
 
+    public static double determinant;
+
 
     private static boolean memeFormat(Matrice a, Matrice b){
         return a.getM() == b.getM() && a.getN() == b.getN();
