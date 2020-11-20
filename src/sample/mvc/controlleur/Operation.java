@@ -1,6 +1,6 @@
-package sample.controlleur;
+package sample.mvc.controlleur;
 
-import sample.modele.Matrice;
+import sample.mvc.modele.Matrice;
 
 import java.util.List;
 import java.util.stream.Collectors;

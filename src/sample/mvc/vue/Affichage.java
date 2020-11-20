@@ -1,4 +1,4 @@
-package sample.vue;
+package sample.mvc.vue;
 
 public class Affichage {
 }

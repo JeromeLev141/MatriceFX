@@ -1,8 +1,8 @@
 package sample;
 
-import sample.controlleur.GenererMatrice;
-import sample.controlleur.Operation;
-import sample.modele.Matrice;
+import sample.mvc.controlleur.GenererMatrice;
+import sample.mvc.controlleur.Operation;
+import sample.mvc.modele.Matrice;
 
 public class Main2 {
 

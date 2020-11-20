@@ -1,4 +1,4 @@
-package sample.modele;
+package sample.mvc.modele;
 
 import java.util.ArrayList;
 import java.util.List;
