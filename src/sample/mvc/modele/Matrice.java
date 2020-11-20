@@ -8,12 +8,17 @@ public class Matrice {
     private List<Double> elements;
     private int m; //nombre de ligne
     private int n; //nombre de colonne
+    private boolean estCarre;
 
     public Matrice(int m, int n) {
         elements = new ArrayList<>(m * n);
         while (elements.size() < m * n) elements.add(null);
         this.m = m;
         this.n = n;
+        if (n==m)
+            estCarre = true;
+        else
+            estCarre = false;
     }
 
     public List<Double> getElements() { return elements; }
