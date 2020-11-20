@@ -12,6 +12,7 @@ public class Main2 {
         System.out.println(test.toString());
         System.out.println(test.estValide());
         Matrice a = GenererMatrice.genererMatrice(2,3);
+        System.out.println(a.getElements().toString());
         System.out.println(a.toString());
         System.out.println(a.estValide());
         System.out.println(Operation.listeFraction(a).toString());
