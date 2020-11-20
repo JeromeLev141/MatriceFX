@@ -1,22 +1,21 @@
 package sample;
 
-import sample.controlleur.GenererMatrice;
-import sample.controlleur.Operation;
-import sample.modele.Matrice;
-
-import java.util.Objects;
+import sample.mvc.controlleur.GenererMatrice;
+import sample.mvc.controlleur.Operation;
+import sample.mvc.modele.Matrice;
 
 public class Main2 {
 
     public static void main(String[] args) {
 
-        /*Matrice test = new Matrice(2,2);
+        Matrice test = new Matrice(2,2);
         System.out.println(test.toString());
-        System.out.println(test.estValide());*/
-        Matrice a = GenererMatrice.genererMatrice(4,4);
+        System.out.println(test.estValide());
+        Matrice a = GenererMatrice.genererMatrice(2,3);
+        System.out.println(a.getElements().toString());
         System.out.println(a.toString());
         System.out.println(a.estValide());
-        /*System.out.println(Operation.listeFraction(a).toString());
+        System.out.println(Operation.listeFraction(a).toString());
         System.out.println(Operation.transposition(a).toString());
         Matrice b = GenererMatrice.genererMatrice(3,4);
         System.out.println(b.toString());
@@ -31,8 +30,5 @@ public class Main2 {
         Matrice g = Operation.produitVectoriel(a,b );
         if (g != null)
             System.out.println(g.toString());
-        */
-        double det1 = Objects.requireNonNull(Operation.determinant(a)).getElement(1, 1);
-        System.out.println(det1);
     }
 }
