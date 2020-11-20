@@ -41,9 +41,12 @@ public class Matrice {
         StringBuilder matrice = new StringBuilder();
         for (int m = 0; m < this.m; m++) {
             for (int n = 0; n < this.n; n++) {
-                matrice.append(elements.get(m * this.n + n)).append(" ");
+                matrice.append(elements.get(m * this.n + n));
+                if (n < this.n - 1)
+                    matrice.append(' ');
             }
-            matrice.append("\n");
+            if (m < this.m - 1)
+                matrice.append("\n");
         }
         return matrice.toString();
     }
