@@ -28,6 +28,14 @@ public class Matrice {
 
     public int getN() { return n; }
 
+    public boolean estValide() {
+        for (Double element : elements) {
+            if (element == null)
+                return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         StringBuilder matrice = new StringBuilder();

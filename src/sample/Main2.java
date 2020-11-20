@@ -10,8 +10,10 @@ public class Main2 {
 
         Matrice test = new Matrice(2,2);
         System.out.println(test.toString());
+        System.out.println(test.estValide());
         Matrice a = GenererMatrice.genererMatrice(2,3);
         System.out.println(a.toString());
+        System.out.println(a.estValide());
         System.out.println(Operation.listeFraction(a).toString());
         System.out.println(Operation.transposition(a).toString());
         Matrice b = GenererMatrice.genererMatrice(3,4);
