@@ -132,7 +132,7 @@ public class Operation {
         return a.getElements().stream().map(Operation::doubleAFraction).collect(Collectors.toList());
     }
 
-    private static String doubleAFraction(double d) {
+    public static String doubleAFraction(double d) {
         String nombre = String.format("%.2f", d);
         String entier = nombre.substring(0, nombre.indexOf(','));
         String decimal = nombre.substring(nombre.indexOf(',') + 1);
