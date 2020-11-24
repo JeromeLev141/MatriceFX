@@ -49,7 +49,7 @@ public class MatriceAffichage extends HBox {
             }
         }
 
-        HBox hbox =  new HBox(Crochet.genererCrochetGauche(matrice), gridPane, Crochet.genererCrochetDroite(matrice));
+        HBox hbox =  new HBox(Forme.genererCrochetGauche(matrice), gridPane, Forme.genererCrochetDroite(matrice));
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(5);
         return hbox;
@@ -69,7 +69,7 @@ public class MatriceAffichage extends HBox {
             }
         }
 
-        HBox hbox =  new HBox(Crochet.genererCrochetGauche(matrice), gridPane, Crochet.genererCrochetDroite(matrice));
+        HBox hbox =  new HBox(Forme.genererCrochetGauche(matrice), gridPane, Forme.genererCrochetDroite(matrice));
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(5);
         return hbox;
