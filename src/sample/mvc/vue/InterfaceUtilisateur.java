@@ -18,10 +18,17 @@ public class InterfaceUtilisateur {
         Menu fichier = new Menu("Fichier");
 
         MenuItem addition = new MenuItem("Addition");
+        addition.setOnAction(event -> bdp.setCenter(OperationAffichage.addition()));
+
         MenuItem soustraction = new MenuItem("Soustraction");
+        soustraction.setOnAction(event -> bdp.setCenter(OperationAffichage.soustraction()));
+
         MenuItem multiplication = new MenuItem("multiplication par un scalaire");
+
         MenuItem transposition = new MenuItem("Transposition");
+
         MenuItem produitVectoriel = new MenuItem("Produit Vectoriel");
+
         MenuItem determinant = new MenuItem("Calcul du déterminant");
 
         operations.getItems().addAll(addition, soustraction, multiplication, transposition,

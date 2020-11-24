@@ -1,25 +1,20 @@
 package sample.mvc.vue;
 
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
 public class MatriceAffichage extends HBox {
 
     private Matrice matrice;
-    private Stage stage;
 
-    public MatriceAffichage(Matrice matrice, Stage stage) {
+    public MatriceAffichage(Matrice matrice) {
         this.matrice = matrice;
-        this.stage = stage;
     }
-
 
     public Matrice getMatrice() { return matrice; }
 
@@ -41,8 +36,6 @@ public class MatriceAffichage extends HBox {
                     matrice.setElement(Integer.parseInt(textfield.getPromptText().substring(1, 2)),
                             Integer.parseInt(textfield.getPromptText().substring(2, 3)),
                             Double.parseDouble(textfield.getText()));
-                    if (matrice.estValide())
-                        stage.setScene(new Scene(afficherMatrice(), 1000, 600));
                 });
 
                 gridPane.add(textfield,n - 1, m - 1);
