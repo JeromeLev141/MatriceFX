@@ -1,6 +1,7 @@
 package sample.mvc.vue;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -10,10 +11,9 @@ import sample.mvc.modele.Matrice;
 public class Forme {
 
     public static VBox genererCrochetGauche(Matrice matrice) {
-        Rectangle dessus = new Rectangle(10, 2, Color.GREY);
-        Rectangle bordure = new Rectangle(2, 30 * matrice.getM(), Color.GREY);
-        Rectangle dessous = new Rectangle(10, 2, Color.GREY);
-        VBox vBox = new VBox(dessus, bordure, dessous);
+        Rectangle dessus = new Rectangle(10, 4, Color.GREY);
+        Rectangle dessous = new Rectangle(10, 4, Color.GREY);
+        VBox vBox = new VBox(dessus, genererBordure(matrice), dessous);
         vBox.setAlignment(Pos.CENTER_LEFT);
         return vBox;
     }
@@ -24,13 +24,28 @@ public class Forme {
         return vBox;
     }
 
-    public static StackPane GenererIndiceAddition() {
+    public static Rectangle genererBordure(Matrice matrice) {
+        return new Rectangle(4, 30 * matrice.getM(), Color.GREY);
+    }
+
+    public static StackPane genererIndiceAddition() {
         Rectangle x = new Rectangle(20, 5, Color.GREY);
         Rectangle y = new Rectangle(5, 20, Color.GREY);
         return new StackPane(x, y);
     }
 
-    public static Rectangle GenererIndiceSoustraction() {
+    public static Rectangle genererIndiceSoustraction() {
         return new Rectangle(20, 5, Color.GREY);
+    }
+
+    public static VBox genererIndiceTransposition() {
+        Label indiceTransposition = new Label("t");
+        indiceTransposition.setTextFill(Color.GREY);
+        indiceTransposition.setScaleY(2);
+        indiceTransposition.setScaleX(2);
+        VBox vBox = new VBox(indiceTransposition, new Label());
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(80);
+        return vBox;
     }
 }

@@ -42,7 +42,7 @@ public class Operation {
         return t;
     }
 
-    public static Matrice produitVectoriel(Matrice a, Matrice b) {
+    public static Matrice produitMatriciel(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
         if (bonFormat(a, b)) {
             for(int m = 1; m <= a.getM(); m++) {
@@ -114,7 +114,7 @@ public class Operation {
                 r.setElement(m,n,a.getElement(m, n) );
 
         for (int x = 0; x < pow; x++){
-            r = Operation.produitVectoriel(r,a );
+            r = Operation.produitMatriciel(r,a );
         }
         return r;
     }

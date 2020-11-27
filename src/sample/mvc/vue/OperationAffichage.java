@@ -2,7 +2,9 @@ package sample.mvc.vue;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import sample.mvc.modele.Matrice;
+import javafx.scene.control.Label;
 
 public class OperationAffichage {
 
@@ -10,7 +12,7 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.GenererIndiceAddition(), b.afficherMatriceVide());
+        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.genererIndiceAddition(), b.afficherMatriceVide());
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -20,17 +22,53 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.GenererIndiceSoustraction(), b.afficherMatriceVide());
+        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.genererIndiceSoustraction(), b.afficherMatriceVide());
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
     }
 
-    public static HBox multiplication() { return null; }
+    public static HBox multiplication() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+        Label scalaire = new Label("k");
+        scalaire.setTextFill(Color.GREY);
+        scalaire.setScaleY(4);
+        scalaire.setScaleX(4);
 
-    public static HBox transposition() { return null; }
+        HBox hbox = new HBox(scalaire, a.afficherMatriceVide());
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(30);
+        return hbox;
+    }
 
-    public static Matrice produitVectoriel() { return null; }
+    public static HBox transposition() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
-    public static HBox determinant(){ return null; }
+        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.genererIndiceTransposition());
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        return hbox;
+    }
+
+    public static HBox produitMatriciel() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+
+        HBox hbox = new HBox(a.afficherMatriceVide(), b.afficherMatriceVide());
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        return hbox;
+    }
+
+    public static HBox determinant() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+
+        HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatriceVide().getChildren().get(1),
+                Forme.genererBordure(a.getMatrice()));
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        return hbox;
+    }
+
+    public static HBox matriceResultat() { return null; }
 }

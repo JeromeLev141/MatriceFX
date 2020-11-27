@@ -24,15 +24,19 @@ public class InterfaceUtilisateur {
         soustraction.setOnAction(event -> bdp.setCenter(OperationAffichage.soustraction()));
 
         MenuItem multiplication = new MenuItem("multiplication par un scalaire");
+        multiplication.setOnAction(event -> bdp.setCenter(OperationAffichage.multiplication()));
 
         MenuItem transposition = new MenuItem("Transposition");
+        transposition.setOnAction(event -> bdp.setCenter(OperationAffichage.transposition()));
 
-        MenuItem produitVectoriel = new MenuItem("Produit Vectoriel");
+        MenuItem produitMatriciel = new MenuItem("Produit Matriciel");
+        produitMatriciel.setOnAction(event -> bdp.setCenter(OperationAffichage.produitMatriciel()));
 
         MenuItem determinant = new MenuItem("Calcul du déterminant");
+        determinant.setOnAction(event -> bdp.setCenter(OperationAffichage.determinant()));
 
         operations.getItems().addAll(addition, soustraction, multiplication, transposition,
-                produitVectoriel, determinant);
+                produitMatriciel, determinant);
         MenuBar menuBar = new MenuBar(operations, fichier);
         bdp.setTop(menuBar);
 
