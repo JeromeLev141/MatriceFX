@@ -2,6 +2,7 @@ package sample.test;
 
 import org.junit.Before;
 import org.junit.Test;
+import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
 import java.util.stream.Collectors;
