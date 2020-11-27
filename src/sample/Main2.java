@@ -11,15 +11,15 @@ public class Main2 {
         Matrice test = new Matrice(2,2);
         System.out.println(test.toString());
         System.out.println(test.estValide());
-        Matrice a = GenererMatrice.genererMatrice(3,3);
+        Matrice a = GenererMatrice.genererMatrice(2,3);
         System.out.println(a.getElements().toString());
         System.out.println(a.toString());
         System.out.println(a.estValide());
         System.out.println(Operation.listeFraction(a).toString());
         System.out.println(Operation.transposition(a).toString());
-        /*Matrice b = GenererMatrice.genererMatrice(3,4);
+        Matrice b = GenererMatrice.genererMatrice(3,2);
         System.out.println(b.toString());
-        Matrice c = Operation.addition(a,b);
+        /*Matrice c = Operation.addition(a,b);
         if (c != null)
             System.out.println(c.toString());
         Matrice d = Operation.soustraction(a,b);
@@ -29,8 +29,12 @@ public class Main2 {
         System.out.println(e.toString());
         Matrice g = Operation.produitVectoriel(a,b );
         if (g != null)
-            System.out.println(g.toString());*/
+            System.out.println(g.toString());
         Matrice h = Operation.inverse(a);
         System.out.println(h);
+        */
+        Matrice i = Operation.produitTensoriel(a,b );
+        System.out.println(i);
+
     }
 }

@@ -43,6 +43,15 @@ public class Operation {
     }
 
     public static Matrice produitTensoriel(Matrice a, Matrice b){
+        Matrice r = new Matrice(a.getM()*b.getM(), a.getN()*b.getN());
+        for (int m = 0; m < a.getM(); m++)
+            for (int n = 0; n < a.getN(); n++)
+                for (int m2 = 1; m2 <= b.getM(); m2++)
+                    for (int n2 = 1; n2 <= b.getN(); n2++)
+                        r.setElement(m * b.getM() + m2,(n * b.getN()) + n2,a.getElement(m+1,n+1)*b.getElement(m2,n2));
+        return r;
+
+
 
     }
 
