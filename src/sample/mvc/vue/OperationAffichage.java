@@ -12,7 +12,7 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.genererIndiceAddition(), b.afficherMatriceVide());
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice());
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -22,7 +22,7 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.genererIndiceSoustraction(), b.afficherMatriceVide());
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceSoustraction(), b.afficherMatrice());
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -35,7 +35,7 @@ public class OperationAffichage {
         scalaire.setScaleY(4);
         scalaire.setScaleX(4);
 
-        HBox hbox = new HBox(scalaire, a.afficherMatriceVide());
+        HBox hbox = new HBox(scalaire, a.afficherMatrice());
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         return hbox;
@@ -44,7 +44,7 @@ public class OperationAffichage {
     public static HBox transposition() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatriceVide(), Forme.genererIndiceTransposition());
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition());
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -54,16 +54,16 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatriceVide(), b.afficherMatriceVide());
+        HBox hbox = new HBox(a.afficherMatrice(), b.afficherMatrice());
         hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(10);
+        hbox.setSpacing(20);
         return hbox;
     }
 
     public static HBox determinant() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatriceVide().getChildren().get(1),
+        HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatrice().getChildren().get(1),
                 Forme.genererBordure(a.getMatrice()));
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);

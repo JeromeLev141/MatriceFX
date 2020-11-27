@@ -10,6 +10,14 @@ import sample.mvc.modele.Matrice;
 
 public class Forme {
 
+    public static Label genererScalaire(String nombre) {
+        Label scalaire = new Label(nombre);
+        scalaire.setTextFill(Color.GREY);
+        scalaire.setScaleX(1.5);
+        scalaire.setScaleY(1.5);
+        return scalaire;
+    }
+
     public static VBox genererCrochetGauche(Matrice matrice) {
         Rectangle dessus = new Rectangle(10, 4, Color.GREY);
         Rectangle dessous = new Rectangle(10, 4, Color.GREY);
