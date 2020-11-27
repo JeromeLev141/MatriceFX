@@ -50,9 +50,6 @@ public class Operation {
                     for (int n2 = 1; n2 <= b.getN(); n2++)
                         r.setElement(m * b.getM() + m2,(n * b.getN()) + n2,a.getElement(m+1,n+1)*b.getElement(m2,n2));
         return r;
-
-
-
     }
 
     public static Matrice produitScalaire(Matrice a, Matrice b) {
