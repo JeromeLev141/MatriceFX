@@ -42,7 +42,20 @@ public class Operation {
         return t;
     }
 
-    public static Matrice produitMatriciel(Matrice a, Matrice b) {
+    public static Matrice produitTensoriel(Matrice a, Matrice b){
+        Matrice r = new Matrice(a.getM()*b.getM(), a.getN()*b.getN());
+        for (int m = 0; m < a.getM(); m++)
+            for (int n = 0; n < a.getN(); n++)
+                for (int m2 = 1; m2 <= b.getM(); m2++)
+                    for (int n2 = 1; n2 <= b.getN(); n2++)
+                        r.setElement(m * b.getM() + m2,(n * b.getN()) + n2,a.getElement(m+1,n+1)*b.getElement(m2,n2));
+        return r;
+
+
+
+    }
+
+    public static Matrice produitScalaire(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
         if (bonFormat(a, b)) {
             for(int m = 1; m <= a.getM(); m++) {
@@ -55,6 +68,53 @@ public class Operation {
                 }
             }
             return r;
+        }
+        else return null;
+    }
+
+    public static Matrice produitVectoriel(Matrice a, Matrice b){
+        Matrice r = new Matrice(3,1 );
+        if (Operation.isVecteur(a)){
+            r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
+            r.setElement(2,1,a.getElement(3,1) * b.getElement(1,1) - a.getElement(1,1) * b.getElement(3,1));
+            r.setElement(3,1,a.getElement(1,1) * b.getElement(2,1) - a.getElement(2,1) * b.getElement(1,1));
+            return r;
+        }
+        else return null;
+    }
+
+    public static Matrice produitDHadamard(Matrice a, Matrice b){
+
+        if (memeFormat(a,b)) {
+            Matrice r = new Matrice(a.getM(), a.getN());
+            for (int m = 1; m <= a.getM(); m++)
+                for (int n = 1; n <= a.getN(); n++)
+                    r.setElement(m,n,a.getElement(m,n) * b.getElement(m,n));
+            return r;
+        }
+        else return null;
+    }
+
+    public static Matrice inverse(Matrice a){
+        Matrice adj = new Matrice(a.getM(),a.getN());
+        Matrice r = new Matrice(a.getM()-1, a.getN()-1);
+        r.getElements().clear();
+        if (a.isEstCarre()){
+            for (int m1 = 1; m1 <= a.getM(); m1++){
+                for (int n1 = 1; n1 <= a.getN(); n1++){
+
+                    for(int m2 = 1; m2 <= a.getM(); m2++){
+                        for (int n2 = 1; n2 <= a.getN(); n2++){
+                            if (m2 != m1 && n2 != n1)
+                                r.getElements().add(a.getElement(m2, n2));
+                        }
+                    }
+                    adj.setElement(m1,n1,Operation.determinant(r).getElement(1, 1));
+                    r.getElements().clear();
+                }
+            }
+            adj = Operation.transposition(adj);
+            return Operation.multiplication(adj, 1/Operation.determinant(a).getElement(1, 1));
         }
         else return null;
     }
@@ -114,7 +174,7 @@ public class Operation {
                 r.setElement(m,n,a.getElement(m, n) );
 
         for (int x = 0; x < pow; x++){
-            r = Operation.produitMatriciel(r,a );
+            r = Operation.produitVectoriel(r,a );
         }
         return r;
     }
@@ -128,11 +188,17 @@ public class Operation {
         return a.getN() == b.getM();
     }
 
+    private static boolean isVecteur(Matrice a){
+        if (a.getM() == 3 && a.getN() ==1)
+            return true;
+        else return false;
+    }
+
     public static List<String> listeFraction(Matrice a) {
         return a.getElements().stream().map(Operation::doubleAFraction).collect(Collectors.toList());
     }
 
-    public static String doubleAFraction(double d) {
+    private static String doubleAFraction(double d) {
         String nombre = String.format("%.2f", d);
         String entier = nombre.substring(0, nombre.indexOf(','));
         String decimal = nombre.substring(nombre.indexOf(',') + 1);

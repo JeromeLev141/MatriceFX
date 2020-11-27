@@ -5,9 +5,14 @@ Membre de l'équipe : Jérôme Lévesque et Jérémi Girard
 
 - Les opérations suivantes ont été intégrées
        - Addition et soustraction de matrices
-       - Multiplication
+       - Multiplication avec un nombre
+       - Puissance
        - Transposition
+       - Inversion
+       - Produit matriciel
        - Produit vectoriel
+       - Produit d'Hadamard
+       - Produit tensoriel
        - Calcul du déterminant
        
 - Le programme permet d'entrer directement les matrices     
