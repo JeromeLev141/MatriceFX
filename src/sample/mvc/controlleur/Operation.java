@@ -55,7 +55,7 @@ public class Operation {
 
     }
 
-    public static Matrice produitVectoriel(Matrice a, Matrice b) {
+    public static Matrice produitScalaire(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
         if (bonFormat(a, b)) {
             for(int m = 1; m <= a.getM(); m++) {
@@ -67,6 +67,17 @@ public class Operation {
                     r.setElement(m, n, sommeProduits);
                 }
             }
+            return r;
+        }
+        else return null;
+    }
+
+    public static Matrice produitVectoriel(Matrice a, Matrice b){
+        Matrice r = new Matrice(3,1 );
+        if (Operation.isVecteur(a)){
+            r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
+            r.setElement(2,1,a.getElement(3,1) * b.getElement(1,1) - a.getElement(1,1) * b.getElement(3,1));
+            r.setElement(3,1,a.getElement(1,1) * b.getElement(2,1) - a.getElement(2,1) * b.getElement(1,1));
             return r;
         }
         else return null;
@@ -175,6 +186,12 @@ public class Operation {
 
     private static boolean bonFormat(Matrice a, Matrice b) {
         return a.getN() == b.getM();
+    }
+
+    private static boolean isVecteur(Matrice a){
+        if (a.getM() == 3 && a.getN() ==1)
+            return true;
+        else return false;
     }
 
     public static List<String> listeFraction(Matrice a) {
