@@ -7,7 +7,7 @@ Membre de l'équipe : Jérôme Lévesque et Jérémi Girard
        - Addition et soustraction de matrices
        - Multiplication
        - Transposition
-       - Produit vectoriel
+       - Produit matriciel
        - Calcul du déterminant
        
 - Le programme permet d'entrer directement les matrices     
