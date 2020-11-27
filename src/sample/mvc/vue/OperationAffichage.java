@@ -41,6 +41,8 @@ public class OperationAffichage {
         return hbox;
     }
 
+    public static HBox puissance() { return null; }
+
     public static HBox transposition() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
@@ -49,6 +51,8 @@ public class OperationAffichage {
         hbox.setSpacing(10);
         return hbox;
     }
+
+    public static HBox inversion() { return null; }
 
     public static HBox produitMatriciel() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
@@ -59,6 +63,12 @@ public class OperationAffichage {
         hbox.setSpacing(20);
         return hbox;
     }
+
+    public static HBox produitVectoriel() { return null; }
+
+    public static HBox produitHadamard() { return null; }
+
+    public static HBox produitTensoriel() { return null; }
 
     public static HBox determinant() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
