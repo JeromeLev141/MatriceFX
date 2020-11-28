@@ -41,7 +41,14 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox puissance() { return null; }
+    public static HBox puissance() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndicePuissance());
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        return hbox;
+    }
 
     public static HBox transposition() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
@@ -52,7 +59,14 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox inversion() { return null; }
+    public static HBox inversion() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse());
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        return hbox;
+    }
 
     public static HBox produitMatriciel() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));

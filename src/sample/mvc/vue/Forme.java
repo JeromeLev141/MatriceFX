@@ -46,12 +46,34 @@ public class Forme {
         return new Rectangle(20, 5, Color.GREY);
     }
 
+    public static VBox genererIndicePuissance() {
+        Label indicePuissance = new Label("K");
+        indicePuissance.setTextFill(Color.GREY);
+        indicePuissance.setScaleY(3);
+        indicePuissance.setScaleX(3);
+        VBox vBox = new VBox(indicePuissance, new Label());
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(80);
+        return vBox;
+    }
+
     public static VBox genererIndiceTransposition() {
         Label indiceTransposition = new Label("t");
         indiceTransposition.setTextFill(Color.GREY);
         indiceTransposition.setScaleY(3);
         indiceTransposition.setScaleX(3);
         VBox vBox = new VBox(indiceTransposition, new Label());
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(80);
+        return vBox;
+    }
+
+    public static VBox genererIndiceInverse() {
+        Label indiceInverse = new Label(" -1");
+        indiceInverse.setTextFill(Color.GREY);
+        indiceInverse.setScaleY(3);
+        indiceInverse.setScaleX(3);
+        VBox vBox = new VBox(indiceInverse, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);
         return vBox;
