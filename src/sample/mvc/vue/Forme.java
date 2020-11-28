@@ -56,4 +56,12 @@ public class Forme {
         vBox.setSpacing(80);
         return vBox;
     }
+
+    public static Label genererIndiceVectoriel() {
+        Label indiceVectoriel = new Label("^");
+        indiceVectoriel.setTextFill(Color.GREY);
+        indiceVectoriel.setScaleY(4);
+        indiceVectoriel.setScaleX(4);
+        return indiceVectoriel;
+    }
 }
