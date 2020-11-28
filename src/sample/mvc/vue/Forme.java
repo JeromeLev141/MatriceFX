@@ -49,8 +49,8 @@ public class Forme {
     public static VBox genererIndiceTransposition() {
         Label indiceTransposition = new Label("t");
         indiceTransposition.setTextFill(Color.GREY);
-        indiceTransposition.setScaleY(2);
-        indiceTransposition.setScaleX(2);
+        indiceTransposition.setScaleY(3);
+        indiceTransposition.setScaleX(3);
         VBox vBox = new VBox(indiceTransposition, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);
@@ -71,5 +71,13 @@ public class Forme {
         indiceHadamard.setScaleY(4);
         indiceHadamard.setScaleX(4);
         return indiceHadamard;
+    }
+
+    public static Label genererIndiceTensoriel() {
+        Label indiceTensoriel = new Label("⊗");
+        indiceTensoriel.setTextFill(Color.GREY);
+        indiceTensoriel.setScaleY(5);
+        indiceTensoriel.setScaleX(5);
+        return indiceTensoriel;
     }
 }

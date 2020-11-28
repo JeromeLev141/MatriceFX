@@ -84,7 +84,15 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitTensoriel() { return null; }
+    public static HBox produitTensoriel() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTensoriel(), b.afficherMatrice());
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(20);
+        return hbox;
+    }
 
     public static HBox determinant() {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
