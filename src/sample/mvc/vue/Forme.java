@@ -64,4 +64,12 @@ public class Forme {
         indiceVectoriel.setScaleX(4);
         return indiceVectoriel;
     }
+
+    public static Label genererIndiceHadamard() {
+        Label indiceHadamard = new Label("*");
+        indiceHadamard.setTextFill(Color.GREY);
+        indiceHadamard.setScaleY(4);
+        indiceHadamard.setScaleX(4);
+        return indiceHadamard;
+    }
 }

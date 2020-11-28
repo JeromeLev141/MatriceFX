@@ -74,7 +74,15 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitHadamard() { return null; }
+    public static HBox produitHadamard() {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceHadamard(), b.afficherMatrice());
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(20);
+        return hbox;
+    }
 
     public static HBox produitTensoriel() { return null; }
 
