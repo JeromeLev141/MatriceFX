@@ -76,7 +76,7 @@ public class Operation {
         Matrice r = new Matrice(3,1 );
         if (Operation.isVecteur(a)){
             r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
-            r.setElement(2,1,a.getElement(3,1) * b.getElement(1,1) - a.getElement(1,1) * b.getElement(3,1));
+            r.setElement(2,1,a.getElement(1,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(1,1));
             r.setElement(3,1,a.getElement(1,1) * b.getElement(2,1) - a.getElement(2,1) * b.getElement(1,1));
             return r;
         }
