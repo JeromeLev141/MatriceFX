@@ -115,9 +115,18 @@ public class OperationAffichage {
     }
 
     public static HBox inversion(BorderPane bdp) {
+
+        //marche pas
+
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.inverse(a.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -127,7 +136,13 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), b.afficherMatrice());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         return hbox;

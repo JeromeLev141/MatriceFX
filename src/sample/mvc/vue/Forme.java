@@ -49,8 +49,8 @@ public class Forme {
     public static VBox genererIndicePuissance() {
         Label indicePuissance = new Label("K");
         indicePuissance.setTextFill(Color.GREY);
-        indicePuissance.setScaleY(3);
-        indicePuissance.setScaleX(3);
+        indicePuissance.setScaleY(2);
+        indicePuissance.setScaleX(2);
         VBox vBox = new VBox(indicePuissance, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);
@@ -71,8 +71,8 @@ public class Forme {
     public static VBox genererIndiceInverse() {
         Label indiceInverse = new Label(" -1");
         indiceInverse.setTextFill(Color.GREY);
-        indiceInverse.setScaleY(3);
-        indiceInverse.setScaleX(3);
+        indiceInverse.setScaleY(2);
+        indiceInverse.setScaleX(2);
         VBox vBox = new VBox(indiceInverse, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);
