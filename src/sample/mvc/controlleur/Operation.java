@@ -55,7 +55,7 @@ public class Operation {
 
     }
 
-    public static Matrice produitScalaire(Matrice a, Matrice b) {
+    public static Matrice produitMatriciel(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
         if (bonFormat(a, b)) {
             for(int m = 1; m <= a.getM(); m++) {
@@ -74,9 +74,9 @@ public class Operation {
 
     public static Matrice produitVectoriel(Matrice a, Matrice b){
         Matrice r = new Matrice(3,1 );
-        if (Operation.isVecteur(a)){
+        if (Operation.isVecteur(a) && Operation.isVecteur(b)){
             r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
-            r.setElement(2,1,a.getElement(1,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(1,1));
+            r.setElement(2,1, -1 * (a.getElement(1,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(1,1)));
             r.setElement(3,1,a.getElement(1,1) * b.getElement(2,1) - a.getElement(2,1) * b.getElement(1,1));
             return r;
         }
@@ -173,10 +173,13 @@ public class Operation {
             for (int n = 1; n <= a.getN(); n++)
                 r.setElement(m,n,a.getElement(m, n) );
 
-        for (int x = 0; x < pow; x++){
-            r = Operation.produitVectoriel(r,a );
+        if (pow == 1 || pow == 0) {
+            for (int x = 0; x <= pow; x++) {
+                r = Operation.produitMatriciel(r, a);
+            }
+            return r;
         }
-        return r;
+        else return null;
     }
 
 

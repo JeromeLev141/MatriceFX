@@ -38,5 +38,6 @@ public class Main2 {
         Matrice j = Operation.produitVectoriel(a,b);
         System.out.println(j);
 
+
     }
 }
