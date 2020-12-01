@@ -2,13 +2,14 @@ package sample.mvc.vue;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
-import javafx.scene.control.Label;
 
 public class OperationAffichage {
 
@@ -62,16 +63,37 @@ public class OperationAffichage {
             hbox.getChildren().remove(scalaire);
             hbox.getChildren().add(0, Forme.genererScalaire(scalaire.getText()));
         });
-        
+
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         return hbox;
     }
 
     public static HBox puissance(BorderPane bdp) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndicePuissance());
+        //marche pas
+
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+        TextField indicePuissance = new TextField();
+        indicePuissance.setPromptText("N");
+        indicePuissance.setPrefColumnCount(2);
+        VBox vBox = new VBox(indicePuissance, new Label());
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(80);
+
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.puissance(a.getMatrice(), Integer.parseInt(indicePuissance.getText())));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), vBox, egale);
+
+        indicePuissance.setOnAction(event -> {
+            vBox.getChildren().remove(indicePuissance);
+            vBox.getChildren().add(0, Forme.genererScalaire(indicePuissance.getText()));
+        });
+
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -80,7 +102,13 @@ public class OperationAffichage {
     public static HBox transposition(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.transposition(a.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;

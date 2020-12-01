@@ -171,7 +171,7 @@ public class Operation {
                 r.setElement(m,n,a.getElement(m, n) );
 
         for (int x = 0; x < pow; x++){
-            r = Operation.produitVectoriel(r,a );
+            r = Operation.produitScalaire(r,a );
         }
         return r;
     }
