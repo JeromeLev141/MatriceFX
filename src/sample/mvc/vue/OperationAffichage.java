@@ -2,6 +2,7 @@ package sample.mvc.vue;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -17,8 +18,8 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage r = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
-            bdp.setCenter(r.afficherMatrice());
+            MatriceAffichage resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
         });
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
@@ -27,30 +28,41 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox soustraction() {
+    public static HBox soustraction(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceSoustraction(), b.afficherMatrice());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceSoustraction(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
     }
 
-    public static HBox multiplication() {
+    public static HBox multiplication(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        Label scalaire = new Label("k");
-        scalaire.setTextFill(Color.GREY);
-        scalaire.setScaleY(4);
-        scalaire.setScaleX(4);
+        TextField scalaire = new TextField();
+        scalaire.setPromptText("K");
+        scalaire.setPrefColumnCount(2);
 
-        HBox hbox = new HBox(scalaire, a.afficherMatrice());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.multiplication(a.getMatrice(), Double.parseDouble(scalaire.getText())));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(scalaire, a.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         return hbox;
     }
 
-    public static HBox puissance() {
+    public static HBox puissance(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndicePuissance());
@@ -59,7 +71,7 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox transposition() {
+    public static HBox transposition(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition());
@@ -68,7 +80,7 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox inversion() {
+    public static HBox inversion(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse());
@@ -77,7 +89,7 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitMatriciel() {
+    public static HBox produitMatriciel(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
@@ -87,7 +99,7 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitVectoriel() {
+    public static HBox produitVectoriel(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
@@ -97,7 +109,7 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitHadamard() {
+    public static HBox produitHadamard(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
@@ -107,7 +119,7 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitTensoriel() {
+    public static HBox produitTensoriel(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
@@ -117,7 +129,7 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox determinant() {
+    public static HBox determinant(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
         HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatrice().getChildren().get(1),
@@ -126,6 +138,4 @@ public class OperationAffichage {
         hbox.setSpacing(10);
         return hbox;
     }
-
-    public static HBox matriceResultat() { return null; }
 }
