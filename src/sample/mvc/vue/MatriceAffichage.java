@@ -49,7 +49,11 @@ public class MatriceAffichage extends HBox {
                     }
                 });
 
-                gridPane.add(textfield,n - 1, m - 1);
+                if (!matrice.estValide())
+                    gridPane.add(textfield,n - 1, m - 1);
+                else
+                    gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(m, n))),
+                            n - 1, m - 1);
             }
         }
 

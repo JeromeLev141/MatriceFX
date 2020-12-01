@@ -1,13 +1,12 @@
 package sample.mvc.vue;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import sample.mvc.modele.Matrice;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import sample.mvc.controlleur.Operation;
 
 public class InterfaceUtilisateur {
 
@@ -21,7 +20,7 @@ public class InterfaceUtilisateur {
         Menu fichier = new Menu("Fichier");
 
         MenuItem addition = new MenuItem("Addition");
-        addition.setOnAction(event -> bdp.setCenter(OperationAffichage.addition()));
+        addition.setOnAction(event -> bdp.setCenter(OperationAffichage.addition(bdp)));
 
         MenuItem soustraction = new MenuItem("Soustraction");
         soustraction.setOnAction(event -> bdp.setCenter(OperationAffichage.soustraction()));
@@ -57,8 +56,16 @@ public class InterfaceUtilisateur {
                 transposition, inversion, produitMatriciel, produitVectoriel,
                 produitHadamard, produitTensoriel, determinant);
         MenuBar menuBar = new MenuBar(operations, fichier);
-        bdp.setTop(menuBar);
 
+        //information
+        Label information = new Label("");
+        HBox informations = new HBox(information);
+        informations.setAlignment(Pos.CENTER);
+        informations.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        //finalisation
+        bdp.setTop(menuBar);
+        bdp.setBottom(informations);
         application = new Scene(bdp, 1000, 600);
     }
 

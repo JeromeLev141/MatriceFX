@@ -1,18 +1,27 @@
 package sample.mvc.vue;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 import javafx.scene.control.Label;
 
 public class OperationAffichage {
 
-    public static HBox addition() {
+    public static HBox addition(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage r = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
+            bdp.setCenter(r.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
