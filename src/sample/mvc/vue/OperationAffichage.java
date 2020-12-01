@@ -57,6 +57,12 @@ public class OperationAffichage {
         });
 
         HBox hbox = new HBox(scalaire, a.afficherMatrice(), egale);
+
+        scalaire.setOnAction(event -> {
+            hbox.getChildren().remove(scalaire);
+            hbox.getChildren().add(0, Forme.genererScalaire(scalaire.getText()));
+        });
+        
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         return hbox;

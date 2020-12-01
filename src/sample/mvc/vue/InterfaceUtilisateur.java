@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import sample.mvc.controlleur.Operation;
 
 public class InterfaceUtilisateur {
 
