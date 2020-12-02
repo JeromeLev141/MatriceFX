@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
@@ -22,7 +23,7 @@ public class MatriceAffichage extends HBox {
 
     public void setMatrice(Matrice matrice) { this.matrice = matrice; }
 
-    public HBox afficherMatrice() {
+    private GridPane genererGridpane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
@@ -57,8 +58,38 @@ public class MatriceAffichage extends HBox {
                             n - 1, m - 1);
             }
         }
+        return gridPane;
+    }
 
-        HBox hbox =  new HBox(Forme.genererCrochetGauche(matrice), gridPane, Forme.genererCrochetDroite(matrice));
+    public HBox afficherMatrice() {
+
+        Button plusM = new Button("+");
+        Button moinsM = new Button("-");
+        Button plusN = new Button("+");
+        Button moinsN = new Button("-");
+
+        VBox vBox = new VBox(moinsM, genererGridpane(), plusM);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+
+        plusM.setOnAction(event -> {
+            matrice.setM(matrice.getM() + 1);
+            vBox.getChildren().set(1, genererGridpane());
+        });
+        moinsM.setOnAction(event -> {
+            matrice.setM(matrice.getM() - 1);
+            vBox.getChildren().set(1, genererGridpane());
+        });
+        plusN.setOnAction(event -> {
+            matrice.setN(matrice.getN() + 1);
+            vBox.getChildren().set(1, genererGridpane());
+        });
+        moinsN.setOnAction(event -> {
+            matrice.setN(matrice.getN() - 1);
+            vBox.getChildren().set(1, genererGridpane());
+        });
+
+        HBox hbox =  new HBox(moinsN, Forme.genererCrochetGauche(matrice), vBox, Forme.genererCrochetDroite(matrice), plusN);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(5);
         return hbox;

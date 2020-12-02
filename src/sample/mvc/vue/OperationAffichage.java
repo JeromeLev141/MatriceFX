@@ -16,39 +16,13 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        Button plusM = new Button("+");
-        Button moinsM = new Button("-");
-        Button plusN = new Button("+");
-        Button moinsN = new Button("-");
-
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             MatriceAffichage resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
             bdp.setCenter(resultat.afficherMatrice());
         });
 
-        VBox vBoxA = new VBox(moinsM, a.afficherMatrice(), plusM);
-        vBoxA.setAlignment(Pos.CENTER);
-        vBoxA.setSpacing(10);
-
-        plusM.setOnAction(event -> {
-            a.getMatrice().setM(a.getMatrice().getM() + 1);
-            vBoxA.getChildren().set(1, a.afficherMatrice());
-        });
-        moinsM.setOnAction(event -> {
-            a.getMatrice().setM(a.getMatrice().getM() - 1);
-            vBoxA.getChildren().set(1, a.afficherMatrice());
-        });
-        plusN.setOnAction(event -> {
-            a.getMatrice().setN(a.getMatrice().getN() + 1);
-            vBoxA.getChildren().set(1, a.afficherMatrice());
-        });
-        moinsN.setOnAction(event -> {
-            a.getMatrice().setN(a.getMatrice().getN() - 1);
-            vBoxA.getChildren().set(1, a.afficherMatrice());
-        });
-
-        HBox hbox = new HBox(moinsN, vBoxA, plusN, Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox( a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -239,7 +213,7 @@ public class OperationAffichage {
             bdp.setCenter(resultat.afficherMatrice());
         });
 
-        HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatrice().getChildren().get(1),
+        HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatrice(),
                 Forme.genererBordure(a.getMatrice()), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);

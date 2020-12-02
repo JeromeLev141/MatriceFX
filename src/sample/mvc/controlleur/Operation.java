@@ -138,23 +138,18 @@ public class Operation {
             for (int m = 1; m <= a.getM(); m++) {
                 Matrice r = new Matrice(a.getM()-1, a.getN()-1);
                 r.getElements().clear();
-                System.out.println(r.getElements().size());
                 for (int m2 = 1; m2 <= a.getM(); m2++) {
                     for (int n = 1; n <= a.getN(); n++) {
-                        if (n != 1 && m2 != m) {
-
+                        if (n != 1 && m2 != m)
                             r.getElements().add(a.getElement(m2, n));
-                        }
                     }
                 }
                 r = Operation.multiplication(Operation.determinant(r), a.getElement(m, 1) * (Math.pow(-1, m+1)));
                 liste.add(r);
 
             }
-            for (Matrice t: liste
-                 ) { resultat += t.getElements().get(0);
-
-            }
+            for (Matrice t: liste)
+                resultat += t.getElements().get(0);
 
             Matrice t = new Matrice(1, 1);
             t.setElement(1, 1, resultat);
