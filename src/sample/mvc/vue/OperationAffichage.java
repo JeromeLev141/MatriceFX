@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
@@ -17,13 +16,39 @@ public class OperationAffichage {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
+        Button plusM = new Button("+");
+        Button moinsM = new Button("-");
+        Button plusN = new Button("+");
+        Button moinsN = new Button("-");
+
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             MatriceAffichage resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
             bdp.setCenter(resultat.afficherMatrice());
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
+        VBox vBoxA = new VBox(moinsM, a.afficherMatrice(), plusM);
+        vBoxA.setAlignment(Pos.CENTER);
+        vBoxA.setSpacing(10);
+
+        plusM.setOnAction(event -> {
+            a.getMatrice().setM(a.getMatrice().getM() + 1);
+            vBoxA.getChildren().set(1, a.afficherMatrice());
+        });
+        moinsM.setOnAction(event -> {
+            a.getMatrice().setM(a.getMatrice().getM() - 1);
+            vBoxA.getChildren().set(1, a.afficherMatrice());
+        });
+        plusN.setOnAction(event -> {
+            a.getMatrice().setN(a.getMatrice().getN() + 1);
+            vBoxA.getChildren().set(1, a.afficherMatrice());
+        });
+        moinsN.setOnAction(event -> {
+            a.getMatrice().setN(a.getMatrice().getN() - 1);
+            vBoxA.getChildren().set(1, a.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(moinsN, vBoxA, plusN, Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
@@ -149,30 +174,57 @@ public class OperationAffichage {
     }
 
     public static HBox produitVectoriel(BorderPane bdp) {
+
+        //a tester avec 3*1
+
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceVectoriel(), b.afficherMatrice());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceVectoriel(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         return hbox;
     }
 
     public static HBox produitHadamard(BorderPane bdp) {
+
+        //a tester
+
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceHadamard(), b.afficherMatrice());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceHadamard(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         return hbox;
     }
 
     public static HBox produitTensoriel(BorderPane bdp) {
+
+        // a tester
+
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTensoriel(), b.afficherMatrice());
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
+        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTensoriel(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         return hbox;
@@ -181,8 +233,14 @@ public class OperationAffichage {
     public static HBox determinant(BorderPane bdp) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
+        Button egale = new Button("=");
+        egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(Operation.determinant(a.getMatrice()));
+            bdp.setCenter(resultat.afficherMatrice());
+        });
+
         HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatrice().getChildren().get(1),
-                Forme.genererBordure(a.getMatrice()));
+                Forme.genererBordure(a.getMatrice()), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;

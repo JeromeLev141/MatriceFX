@@ -31,7 +31,11 @@ public class Matrice {
 
     public int getM() { return m; }
 
+    public void setM(int m) { this.m = m; }
+
     public int getN() { return n; }
+
+    public void setN(int n) { this.n = n; }
 
     public boolean estValide() {
         for (Double element : elements) {
