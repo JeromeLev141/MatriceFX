@@ -7,49 +7,47 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class InterfaceUtilisateur {
+public class InterfaceUtilisateur extends BorderPane{
 
     private Scene application;
-    private BorderPane bdp;
 
     public InterfaceUtilisateur() {
-        bdp = new BorderPane();
 
         Menu operations = new Menu("Opérations");
         Menu fichier = new Menu("Fichier");
 
         MenuItem addition = new MenuItem("Addition");
-        addition.setOnAction(event -> bdp.setCenter(OperationAffichage.addition(bdp)));
+        addition.setOnAction(event -> setCenter(OperationAffichage.addition(this)));
 
         MenuItem soustraction = new MenuItem("Soustraction");
-        soustraction.setOnAction(event -> bdp.setCenter(OperationAffichage.soustraction(bdp)));
+        soustraction.setOnAction(event -> setCenter(OperationAffichage.soustraction(this)));
 
         MenuItem multiplication = new MenuItem("multiplication par un scalaire");
-        multiplication.setOnAction(event -> bdp.setCenter(OperationAffichage.multiplication(bdp)));
+        multiplication.setOnAction(event -> setCenter(OperationAffichage.multiplication(this)));
 
         MenuItem puissance = new MenuItem("Puissance");
-        puissance.setOnAction(event -> bdp.setCenter(OperationAffichage.puissance(bdp)));
+        puissance.setOnAction(event -> setCenter(OperationAffichage.puissance(this)));
 
         MenuItem transposition = new MenuItem("Transposition");
-        transposition.setOnAction(event -> bdp.setCenter(OperationAffichage.transposition(bdp)));
+        transposition.setOnAction(event -> setCenter(OperationAffichage.transposition(this)));
 
         MenuItem inversion = new MenuItem("Inversion");
-        inversion.setOnAction(event -> bdp.setCenter(OperationAffichage.inversion(bdp)));
+        inversion.setOnAction(event -> setCenter(OperationAffichage.inversion(this)));
 
         MenuItem produitMatriciel = new MenuItem("Produit Matriciel");
-        produitMatriciel.setOnAction(event -> bdp.setCenter(OperationAffichage.produitMatriciel(bdp)));
+        produitMatriciel.setOnAction(event -> setCenter(OperationAffichage.produitMatriciel(this)));
 
         MenuItem produitVectoriel = new MenuItem("Produit Vectoriel");
-        produitVectoriel.setOnAction(event -> bdp.setCenter(OperationAffichage.produitVectoriel(bdp)));
+        produitVectoriel.setOnAction(event -> setCenter(OperationAffichage.produitVectoriel(this)));
 
         MenuItem produitHadamard = new MenuItem("Produit d'Hadamard");
-        produitHadamard.setOnAction(event -> bdp.setCenter(OperationAffichage.produitHadamard(bdp)));
+        produitHadamard.setOnAction(event -> setCenter(OperationAffichage.produitHadamard(this)));
 
         MenuItem produitTensoriel = new MenuItem("Produit Tensoriel");
-        produitTensoriel.setOnAction(event -> bdp.setCenter(OperationAffichage.produitTensoriel(bdp)));
+        produitTensoriel.setOnAction(event -> setCenter(OperationAffichage.produitTensoriel(this)));
 
         MenuItem determinant = new MenuItem("Calcul du déterminant");
-        determinant.setOnAction(event -> bdp.setCenter(OperationAffichage.determinant(bdp)));
+        determinant.setOnAction(event -> setCenter(OperationAffichage.determinant(this)));
 
         operations.getItems().addAll(addition, soustraction, multiplication, puissance,
                 transposition, inversion, produitMatriciel, produitVectoriel,
@@ -63,10 +61,21 @@ public class InterfaceUtilisateur {
         informations.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
 
         //finalisation
-        bdp.setTop(menuBar);
-        bdp.setBottom(informations);
-        application = new Scene(bdp, 1000, 600);
+        setTop(menuBar);
+        application = new Scene(this, 1000, 600);
     }
 
     public Scene getApplication() { return application; }
+
+    public void setMessage(String message, String type) {
+        Label information = new Label(message);
+        if (type.equals("informative"))
+            information.setTextFill(Color.GREEN);
+        if (type.equals("erreur"))
+            information.setTextFill(Color.RED);
+        HBox informations = new HBox(information);
+        informations.setAlignment(Pos.CENTER);
+        informations.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
+        setBottom(informations);
+    }
 }

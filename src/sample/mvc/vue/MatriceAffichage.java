@@ -77,19 +77,30 @@ public class MatriceAffichage extends HBox {
             vBox.getChildren().set(1, genererGridpane());
         });
         moinsM.setOnAction(event -> {
-            matrice.setM(matrice.getM() - 1);
-            vBox.getChildren().set(1, genererGridpane());
+            if (matrice.getM() > 1) {
+                matrice.setM(matrice.getM() - 1);
+                vBox.getChildren().set(1, genererGridpane());
+            }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
             vBox.getChildren().set(1, genererGridpane());
         });
         moinsN.setOnAction(event -> {
-            matrice.setN(matrice.getN() - 1);
-            vBox.getChildren().set(1, genererGridpane());
+            if (matrice.getN() > 1) {
+                matrice.setN(matrice.getN() - 1);
+                vBox.getChildren().set(1, genererGridpane());
+            }
         });
 
         HBox hbox =  new HBox(moinsN, Forme.genererCrochetGauche(matrice), vBox, Forme.genererCrochetDroite(matrice), plusN);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(5);
+        return hbox;
+    }
+
+    public HBox afficherMatriceResultat() {
+        HBox hbox =  new HBox(Forme.genererCrochetGauche(matrice), genererGridpane(), Forme.genererCrochetDroite(matrice));
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(5);
         return hbox;

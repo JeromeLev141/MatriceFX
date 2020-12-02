@@ -12,14 +12,20 @@ import sample.mvc.modele.Matrice;
 
 public class OperationAffichage {
 
-    public static HBox addition(BorderPane bdp) {
+    public static HBox addition(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
-            bdp.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
+                if (Operation.addition(a.getMatrice(), b.getMatrice()) != null)
+                    iu.setCenter(new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            }
+            else
+                iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
         HBox hbox = new HBox( a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
