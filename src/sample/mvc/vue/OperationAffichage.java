@@ -22,6 +22,7 @@ public class OperationAffichage {
         Menu indices = new Menu("Indices d'opération");
 
         MenuItem nombre = new MenuItem("Nombre");
+        //nombre.setOnAction(event -> hbox.getChildren().add(Forme.);
         MenuItem determinant = new MenuItem("Déterminant");
 
         MenuItem matrice = new MenuItem("Matrice");
@@ -32,28 +33,39 @@ public class OperationAffichage {
 
         MenuItem addition = new MenuItem("Addition");
         addition.setOnAction(event -> hbox.getChildren().add(Forme.genererIndiceAddition()));
+        MenuItem soustraction = new MenuItem("Soustraction");
+        soustraction.setOnAction(event -> hbox.getChildren().add(Forme.genererIndiceSoustraction()));
 
         scalaires.getItems().addAll(nombre, determinant);
         matrices.getItems().addAll(matrice, matriceTransposee, matriceExposee);
-        indices.getItems().addAll(addition);
+        indices.getItems().addAll(addition, soustraction);
 
         ContextMenu contextMenu = new ContextMenu(scalaires, matrices, indices);
         iu.getCenter().setOnContextMenuRequested(event -> contextMenu.show(iu.getCenter(), event.getScreenX(), event.getScreenY()));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
+            MatriceAffichage resultat = new MatriceAffichage(null);
             if (hbox.getChildren().size() >= 3) {
                 if (hbox.getChildren().get(0).getId().equals("matrice")) {
-                    if (hbox.getChildren().get(1).getId().equals("addition")) {
-                        if (hbox.getChildren().get(2).getId().equals("matrice"))  {
-                            MatriceAffichage a = (MatriceAffichage) hbox.getChildren().get(0);
-                            MatriceAffichage b = (MatriceAffichage) hbox.getChildren().get(2);
-                            MatriceAffichage resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
-                            hbox.getChildren().remove(0, 3);
-                            hbox.getChildren().add(0, resultat.afficherMatrice());
+                    if (hbox.getChildren().get(2).getId().equals("matrice")) {
+                        MatriceAffichage a = (MatriceAffichage) hbox.getChildren().get(0);
+                        MatriceAffichage b = (MatriceAffichage) hbox.getChildren().get(2);
+
+                        switch (hbox.getChildren().get(1).getId()) {
+                            case "addition" :
+                                resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
+                                break;
+                            case "soustraction" :
+                                resultat = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()));
+                                break;
                         }
+
+                        hbox.getChildren().remove(0, 3);
+                        hbox.getChildren().add(0, resultat.afficherMatrice());
                     }
                 }
+                //else if ()
             }
 
         });
@@ -100,22 +112,23 @@ public class OperationAffichage {
 
     public static HBox multiplication(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        TextField scalaire = new TextField();
+        ScalaireAffichage k = new ScalaireAffichage();
+        /*TextField scalaire = new TextField();
         scalaire.setPromptText("K");
-        scalaire.setPrefColumnCount(2);
+        scalaire.setPrefColumnCount(2);*/
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.multiplication(a.getMatrice(), Double.parseDouble(scalaire.getText())));
+            MatriceAffichage resultat = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
             iu.setCenter(resultat.afficherMatrice());
         });
 
-        HBox hbox = new HBox(scalaire, a.afficherMatrice(), egale);
+        HBox hbox = new HBox(k, Forme.genererIndiceMultiplication(), a.afficherMatrice(), egale);
 
-        scalaire.setOnAction(event -> {
+        /*scalaire.setOnAction(event -> {
             hbox.getChildren().remove(scalaire);
             hbox.getChildren().add(0, Forme.genererScalaire(scalaire.getText()));
-        });
+        });*/
 
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
@@ -195,7 +208,7 @@ public class OperationAffichage {
             iu.setCenter(resultat.afficherMatrice());
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox(a.afficherMatrice(),Forme.genererIndiceMultiplication(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         return hbox;

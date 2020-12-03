@@ -2,9 +2,12 @@ package sample.mvc.vue;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import sample.mvc.modele.Matrice;
 
@@ -45,7 +48,16 @@ public class Forme {
     }
 
     public static Rectangle genererIndiceSoustraction() {
-        return new Rectangle(20, 5, Color.GREY);
+        Rectangle indiceSoustraction = new Rectangle(20, 5, Color.GREY);
+        indiceSoustraction.setId("soustraction");
+        return indiceSoustraction;
+    }
+
+    public static Circle genererIndiceMultiplication() {
+        Circle indiceMultiplication = new Circle(5);
+        indiceMultiplication.setFill(Color.GREY);
+        indiceMultiplication.setId("multiplication");
+        return indiceMultiplication;
     }
 
     public static VBox genererIndicePuissance() {
