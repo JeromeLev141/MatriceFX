@@ -39,7 +39,9 @@ public class Forme {
     public static StackPane genererIndiceAddition() {
         Rectangle x = new Rectangle(20, 5, Color.GREY);
         Rectangle y = new Rectangle(5, 20, Color.GREY);
-        return new StackPane(x, y);
+        StackPane indiceAddition = new StackPane(x, y);
+        indiceAddition.setId("addition");
+        return indiceAddition;
     }
 
     public static Rectangle genererIndiceSoustraction() {

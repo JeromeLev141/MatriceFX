@@ -16,8 +16,34 @@ public class InterfaceUtilisateur extends BorderPane{
         Menu operations = new Menu("Opérations");
         Menu fichier = new Menu("Fichier");
 
+        MenuItem libre = new MenuItem("Libre");
+        libre.setOnAction(event -> {
+            OperationAffichage.libre(this);
+
+            /*Menu scalaires = new Menu("Scalaires");
+            Menu matrices = new Menu("Matrices");
+            Menu indices = new Menu("Indices d'opération");
+
+            MenuItem nombre = new MenuItem("Nombre");
+            MenuItem determinant = new MenuItem("Déterminant");
+
+            MenuItem matrice = new MenuItem("Matrice");
+            MenuItem matriceTransposee = new MenuItem("Matrice transposée");
+            MenuItem matriceExposee = new MenuItem("Matrice exposée");
+
+            MenuItem addition = new MenuItem("Addition");
+
+            scalaires.getItems().addAll(nombre, determinant);
+            matrices.getItems().addAll(matrice, matriceTransposee, matriceExposee);
+            indices.getItems().addAll(addition);
+
+            ContextMenu contextMenu = new ContextMenu(scalaires, matrices, indices);
+            getCenter().setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(getCenter(),
+                    contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));*/
+        });
+
         MenuItem addition = new MenuItem("Addition");
-        addition.setOnAction(event -> setCenter(OperationAffichage.addition(this)));
+        addition.setOnAction(event -> OperationAffichage.addition(this));
 
         MenuItem soustraction = new MenuItem("Soustraction");
         soustraction.setOnAction(event -> setCenter(OperationAffichage.soustraction(this)));
@@ -49,7 +75,7 @@ public class InterfaceUtilisateur extends BorderPane{
         MenuItem determinant = new MenuItem("Calcul du déterminant");
         determinant.setOnAction(event -> setCenter(OperationAffichage.determinant(this)));
 
-        operations.getItems().addAll(addition, soustraction, multiplication, puissance,
+        operations.getItems().addAll(libre, addition, soustraction, multiplication, puissance,
                 transposition, inversion, produitMatriciel, produitVectoriel,
                 produitHadamard, produitTensoriel, determinant);
         MenuBar menuBar = new MenuBar(operations, fichier);
@@ -62,6 +88,7 @@ public class InterfaceUtilisateur extends BorderPane{
 
         //finalisation
         setTop(menuBar);
+        setBottom(informations);
         application = new Scene(this, 1000, 600);
     }
 

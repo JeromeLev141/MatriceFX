@@ -16,6 +16,9 @@ public class MatriceAffichage extends HBox {
 
     public MatriceAffichage(Matrice matrice) {
         this.matrice = matrice;
+        setAlignment(Pos.CENTER);
+        setSpacing(5);
+        setId("matrice");
         verif = 0;
     }
 
@@ -61,48 +64,48 @@ public class MatriceAffichage extends HBox {
         return gridPane;
     }
 
-    public HBox afficherMatrice() {
+    public MatriceAffichage afficherMatrice() {
 
         Button plusM = new Button("+");
         Button moinsM = new Button("-");
         Button plusN = new Button("+");
         Button moinsN = new Button("-");
 
-        VBox vBox = new VBox(moinsM, genererGridpane(), plusM);
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(10);
-
         plusM.setOnAction(event -> {
             matrice.setM(matrice.getM() + 1);
-            vBox.getChildren().set(1, genererGridpane());
+            getChildren().clear();
+            afficherMatrice();
         });
         moinsM.setOnAction(event -> {
             if (matrice.getM() > 1) {
                 matrice.setM(matrice.getM() - 1);
-                vBox.getChildren().set(1, genererGridpane());
+                getChildren().clear();
+                afficherMatrice();
             }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
-            vBox.getChildren().set(1, genererGridpane());
+            getChildren().clear();
+            afficherMatrice();
         });
         moinsN.setOnAction(event -> {
             if (matrice.getN() > 1) {
                 matrice.setN(matrice.getN() - 1);
-                vBox.getChildren().set(1, genererGridpane());
+                getChildren().clear();
+                afficherMatrice();
             }
         });
 
-        HBox hbox =  new HBox(moinsN, Forme.genererCrochetGauche(matrice), vBox, Forme.genererCrochetDroite(matrice), plusN);
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(5);
-        return hbox;
+        VBox vBox = new VBox(moinsM, genererGridpane(), plusM);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+
+        getChildren().addAll(moinsN, Forme.genererCrochetGauche(matrice), vBox, Forme.genererCrochetDroite(matrice), plusN);
+        return this;
     }
 
-    public HBox afficherMatriceResultat() {
-        HBox hbox =  new HBox(Forme.genererCrochetGauche(matrice), genererGridpane(), Forme.genererCrochetDroite(matrice));
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(5);
-        return hbox;
+    public MatriceAffichage afficherMatriceResultat() {
+        getChildren().addAll(Forme.genererCrochetGauche(matrice), genererGridpane(), Forme.genererCrochetDroite(matrice));
+        return this;
     }
 }
