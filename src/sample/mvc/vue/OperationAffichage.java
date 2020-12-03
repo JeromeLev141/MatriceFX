@@ -54,14 +54,22 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
+
             MatriceAffichage resultat = new MatriceAffichage(null);
+
             if (hbox.getChildren().size() >= 3) {
-                if (hbox.getChildren().get(0).getId().equals("matrice")) {
-                    if (hbox.getChildren().get(2).getId().equals("matrice")) {
+
+                int pemda = 1;
+                for (int i = 0; i < hbox.getChildren().size(); i++)
+                    if (hbox.getChildren().get(i).getId().equals("multiplication"))
+                        pemda = i;
+
+                if (hbox.getChildren().get(pemda -1).getId().equals("matrice")) {
+                    if (hbox.getChildren().get(pemda + 1).getId().equals("matrice")) {
                         MatriceAffichage a = (MatriceAffichage) hbox.getChildren().get(0);
                         MatriceAffichage b = (MatriceAffichage) hbox.getChildren().get(2);
 
-                        switch (hbox.getChildren().get(1).getId()) {
+                        switch (hbox.getChildren().get(pemda).getId()) {
                             case "addition" :
                                 resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
                                 break;
@@ -74,17 +82,17 @@ public class OperationAffichage {
                         }
                     }
                 }
-                else if (hbox.getChildren().get(0).getId().equals("scalaire")) {
-                    if (hbox.getChildren().get(2).getId().equals("matrice")) {
-                        ScalaireAffichage k = (ScalaireAffichage) hbox.getChildren().get(0);
-                        MatriceAffichage a = (MatriceAffichage) hbox.getChildren().get(2);
-                        if (hbox.getChildren().get(1).getId().equals("multiplication"))
+                else if (hbox.getChildren().get(pemda - 1).getId().equals("scalaire")) {
+                    if (hbox.getChildren().get(pemda + 1).getId().equals("matrice")) {
+                        ScalaireAffichage k = (ScalaireAffichage) hbox.getChildren().get(pemda - 1);
+                        MatriceAffichage a = (MatriceAffichage) hbox.getChildren().get(pemda + 1);
+                        if (hbox.getChildren().get(pemda).getId().equals("multiplication"))
                             resultat = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
                     }
                 }
             }
-            hbox.getChildren().remove(0, 3);
-            hbox.getChildren().add(0, resultat.afficherMatrice());
+            hbox.getChildren().remove(pemda - 1, pemda + 2);
+            hbox.getChildren().add(pemda - 1, resultat.afficherMatrice());
         });
         iu.setRight(egale);
     }
