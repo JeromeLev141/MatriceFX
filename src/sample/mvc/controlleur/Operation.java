@@ -109,12 +109,15 @@ public class Operation {
                                 r.getElements().add(a.getElement(m2, n2));
                         }
                     }
-                    adj.setElement(m1,n1,Operation.determinant(r).getElement(1, 1));
+                    adj.setElement(m1,n1,Operation.determinant(r).getElement(1, 1) * Math.pow(-1,m1+n1));
                     r.getElements().clear();
                 }
             }
+            double det = Operation.determinant(a).getElement(1, 1);
+            if (det == 0)
+                return null;
             adj = Operation.transposition(adj);
-            return Operation.multiplication(adj, 1/Operation.determinant(a).getElement(1, 1));
+            return Operation.multiplication(adj, 1/det);
         }
         else return null;
     }
@@ -168,14 +171,36 @@ public class Operation {
     }
 
     public static Matrice puissance(Matrice a , int pow){
-        Matrice r =  new Matrice(a.getM(),a.getN());
-        for (int m = 1; m <= a.getM(); m++ )
-            for (int n = 1; n <= a.getN(); n++)
-                r.setElement(m,n,a.getElement(m, n) );
+        boolean negatif = false;
+        if (pow < 0) {
+            negatif = true;
+            pow *= -1;
+            if (Operation.determinant(a).getElement(1,1) == 0)
+                return null;
+        }
 
-        if (pow == 1 || pow == 0) {
-            for (int x = 0; x <= pow; x++) {
-                r = Operation.produitMatriciel(r, a);
+        if (a.isEstCarre()) {
+
+            Matrice r = new Matrice(a.getM(), a.getN());
+            for (int m = 1; m <= a.getM(); m++)
+                for (int n = 1; n <= a.getN(); n++)
+                    r.setElement(m, n, a.getElement(m, n));
+
+            if (pow == 0) {
+                for (int m = 1; m <= a.getM(); m++)
+                    for (int n = 1; n <= a.getN(); n++) {
+                        if (m == n)
+                            r.setElement(m, n, 1);
+                        else
+                            r.setElement(m, n, 0);
+                    }
+            } else if (pow != 1) {
+                for (int x = 1; x < pow; x++)
+                    r = produitMatriciel(r, a);
+            }
+            if (negatif) {
+
+                r = Operation.inverse(r);
             }
             return r;
         }

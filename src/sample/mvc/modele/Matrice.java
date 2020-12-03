@@ -1,5 +1,6 @@
 package sample.mvc.modele;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +44,21 @@ public class Matrice {
 
     public boolean isEstCarre() { return estCarre; }
 
+    private String retourdouble(Double element){
+        if (element != null) {
+            DecimalFormat df = new DecimalFormat("##,##0.##");
+            return df.format(element);
+        }
+        else return null;
+    }
+
     @Override
     public String toString() {
         StringBuilder matrice = new StringBuilder();
+
         for (int m = 0; m < this.m; m++) {
             for (int n = 0; n < this.n; n++) {
-                matrice.append(elements.get(m * this.n + n));
+                matrice.append(retourdouble(elements.get(m * this.n + n)));
                 if (n < this.n - 1)
                     matrice.append(' ');
             }

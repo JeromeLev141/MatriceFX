@@ -116,7 +116,7 @@ public class MatriceTest {
 
     @Test
     public void toStringTest() {
-        assertEquals("1.0 2.0 3.0\n4.0 5.0 6.0\n7.0 8.0 9.0", a.toString());
-        assertEquals("9.0 8.0 7.0 6.0\n5.0 4.0 3.0 2.0", b.toString());
+        assertEquals("1 2 3\n4 5 6\n7 8 9", a.toString());
+        assertEquals("9 8 7 6\n5 4 3 2", b.toString());
     }
 }
