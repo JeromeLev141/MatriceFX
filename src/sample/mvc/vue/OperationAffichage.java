@@ -56,10 +56,10 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
 
             MatriceAffichage resultat = new MatriceAffichage(null);
-
+            int pemda = 1;
+            
             if (hbox.getChildren().size() >= 3) {
 
-                int pemda = 1;
                 for (int i = 0; i < hbox.getChildren().size(); i++)
                     if (hbox.getChildren().get(i).getId().equals("multiplication"))
                         pemda = i;
