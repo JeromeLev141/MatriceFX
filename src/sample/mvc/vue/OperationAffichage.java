@@ -2,6 +2,7 @@ package sample.mvc.vue;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,7 +23,7 @@ public class OperationAffichage {
         Menu indices = new Menu("Indices d'opération");
 
         MenuItem nombre = new MenuItem("Nombre");
-        //nombre.setOnAction(event -> hbox.getChildren().add(Forme.);
+        nombre.setOnAction(event -> hbox.getChildren().add(new ScalaireAffichage()));
         MenuItem determinant = new MenuItem("Déterminant");
 
         MenuItem matrice = new MenuItem("Matrice");
@@ -35,13 +36,21 @@ public class OperationAffichage {
         addition.setOnAction(event -> hbox.getChildren().add(Forme.genererIndiceAddition()));
         MenuItem soustraction = new MenuItem("Soustraction");
         soustraction.setOnAction(event -> hbox.getChildren().add(Forme.genererIndiceSoustraction()));
+        MenuItem multiplication = new MenuItem("Multiplication");
+        multiplication.setOnAction(event -> hbox.getChildren().add(Forme.genererIndiceMultiplication()));
 
         scalaires.getItems().addAll(nombre, determinant);
         matrices.getItems().addAll(matrice, matriceTransposee, matriceExposee);
-        indices.getItems().addAll(addition, soustraction);
+        indices.getItems().addAll(addition, soustraction, multiplication);
 
         ContextMenu contextMenu = new ContextMenu(scalaires, matrices, indices);
         iu.getCenter().setOnContextMenuRequested(event -> contextMenu.show(iu.getCenter(), event.getScreenX(), event.getScreenY()));
+
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.BACK_SPACE)
+                if (hbox.getChildren().size() != 0)
+                hbox.getChildren().remove(hbox.getChildren().size() - 1);
+        });
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
@@ -59,15 +68,23 @@ public class OperationAffichage {
                             case "soustraction" :
                                 resultat = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()));
                                 break;
+                            case "multiplication" :
+                                resultat = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()));
+                                break;
                         }
-
-                        hbox.getChildren().remove(0, 3);
-                        hbox.getChildren().add(0, resultat.afficherMatrice());
                     }
                 }
-                //else if ()
+                else if (hbox.getChildren().get(0).getId().equals("scalaire")) {
+                    if (hbox.getChildren().get(2).getId().equals("matrice")) {
+                        ScalaireAffichage k = (ScalaireAffichage) hbox.getChildren().get(0);
+                        MatriceAffichage a = (MatriceAffichage) hbox.getChildren().get(2);
+                        if (hbox.getChildren().get(1).getId().equals("multiplication"))
+                            resultat = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
+                    }
+                }
             }
-
+            hbox.getChildren().remove(0, 3);
+            hbox.getChildren().add(0, resultat.afficherMatrice());
         });
         iu.setRight(egale);
     }
@@ -111,11 +128,8 @@ public class OperationAffichage {
     }
 
     public static HBox multiplication(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         ScalaireAffichage k = new ScalaireAffichage();
-        /*TextField scalaire = new TextField();
-        scalaire.setPromptText("K");
-        scalaire.setPrefColumnCount(2);*/
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
@@ -124,12 +138,6 @@ public class OperationAffichage {
         });
 
         HBox hbox = new HBox(k, Forme.genererIndiceMultiplication(), a.afficherMatrice(), egale);
-
-        /*scalaire.setOnAction(event -> {
-            hbox.getChildren().remove(scalaire);
-            hbox.getChildren().add(0, Forme.genererScalaire(scalaire.getText()));
-        });*/
-
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         return hbox;

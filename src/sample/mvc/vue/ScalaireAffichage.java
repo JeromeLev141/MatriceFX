@@ -19,6 +19,7 @@ public class ScalaireAffichage extends HBox {
             valeur = Integer.parseInt(scalaire.getText());
         });
         getChildren().add(scalaire);
+        setId("scalaire");
     }
 
     public ScalaireAffichage(String valeur) {
