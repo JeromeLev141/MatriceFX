@@ -53,16 +53,20 @@ public class OperationAffichage {
         });
 
         Button egale = new Button("=");
+
+        //gros patern
+
         egale.setOnAction(event -> {
 
-            MatriceAffichage resultat = new MatriceAffichage(null);
+            MatriceAffichage resultatMatrice = null;
+            ScalaireAffichage resultatScalaire = null;
             int pemda = 1;
-            
+
             if (hbox.getChildren().size() >= 3) {
 
-                for (int i = 0; i < hbox.getChildren().size(); i++)
+                for (int i = 0; i < hbox.getChildren().size(); i++) {
                     if (hbox.getChildren().get(i).getId().equals("multiplication"))
-                        pemda = i;
+                        pemda = i;}
 
                 if (hbox.getChildren().get(pemda -1).getId().equals("matrice")) {
                     if (hbox.getChildren().get(pemda + 1).getId().equals("matrice")) {
@@ -71,28 +75,46 @@ public class OperationAffichage {
 
                         switch (hbox.getChildren().get(pemda).getId()) {
                             case "addition" :
-                                resultat = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
+                                resultatMatrice = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
                                 break;
                             case "soustraction" :
-                                resultat = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()));
+                                resultatMatrice = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()));
                                 break;
                             case "multiplication" :
-                                resultat = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()));
+                                resultatMatrice = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()));
                                 break;
                         }
                     }
                 }
                 else if (hbox.getChildren().get(pemda - 1).getId().equals("scalaire")) {
+                    ScalaireAffichage k = (ScalaireAffichage) hbox.getChildren().get(pemda - 1);
                     if (hbox.getChildren().get(pemda + 1).getId().equals("matrice")) {
-                        ScalaireAffichage k = (ScalaireAffichage) hbox.getChildren().get(pemda - 1);
                         MatriceAffichage a = (MatriceAffichage) hbox.getChildren().get(pemda + 1);
                         if (hbox.getChildren().get(pemda).getId().equals("multiplication"))
-                            resultat = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
+                            resultatMatrice = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
+                    }
+                    else if (hbox.getChildren().get(pemda + 1).getId().equals("scalaire")) {
+                        ScalaireAffichage k2 = (ScalaireAffichage) hbox.getChildren().get(pemda + 1);
+
+                        switch (hbox.getChildren().get(pemda).getId()) {
+                            case "addition" :
+                                resultatScalaire = new ScalaireAffichage(String.valueOf(k.getValeur() + k2.getValeur()));
+                                break;
+                            case "soustraction" :
+                                resultatScalaire = new ScalaireAffichage(String.valueOf(k.getValeur() - k2.getValeur()));
+                                break;
+                            case "multiplication" :
+                                resultatScalaire = new ScalaireAffichage(String.valueOf(k.getValeur() * k2.getValeur()));
+                                break;
+                        }
                     }
                 }
             }
             hbox.getChildren().remove(pemda - 1, pemda + 2);
-            hbox.getChildren().add(pemda - 1, resultat.afficherMatrice());
+            if (resultatMatrice != null)
+                hbox.getChildren().add(pemda - 1, resultatMatrice.afficherMatrice());
+            else if (resultatScalaire != null)
+                hbox.getChildren().add(pemda - 1, resultatScalaire);
         });
         iu.setRight(egale);
     }
@@ -232,10 +254,10 @@ public class OperationAffichage {
 
     public static HBox produitVectoriel(BorderPane bdp) {
 
-        //a tester avec 3*1
+        //a tester
 
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 1));
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 1));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {

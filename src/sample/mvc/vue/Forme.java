@@ -102,10 +102,10 @@ public class Forme {
     }
 
     public static Label genererIndiceHadamard() {
-        Label indiceHadamard = new Label("*");
+        Label indiceHadamard = new Label("o");
         indiceHadamard.setTextFill(Color.GREY);
-        indiceHadamard.setScaleY(4);
-        indiceHadamard.setScaleX(4);
+        indiceHadamard.setScaleY(2);
+        indiceHadamard.setScaleX(2);
         return indiceHadamard;
     }
 

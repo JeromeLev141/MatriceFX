@@ -23,8 +23,10 @@ public class ScalaireAffichage extends HBox {
     }
 
     public ScalaireAffichage(String valeur) {
+        setAlignment(Pos.CENTER);
         getChildren().add(Forme.genererScalaire(valeur));
         this.valeur = Integer.parseInt(valeur);
+        setId("scalaire");
     }
 
     public int getValeur() { return valeur; }
