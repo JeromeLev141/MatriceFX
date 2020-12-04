@@ -1,15 +1,20 @@
 package sample.mvc.vue;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class InterfaceUtilisateur extends BorderPane{
 
     private Scene application;
+    private HBox informations;
 
     public InterfaceUtilisateur() {
 
@@ -17,30 +22,7 @@ public class InterfaceUtilisateur extends BorderPane{
         Menu fichier = new Menu("Fichier");
 
         MenuItem libre = new MenuItem("Libre");
-        libre.setOnAction(event -> {
-            OperationAffichage.libre(this);
-
-            /*Menu scalaires = new Menu("Scalaires");
-            Menu matrices = new Menu("Matrices");
-            Menu indices = new Menu("Indices d'opération");
-
-            MenuItem nombre = new MenuItem("Nombre");
-            MenuItem determinant = new MenuItem("Déterminant");
-
-            MenuItem matrice = new MenuItem("Matrice");
-            MenuItem matriceTransposee = new MenuItem("Matrice transposée");
-            MenuItem matriceExposee = new MenuItem("Matrice exposée");
-
-            MenuItem addition = new MenuItem("Addition");
-
-            scalaires.getItems().addAll(nombre, determinant);
-            matrices.getItems().addAll(matrice, matriceTransposee, matriceExposee);
-            indices.getItems().addAll(addition);
-
-            ContextMenu contextMenu = new ContextMenu(scalaires, matrices, indices);
-            getCenter().setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(getCenter(),
-                    contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));*/
-        });
+        libre.setOnAction(event -> OperationAffichage.libre(this));
 
         MenuItem addition = new MenuItem("Addition");
         addition.setOnAction(event -> OperationAffichage.addition(this));
@@ -82,7 +64,7 @@ public class InterfaceUtilisateur extends BorderPane{
 
         //information
         Label information = new Label("");
-        HBox informations = new HBox(information);
+        informations = new HBox(information);
         informations.setAlignment(Pos.CENTER);
         informations.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -100,9 +82,12 @@ public class InterfaceUtilisateur extends BorderPane{
             information.setTextFill(Color.GREEN);
         if (type.equals("erreur"))
             information.setTextFill(Color.RED);
-        HBox informations = new HBox(information);
-        informations.setAlignment(Pos.CENTER);
-        informations.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
-        setBottom(informations);
+        informations.getChildren().set(0, information);
+
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(5000),
+                new KeyValue(informations.getChildren().get(0).visibleProperty(), false)));
+        timeline.play();
     }
 }
