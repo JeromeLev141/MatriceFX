@@ -30,7 +30,7 @@ public class Main2 {
             System.out.println(d.toString());
         Matrice e = Operation.multiplication(a, 2);
         System.out.println(e.toString());
-        Matrice g = Operation.produitVectoriel(a,b );
+        Matrice g = Operation.produitMatriciel(a,b );
         if (g != null)
             System.out.println(g.toString());
         Matrice h = Operation.inverse(a);

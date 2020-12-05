@@ -50,9 +50,6 @@ public class Operation {
                     for (int n2 = 1; n2 <= b.getN(); n2++)
                         r.setElement(m * b.getM() + m2,(n * b.getN()) + n2,a.getElement(m+1,n+1)*b.getElement(m2,n2));
         return r;
-
-
-
     }
 
     public static Matrice produitMatriciel(Matrice a, Matrice b) {
@@ -286,7 +283,7 @@ public class Operation {
         return a.getElements().stream().map(Operation::doubleAFraction).collect(Collectors.toList());
     }
 
-    private static String doubleAFraction(double d) {
+    public static String doubleAFraction(double d) {
         String nombre = String.format("%.2f", d);
         String entier = nombre.substring(0, nombre.indexOf(','));
         String decimal = nombre.substring(nombre.indexOf(',') + 1);
