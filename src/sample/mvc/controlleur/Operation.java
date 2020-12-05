@@ -55,7 +55,7 @@ public class Operation {
 
     }
 
-    public static Matrice produitScalaire(Matrice a, Matrice b) {
+    public static Matrice produitMatriciel(Matrice a, Matrice b) {
         Matrice r = new Matrice(a.getM(), b.getN());
         if (bonFormat(a, b)) {
             for(int m = 1; m <= a.getM(); m++) {
@@ -74,9 +74,9 @@ public class Operation {
 
     public static Matrice produitVectoriel(Matrice a, Matrice b){
         Matrice r = new Matrice(3,1 );
-        if (Operation.isVecteur(a)){
+        if (Operation.isVecteur(a) && Operation.isVecteur(b)){
             r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
-            r.setElement(2,1,a.getElement(3,1) * b.getElement(1,1) - a.getElement(1,1) * b.getElement(3,1));
+            r.setElement(2,1, -1 * (a.getElement(1,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(1,1)));
             r.setElement(3,1,a.getElement(1,1) * b.getElement(2,1) - a.getElement(2,1) * b.getElement(1,1));
             return r;
         }
@@ -109,12 +109,15 @@ public class Operation {
                                 r.getElements().add(a.getElement(m2, n2));
                         }
                     }
-                    adj.setElement(m1,n1,Operation.determinant(r).getElement(1, 1));
+                    adj.setElement(m1,n1,Operation.determinant(r).getElement(1, 1) * Math.pow(-1,m1+n1));
                     r.getElements().clear();
                 }
             }
+            double det = Operation.determinant(a).getElement(1, 1);
+            if (det == 0)
+                return null;
             adj = Operation.transposition(adj);
-            return Operation.multiplication(adj, 1/Operation.determinant(a).getElement(1, 1));
+            return Operation.multiplication(adj, 1/det);
         }
         else return null;
     }
@@ -167,16 +170,92 @@ public class Operation {
             return null;
     }
 
-    public static Matrice puissance(Matrice a , int pow){
-        Matrice r =  new Matrice(a.getM(),a.getN());
-        for (int m = 1; m <= a.getM(); m++ )
-            for (int n = 1; n <= a.getN(); n++)
-                r.setElement(m,n,a.getElement(m, n) );
+    public static double determinantOp(Matrice a){
+        double r = 0;
+        Matrice tempo = new Matrice(a.getM(),a.getN());
+        for (int m = 1; m <= a.getM();m++)
+            for (int n = 1; n<= a.getN();n++)
+                tempo.setElement(m,n,a.getElement(m,n));
 
-        for (int x = 0; x < pow; x++){
-            r = Operation.produitVectoriel(r,a );
+        if (a.getM() == 1 && a.isEstCarre()){
+            r = tempo.getElements().get(0);
+            return r;
         }
-        return r;
+
+        else if (a.getM() == 2 && a.isEstCarre()){
+            r =(a.getElement(1, 1) * a.getElement(2,2)) - (a.getElement(1,2) * a.getElement(2,1));
+            return r;
+        }
+        else if (tempo.isEstCarre()) {
+            for (int m = 1; m <= tempo.getM(); m++) {
+                double constant;
+
+                if (m == tempo.getM()) {
+                    r *= tempo.getElement(m, m);
+                    break;
+                }
+                else if (tempo.getElement(m, m) == 0){
+                    for (int n = m; n < tempo.getN();n++){
+                        tempo = changerligne(tempo,n,n+1);
+                        if (tempo.getElement(m,m) != 0){
+                         break;
+                        }
+                        if (tempo.getN()-1 == n)
+                            return 0.0;
+                    }
+                }
+                for (int m2 = m + 1; m2 <= tempo.getM(); m2++){
+                    constant = -1 * tempo.getElement(m2,m) / tempo.getElement(m,m);
+                    for (int n2 = m; n2 <= tempo.getN(); n2++)
+                        tempo.setElement(m2,n2, tempo.getElement(m2,n2) + (tempo.getElement(m,n2)*constant));
+                }
+                if (m == 1)
+                    r = tempo.getElement(m,m);
+                else
+                    r *= tempo.getElement(m,m);
+            }
+            if (r == -0.0)
+                r = 0.0;
+            return r;
+        }
+        return 0.0;
+    }
+
+    public static Matrice puissance(Matrice a , int pow){
+        boolean negatif = false;
+        if (pow < 0) {
+            negatif = true;
+            pow *= -1;
+            if (Operation.determinant(a).getElement(1,1) == 0)
+                return null;
+        }
+
+        if (a.isEstCarre()) {
+
+            Matrice r = new Matrice(a.getM(), a.getN());
+            for (int m = 1; m <= a.getM(); m++)
+                for (int n = 1; n <= a.getN(); n++)
+                    r.setElement(m, n, a.getElement(m, n));
+
+            if (pow == 0) {
+                for (int m = 1; m <= a.getM(); m++)
+                    for (int n = 1; n <= a.getN(); n++) {
+                        if (m == n)
+                            r.setElement(m, n, 1);
+                        else
+                            r.setElement(m, n, 0);
+                    }
+            } else if (pow != 1) {
+                for (int x = 1; x < pow; x++)
+                    r = produitMatriciel(r, a);
+            }
+            if (negatif) {
+
+                r = Operation.inverse(r);
+            }
+            return r;
+        }
+        else return null;
     }
 
 
@@ -192,6 +271,15 @@ public class Operation {
         if (a.getM() == 3 && a.getN() ==1)
             return true;
         else return false;
+    }
+
+    public static Matrice changerligne(Matrice a, int ligne1,int ligne2){
+        for (int n = 1; n <= a.getN(); n++){
+            double element = a.getElement(ligne1,n);
+            a.setElement(ligne1,n,a.getElement(ligne2,n) * -1);
+            a.setElement(ligne2,n,element);
+        }
+        return a;
     }
 
     public static List<String> listeFraction(Matrice a) {
