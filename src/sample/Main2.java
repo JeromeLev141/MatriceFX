@@ -12,15 +12,16 @@ public class Main2 {
 
         /*Matrice test = new Matrice(2,2);
         System.out.println(test.toString());
-        System.out.println(test.estValide());
-        Matrice a = GenererMatrice.genererMatrice(2,2);
+        System.out.println(test.estValide());*/
+        Matrice a = GenererMatrice.genererMatrice(3,3);
         System.out.println(a.getElements().toString());
         System.out.println(a.toString());
-        System.out.println(a.estValide());
+        System.out.println(Operation.determinantOp(a));
+        /*System.out.println(a.estValide());
         System.out.println(Operation.listeFraction(a).toString());
         System.out.println(Operation.transposition(a).toString());
         Matrice b = GenererMatrice.genererMatrice(1,1);
-        System.out.println(b.toString());
+        System.out.println(b.toString());*/
         /*Matrice c = Operation.addition(a,b);
         if (c != null)
             System.out.println(c.toString());
@@ -40,9 +41,9 @@ public class Main2 {
         Matrice j = Operation.inverse(a);
         System.out.println(j);*/
 
-        DecimalFormat df = new DecimalFormat("#,##0.##");
+        //DecimalFormat df = new DecimalFormat("#,##0.##");
 
-        System.out.println(df.format(1244550.0512));
+        //System.out.println(df.format(1244550.0512));
 
     }
 }

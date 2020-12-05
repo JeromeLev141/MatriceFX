@@ -170,6 +170,57 @@ public class Operation {
             return null;
     }
 
+    public static double determinantOp(Matrice a){
+        double r = 0;
+        Matrice tempo = new Matrice(a.getM(),a.getN());
+        for (int m = 1; m <= a.getM();m++)
+            for (int n = 1; n<= a.getN();n++)
+                tempo.setElement(m,n,a.getElement(m,n));
+
+        if (a.getM() == 1 && a.isEstCarre()){
+            r = tempo.getElements().get(0);
+            return r;
+        }
+
+        else if (a.getM() == 2 && a.isEstCarre()){
+            r =(a.getElement(1, 1) * a.getElement(2,2)) - (a.getElement(1,2) * a.getElement(2,1));
+            return r;
+        }
+        else if (tempo.isEstCarre()) {
+            for (int m = 1; m <= tempo.getM(); m++) {
+                double constant;
+
+                if (m == tempo.getM()) {
+                    r *= tempo.getElement(m, m);
+                    break;
+                }
+                else if (tempo.getElement(m, m) == 0){
+                    for (int n = m; n < tempo.getN();n++){
+                        tempo = changerligne(tempo,n,n+1);
+                        if (tempo.getElement(m,m) != 0){
+                         break;
+                        }
+                        if (tempo.getN()-1 == n)
+                            return 0.0;
+                    }
+                }
+                for (int m2 = m + 1; m2 <= tempo.getM(); m2++){
+                    constant = -1 * tempo.getElement(m2,m) / tempo.getElement(m,m);
+                    for (int n2 = m; n2 <= tempo.getN(); n2++)
+                        tempo.setElement(m2,n2, tempo.getElement(m2,n2) + (tempo.getElement(m,n2)*constant));
+                }
+                if (m == 1)
+                    r = tempo.getElement(m,m);
+                else
+                    r *= tempo.getElement(m,m);
+            }
+            if (r == -0.0)
+                r = 0.0;
+            return r;
+        }
+        return 0.0;
+    }
+
     public static Matrice puissance(Matrice a , int pow){
         boolean negatif = false;
         if (pow < 0) {
@@ -220,6 +271,15 @@ public class Operation {
         if (a.getM() == 3 && a.getN() ==1)
             return true;
         else return false;
+    }
+
+    public static Matrice changerligne(Matrice a, int ligne1,int ligne2){
+        for (int n = 1; n <= a.getN(); n++){
+            double element = a.getElement(ligne1,n);
+            a.setElement(ligne1,n,a.getElement(ligne2,n) * -1);
+            a.setElement(ligne2,n,element);
+        }
+        return a;
     }
 
     public static List<String> listeFraction(Matrice a) {

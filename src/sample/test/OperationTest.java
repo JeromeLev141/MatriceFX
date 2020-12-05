@@ -18,6 +18,8 @@ public class OperationTest {
     private Matrice c;
     private Matrice d;
     private Matrice e;
+    private Matrice f;
+    private Matrice g;
     private Matrice identite;
     private Matrice vecteur1;
     private Matrice vecteur2;
@@ -88,6 +90,44 @@ public class OperationTest {
         //  0 -5  2 -6
         //  1  2 -1  0
         // -1  4  2 -2
+
+        f = new Matrice(3,3);{
+            f.setElement(1,1,1);
+            f.setElement(1,2,2);
+            f.setElement(1,3,3);
+            f.setElement(2,1,7);
+            f.setElement(2,2,14);
+            f.setElement(2,3,9);
+            f.setElement(3,1,4);
+            f.setElement(3,2,5);
+            f.setElement(3,3,6);
+        }
+        //  1  2  3
+        //  7 14  9
+        //  4  5  6
+
+        g = new Matrice(4,4);{
+            g.setElement(1,1,0);
+            g.setElement(1,2,0);
+            g.setElement(1,3,5);
+            g.setElement(1,4,2);
+            g.setElement(2,1,3);
+            g.setElement(2,2,2);
+            g.setElement(2,3,-1);
+            g.setElement(2,4,1);
+            g.setElement(3,1,0);
+            g.setElement(3,2,0);
+            g.setElement(3,3,2);
+            g.setElement(3,4,4);
+            g.setElement(4,1,3);
+            g.setElement(4,2,1);
+            g.setElement(4,3,1);
+            g.setElement(4,4,1);
+        }
+        //  0  0  5  2
+        //  3  2 -1  3
+        //  0  0  2  4
+        //  3  2  1  4
 
         identite = new Matrice(3,3);{
             identite.setElement(1, 1, 1);
@@ -295,6 +335,16 @@ public class OperationTest {
     }
 
     @Test
+    public void determinantOp(){
+        assertEquals(-133.0,Operation.determinantOp(e));
+        assertEquals(0.0,Operation.determinantOp(a));
+        assertEquals(-2.0, Operation.determinantOp(b));
+        assertEquals(0.0, Operation.determinantOp(d));
+        assertEquals(-36.0,Operation.determinantOp(f));
+        assertEquals(0.0,Operation.determinantOp(g));
+    }
+
+    @Test
     public void puissance(){
         assertEquals("24 -368 -38 75\n-98 111 150 -42\n32 46 -55 21\n-5 26 -76 286", Operation.puissance(e,3).toString());
         //   24 -368  -38   75
@@ -328,6 +378,13 @@ public class OperationTest {
     public void puissancedet0(){
         assertNull(Operation.puissance(a,-2));
         assertNull(Operation.puissance(d,-5));
+    }
+
+    @Test
+    public void changerligne(){
+        Matrice tempo = Operation.changerligne(a,2,3);
+        assertEquals("1 2 3\n-7 -8 -9\n4 5 6",tempo.toString());
+        assertEquals("-4 -5 -6\n-7 -8 -9\n1 2 3",Operation.changerligne(tempo,1,3).toString());
     }
 
 
