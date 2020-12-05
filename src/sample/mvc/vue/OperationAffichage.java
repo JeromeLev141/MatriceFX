@@ -19,7 +19,8 @@ public class OperationAffichage {
         operation.setSpacing(10);
 
         Button egale = new Button("=");
-        egale.setOnAction(event -> OperationLibre.calculer(operation));
+        egale.setVisible(false);
+        egale.setOnAction(event -> OperationLibre.calculer(operation, iu));
 
         HBox centre = new HBox(operation, egale);
         centre.setAlignment(Pos.CENTER);
@@ -56,9 +57,17 @@ public class OperationAffichage {
         iu.getCenter().setOnContextMenuRequested(event -> contextMenu.show(iu.getCenter(), event.getScreenX(), event.getScreenY()));
 
         iu.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.BACK_SPACE)
+            if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
                 if (operation.getChildren().size() != 0)
                 operation.getChildren().remove(operation.getChildren().size() - 1);
+                if (operation.getChildren().size()  < 3)
+                    egale.setVisible(false);
+            }
+        });
+        
+        iu.setOnMouseMoved(mouseEvent -> {
+            if (operation.getChildren().size()  >= 3)
+                egale.setVisible(true);
         });
     }
 

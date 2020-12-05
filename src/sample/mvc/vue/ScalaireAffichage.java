@@ -6,10 +6,12 @@ import javafx.scene.layout.HBox;
 
 public class ScalaireAffichage extends HBox {
 
-    private int valeur;
+    private double valeur;
+    private boolean valide;
 
     public ScalaireAffichage() {
         setAlignment(Pos.CENTER);
+        valide = false;
         TextField scalaire = new TextField();
         scalaire.setPromptText("K");
         scalaire.setPrefColumnCount(2);
@@ -17,6 +19,7 @@ public class ScalaireAffichage extends HBox {
             getChildren().remove(scalaire);
             getChildren().add(Forme.genererScalaire(scalaire.getText()));
             valeur = Integer.parseInt(scalaire.getText());
+            valide = true;
         });
         getChildren().add(scalaire);
         setId("scalaire");
@@ -26,8 +29,11 @@ public class ScalaireAffichage extends HBox {
         setAlignment(Pos.CENTER);
         getChildren().add(Forme.genererScalaire(valeur));
         this.valeur = Integer.parseInt(valeur);
+        valide = true;
         setId("scalaire");
     }
 
-    public int getValeur() { return valeur; }
+    public double getValeur() { return valeur; }
+
+    public boolean estValide() { return valide; }
 }
