@@ -256,9 +256,9 @@ public class OperationTest {
     @Test
     public void produitVectoriel(){
         assertEquals("-3\n6\n-3", Operation.produitVectoriel(vecteur1,vecteur2).toString());
-        //  1    4   -3
-        //  2 *  5 =  6
-        //  3    6   -3
+        // -3
+        //  6
+        // -3
         assertEquals("3\n-6\n3", Operation.produitVectoriel(vecteur2,vecteur1).toString());
         //  3
         // -6
@@ -384,11 +384,12 @@ public class OperationTest {
     public void changerligne(){
         Matrice tempo = Operation.changerligne(a,2,3);
         assertEquals("1 2 3\n-7 -8 -9\n4 5 6",tempo.toString());
+        //  1  2  3
+        // -7 -8 -9
+        //  4  5  6
         assertEquals("-4 -5 -6\n-7 -8 -9\n1 2 3",Operation.changerligne(tempo,1,3).toString());
+        // -4 -5 -6
+        // -7 -8 -9
+        //  1  2  3
     }
-
-
-
-
-
 }
