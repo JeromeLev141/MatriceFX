@@ -106,11 +106,11 @@ public class Operation {
                                 r.getElements().add(a.getElement(m2, n2));
                         }
                     }
-                    adj.setElement(m1,n1,Operation.determinant(r).getElement(1, 1) * Math.pow(-1,m1+n1));
+                    adj.setElement(m1,n1,Operation.determinantOp(r) * Math.pow(-1,m1+n1));
                     r.getElements().clear();
                 }
             }
-            double det = Operation.determinant(a).getElement(1, 1);
+            double det = Operation.determinantOp(a);
             if (det == 0)
                 return null;
             adj = Operation.transposition(adj);
@@ -223,7 +223,7 @@ public class Operation {
         if (pow < 0) {
             negatif = true;
             pow *= -1;
-            if (Operation.determinant(a).getElement(1,1) == 0)
+            if (Operation.determinantOp(a) == 0)
                 return null;
         }
 
