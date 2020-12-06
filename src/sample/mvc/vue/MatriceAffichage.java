@@ -19,7 +19,7 @@ public class MatriceAffichage extends HBox {
     public MatriceAffichage(Matrice matrice) {
         this.matrice = matrice;
         setAlignment(Pos.CENTER);
-        setSpacing(5);
+        setSpacing(10);
         setId("matrice");
         verif = 0;
     }
@@ -56,7 +56,7 @@ public class MatriceAffichage extends HBox {
                         verif++;
 
                         if (verif == gridPane.getChildren().size()) {
-                            gridPane.setHgap(25);
+                            gridPane.setHgap(30);
                             gridPane.setVgap(20);
                         }
                     }
@@ -64,9 +64,12 @@ public class MatriceAffichage extends HBox {
 
                 if (!matrice.estValide())
                     gridPane.add(textfield, n - 1, m - 1);
-                else
+                else {
+                    gridPane.setHgap(30);
+                    gridPane.setVgap(20);
                     gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(m, n))),
                             n - 1, m - 1);
+                }
             }
         }
         return gridPane;
@@ -109,6 +112,46 @@ public class MatriceAffichage extends HBox {
         vBox.setSpacing(10);
 
         getChildren().addAll(moinsN, Forme.genererCrochetGauche(matrice), vBox, Forme.genererCrochetDroite(matrice), plusN);
+        return this;
+    }
+
+    public MatriceAffichage afficherMatriceDeterminant() {
+
+        Button plusM = new Button("+");
+        Button moinsM = new Button("-");
+        Button plusN = new Button("+");
+        Button moinsN = new Button("-");
+
+        plusM.setOnAction(event -> {
+            matrice.setM(matrice.getM() + 1);
+            getChildren().clear();
+            afficherMatriceDeterminant();
+        });
+        moinsM.setOnAction(event -> {
+            if (matrice.getM() > 1) {
+                matrice.setM(matrice.getM() - 1);
+                getChildren().clear();
+                afficherMatriceDeterminant();
+            }
+        });
+        plusN.setOnAction(event -> {
+            matrice.setN(matrice.getN() + 1);
+            getChildren().clear();
+            afficherMatriceDeterminant();
+        });
+        moinsN.setOnAction(event -> {
+            if (matrice.getN() > 1) {
+                matrice.setN(matrice.getN() - 1);
+                getChildren().clear();
+                afficherMatriceDeterminant();
+            }
+        });
+
+        VBox vBox = new VBox(moinsM, genererGridpane(), plusM);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+
+        getChildren().addAll(moinsN, Forme.genererBordure(matrice), vBox, Forme.genererBordure(matrice), plusN);
         return this;
     }
 

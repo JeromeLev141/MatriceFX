@@ -140,7 +140,6 @@ public class OperationAffichage {
     }
 
     public static HBox puissance(InterfaceUtilisateur iu) {
-
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         VBox indicePuissance = Forme.genererIndicePuissance();
 
@@ -170,8 +169,10 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.transposition(a.getMatrice()));
-            iu.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide())
+                iu.setCenter(new MatriceAffichage(Operation.transposition(a.getMatrice())).afficherMatriceResultat());
+            else
+                iu.setMessage("Matrice incomplète!", "erreur");
         });
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition(), egale);
@@ -180,16 +181,21 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox inversion(BorderPane bdp) {
-
-        //marche pas
-
+    public static HBox inversion(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.inverse(a.getMatrice()));
-            bdp.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide()) {
+                if (Operation.inverse(a.getMatrice()) != null) {
+                    iu.setCenter(new MatriceAffichage(Operation.inverse(a.getMatrice())).afficherMatriceResultat());
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+                }
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            }
+            else
+                iu.setMessage("Matrice incomplète!", "erreur");
         });
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse(), egale);
@@ -204,8 +210,16 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()));
-            iu.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
+                if (Operation.produitMatriciel(a.getMatrice(), b.getMatrice()) != null) {
+                    iu.setCenter(new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+                }
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            }
+            else
+                iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
         HBox hbox = new HBox(a.afficherMatrice(),Forme.genererIndiceMultiplication(), b.afficherMatrice(), egale);
@@ -214,36 +228,46 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitVectoriel(BorderPane bdp) {
-
-        //a tester
-
+    public static HBox produitVectoriel(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 1));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 1));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice()));
-            bdp.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
+                if (Operation.produitVectoriel(a.getMatrice(), b.getMatrice()) != null) {
+                    iu.setCenter(new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+                }
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            }
+            else
+                iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceVectoriel(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox(a.afficherMatriceResultat(), Forme.genererIndiceVectoriel(), b.afficherMatriceResultat(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         return hbox;
     }
 
-    public static HBox produitHadamard(BorderPane bdp) {
-
-        //a tester
-
+    public static HBox produitHadamard(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice()));
-            bdp.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
+                if (Operation.produitDHadamard(a.getMatrice(), b.getMatrice()) != null) {
+                    iu.setCenter(new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+                }
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            }
+            else
+                iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceHadamard(), b.afficherMatrice(), egale);
@@ -252,17 +276,18 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox produitTensoriel(BorderPane bdp) {
-
-        // a tester
-
+    public static HBox produitTensoriel(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice()));
-            bdp.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
+                iu.setCenter(new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                iu.setMessage("Opération effectué avec succès!", "informative");
+            }
+            else
+                iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTensoriel(), b.afficherMatrice(), egale);
@@ -276,12 +301,16 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.determinant(a.getMatrice()));
-            iu.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide())
+                if (Operation.determinant(a.getMatrice()) != null)
+                    iu.setCenter(new ScalaireAffichage(String.valueOf(Operation.determinantOp(a.getMatrice()))));
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            else
+                iu.setMessage("Matrice incomplète!", "erreur");
         });
 
-        HBox hbox = new HBox(Forme.genererBordure(a.getMatrice()), a.afficherMatrice(),
-                Forme.genererBordure(a.getMatrice()), egale);
+        HBox hbox = new HBox(a.afficherMatriceDeterminant(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
