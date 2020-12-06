@@ -1,9 +1,11 @@
 package sample.mvc.vue;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
@@ -14,6 +16,9 @@ public class MatriceAffichage extends HBox {
 
     public MatriceAffichage(Matrice matrice) {
         this.matrice = matrice;
+        setAlignment(Pos.CENTER);
+        setSpacing(5);
+        setId("matrice");
         verif = 0;
     }
 
@@ -21,7 +26,7 @@ public class MatriceAffichage extends HBox {
 
     public void setMatrice(Matrice matrice) { this.matrice = matrice; }
 
-    public HBox afficherMatrice() {
+    private GridPane genererGridpane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
@@ -49,13 +54,58 @@ public class MatriceAffichage extends HBox {
                     }
                 });
 
-                gridPane.add(textfield,n - 1, m - 1);
+                if (!matrice.estValide())
+                    gridPane.add(textfield,n - 1, m - 1);
+                else
+                    gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(m, n))),
+                            n - 1, m - 1);
             }
         }
+        return gridPane;
+    }
 
-        HBox hbox =  new HBox(Forme.genererCrochetGauche(matrice), gridPane, Forme.genererCrochetDroite(matrice));
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(5);
-        return hbox;
+    public MatriceAffichage afficherMatrice() {
+
+        Button plusM = new Button("+");
+        Button moinsM = new Button("-");
+        Button plusN = new Button("+");
+        Button moinsN = new Button("-");
+
+        plusM.setOnAction(event -> {
+            matrice.setM(matrice.getM() + 1);
+            getChildren().clear();
+            afficherMatrice();
+        });
+        moinsM.setOnAction(event -> {
+            if (matrice.getM() > 1) {
+                matrice.setM(matrice.getM() - 1);
+                getChildren().clear();
+                afficherMatrice();
+            }
+        });
+        plusN.setOnAction(event -> {
+            matrice.setN(matrice.getN() + 1);
+            getChildren().clear();
+            afficherMatrice();
+        });
+        moinsN.setOnAction(event -> {
+            if (matrice.getN() > 1) {
+                matrice.setN(matrice.getN() - 1);
+                getChildren().clear();
+                afficherMatrice();
+            }
+        });
+
+        VBox vBox = new VBox(moinsM, genererGridpane(), plusM);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+
+        getChildren().addAll(moinsN, Forme.genererCrochetGauche(matrice), vBox, Forme.genererCrochetDroite(matrice), plusN);
+        return this;
+    }
+
+    public MatriceAffichage afficherMatriceResultat() {
+        getChildren().addAll(Forme.genererCrochetGauche(matrice), genererGridpane(), Forme.genererCrochetDroite(matrice));
+        return this;
     }
 }

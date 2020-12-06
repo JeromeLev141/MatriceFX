@@ -9,22 +9,22 @@ public class Matrice {
     private List<Double> elements;
     private int m; //nombre de ligne
     private int n; //nombre de colonne
-    private boolean estCarre;
 
     public Matrice(int m, int n) {
         elements = new ArrayList<>(m * n);
         while (elements.size() < m * n) elements.add(null);
         this.m = m;
         this.n = n;
-        if (n==m)
-            estCarre = true;
-        else
-            estCarre = false;
     }
 
     public List<Double> getElements() { return elements; }
 
     public void setElements(List<Double> elements) { this.elements = elements; }
+
+    private void resizeElements() {
+        elements = new ArrayList<>(m * n);
+        while (elements.size() < m * n) elements.add(null);
+    }
 
     public double getElement(int m, int n) { return elements.get((m - 1) * this.n + n - 1); }
 
@@ -32,7 +32,17 @@ public class Matrice {
 
     public int getM() { return m; }
 
+    public void setM(int m) {
+        this.m = m;
+        resizeElements();
+    }
+
     public int getN() { return n; }
+
+    public void setN(int n) {
+        this.n = n;
+        resizeElements();
+    }
 
     public boolean estValide() {
         for (Double element : elements) {
@@ -42,7 +52,7 @@ public class Matrice {
         return true;
     }
 
-    public boolean isEstCarre() { return estCarre; }
+    public boolean isEstCarre() { return n == m;}
 
     private String retourdouble(Double element){
         if (element != null) {
