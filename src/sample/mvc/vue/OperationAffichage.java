@@ -101,8 +101,16 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()));
-            iu.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
+                if (Operation.soustraction(a.getMatrice(), b.getMatrice()) != null) {
+                    iu.setCenter(new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+                }
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            }
+            else
+                iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceSoustraction(), b.afficherMatrice(), egale);
@@ -117,8 +125,12 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
-            iu.setCenter(resultat.afficherMatrice());
+            if (a.getMatrice().estValide() && k.estValide()) {
+                    iu.setCenter(new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur())).afficherMatriceResultat());
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+            }
+            else
+                iu.setMessage("Élements incomplets!", "erreur");
         });
 
         HBox hbox = new HBox(k, Forme.genererIndiceMultiplication(), a.afficherMatrice(), egale);
@@ -127,31 +139,27 @@ public class OperationAffichage {
         return hbox;
     }
 
-    public static HBox puissance(BorderPane bdp) {
-
-        //marche pas
+    public static HBox puissance(InterfaceUtilisateur iu) {
 
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        TextField indicePuissance = new TextField();
-        indicePuissance.setPromptText("N");
-        indicePuissance.setPrefColumnCount(2);
-        VBox vBox = new VBox(indicePuissance, new Label());
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(80);
+        VBox indicePuissance = Forme.genererIndicePuissance();
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            MatriceAffichage resultat = new MatriceAffichage(Operation.puissance(a.getMatrice(), Integer.parseInt(indicePuissance.getText())));
-            bdp.setCenter(resultat.afficherMatrice());
+            ScalaireAffichage k = (ScalaireAffichage) indicePuissance.getChildren().get(0);
+            if (a.getMatrice().estValide() && k.estValide()) {
+                if (Operation.puissance(a.getMatrice(), k.getValeur()) != null) {
+                    iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur())).afficherMatriceResultat());
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+                }
+                else
+                    iu.setMessage("Opération impossible!", "erreur");
+            }
+            else
+                iu.setMessage("Élements incomplets!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), vBox, egale);
-
-        indicePuissance.setOnAction(event -> {
-            vBox.getChildren().remove(indicePuissance);
-            vBox.getChildren().add(0, Forme.genererScalaire(indicePuissance.getText()));
-        });
-
+        HBox hbox = new HBox(a.afficherMatrice(), indicePuissance, egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;

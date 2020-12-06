@@ -3,6 +3,7 @@ package sample.mvc.vue;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,9 @@ public class Forme {
         scalaire.setTextFill(Color.GREY);
         scalaire.setScaleX(1.5);
         scalaire.setScaleY(1.5);
+        scalaire.setMaxWidth(30);
+        Tooltip tooltip = new Tooltip(nombre);
+        scalaire.setTooltip(tooltip);
         return scalaire;
     }
 
@@ -36,7 +40,7 @@ public class Forme {
     }
 
     public static Rectangle genererBordure(Matrice matrice) {
-        return new Rectangle(4, 30 * matrice.getM(), Color.GREY);
+        return new Rectangle(4, 35 * matrice.getM(), Color.GREY);
     }
 
     public static StackPane genererIndiceAddition() {
@@ -61,10 +65,7 @@ public class Forme {
     }
 
     public static VBox genererIndicePuissance() {
-        Label indicePuissance = new Label("K");
-        indicePuissance.setTextFill(Color.GREY);
-        indicePuissance.setScaleY(2);
-        indicePuissance.setScaleX(2);
+        ScalaireAffichage indicePuissance = new ScalaireAffichage();
         VBox vBox = new VBox(indicePuissance, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);

@@ -8,7 +8,6 @@ import sample.mvc.vue.ScalaireAffichage;
 public class OperationLibre {
 
     public static void calculer(HBox operation, InterfaceUtilisateur iu) {
-        //checker les operations sur des matrices de formats non compatible comme addition et soustrac
 
         MatriceAffichage resultatMatrice = null;
         ScalaireAffichage resultatScalaire = null;
@@ -76,14 +75,14 @@ public class OperationLibre {
                     }
                 }
             }
-            if (resultatMatrice == null && resultatScalaire == null)
+            if (resultatMatrice.getMatrice() == null && resultatScalaire == null)
                 iu.setMessage("Opération impossible!", "erreur");
-            if (resultatMatrice != null || resultatScalaire != null) {
+            if (resultatMatrice.getMatrice() != null || resultatScalaire != null) {
                 operation.getChildren().remove(pemda - 1, pemda + 2);
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
 
-            if (resultatMatrice != null)
+            if (resultatMatrice.getMatrice() != null)
                 operation.getChildren().add(pemda - 1, resultatMatrice.afficherMatrice());
             else if (resultatScalaire != null)
                 operation.getChildren().add(pemda - 1, resultatScalaire);

@@ -1,7 +1,9 @@
 package sample.mvc.vue;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -22,9 +24,13 @@ public class MatriceAffichage extends HBox {
         verif = 0;
     }
 
-    public Matrice getMatrice() { return matrice; }
+    public Matrice getMatrice() {
+        return matrice;
+    }
 
-    public void setMatrice(Matrice matrice) { this.matrice = matrice; }
+    public void setMatrice(Matrice matrice) {
+        this.matrice = matrice;
+    }
 
     private GridPane genererGridpane() {
         GridPane gridPane = new GridPane();
@@ -39,23 +45,25 @@ public class MatriceAffichage extends HBox {
                 textfield.setPromptText("a" + m + "" + n);
                 textfield.setPrefColumnCount(2);
                 textfield.setOnAction(event -> {
-                    int mToken = Integer.parseInt(textfield.getPromptText().substring(1, 2));
-                    int nToken = Integer.parseInt(textfield.getPromptText().substring(2, 3));
+                    if (!textfield.getText().equals("")) {
+                        int mToken = Integer.parseInt(textfield.getPromptText().substring(1, 2));
+                        int nToken = Integer.parseInt(textfield.getPromptText().substring(2, 3));
 
-                    matrice.setElement(mToken, nToken, Double.parseDouble(textfield.getText()));
-                    gridPane.getChildren().remove(textfield);
-                    gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(mToken, nToken))),
-                            nToken - 1, mToken - 1);
-                    verif++;
+                        matrice.setElement(mToken, nToken, Double.parseDouble(textfield.getText()));
+                        gridPane.getChildren().remove(textfield);
+                        gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(mToken, nToken))),
+                                nToken - 1, mToken - 1);
+                        verif++;
 
-                    if (verif == gridPane.getChildren().size()) {
-                        gridPane.setHgap(25);
-                        gridPane.setVgap(20);
+                        if (verif == gridPane.getChildren().size()) {
+                            gridPane.setHgap(25);
+                            gridPane.setVgap(20);
+                        }
                     }
                 });
 
                 if (!matrice.estValide())
-                    gridPane.add(textfield,n - 1, m - 1);
+                    gridPane.add(textfield, n - 1, m - 1);
                 else
                     gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(m, n))),
                             n - 1, m - 1);

@@ -218,7 +218,7 @@ public class Operation {
         return 0.0;
     }
 
-    public static Matrice puissance(Matrice a , int pow){
+    public static Matrice puissance(Matrice a , double pow){
         boolean negatif = false;
         if (pow < 0) {
             negatif = true;

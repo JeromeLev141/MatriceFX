@@ -3,6 +3,7 @@ package sample.mvc.vue;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import sample.mvc.controlleur.Operation;
 
 public class ScalaireAffichage extends HBox {
 
@@ -17,8 +18,8 @@ public class ScalaireAffichage extends HBox {
         scalaire.setPrefColumnCount(2);
         scalaire.setOnAction(event -> {
             getChildren().remove(scalaire);
-            getChildren().add(Forme.genererScalaire(scalaire.getText()));
-            valeur = Integer.parseInt(scalaire.getText());
+            valeur = Double.parseDouble(scalaire.getText());
+            getChildren().add(Forme.genererScalaire(Operation.doubleAFraction(this.valeur)));
             valide = true;
         });
         getChildren().add(scalaire);
@@ -27,8 +28,8 @@ public class ScalaireAffichage extends HBox {
 
     public ScalaireAffichage(String valeur) {
         setAlignment(Pos.CENTER);
-        getChildren().add(Forme.genererScalaire(valeur));
-        this.valeur = Integer.parseInt(valeur);
+        this.valeur = Double.parseDouble(valeur);
+        getChildren().add(Forme.genererScalaire(Operation.doubleAFraction(this.valeur)));
         valide = true;
         setId("scalaire");
     }
