@@ -1,9 +1,7 @@
 package sample.mvc.vue;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -13,10 +11,12 @@ import sample.mvc.modele.Matrice;
 
 public class MatriceAffichage extends HBox {
 
+    private Character nom;
     private Matrice matrice;
     private int verif;
 
-    public MatriceAffichage(Matrice matrice) {
+    public MatriceAffichage(Matrice matrice, Character nom) {
+        this.nom = nom;
         this.matrice = matrice;
         setAlignment(Pos.CENTER);
         setSpacing(10);
@@ -42,7 +42,7 @@ public class MatriceAffichage extends HBox {
             for (int n = 1; n <= matrice.getN(); n++) {
 
                 TextField textfield = new TextField();
-                textfield.setPromptText("a" + m + "" + n);
+                textfield.setPromptText(nom + "" + m + "" + n);
                 textfield.setPrefColumnCount(2);
                 textfield.setOnAction(event -> {
                     if (!textfield.getText().equals("")) {
@@ -72,6 +72,37 @@ public class MatriceAffichage extends HBox {
                 }
             }
         }
+        return gridPane;
+    }
+
+    private GridPane genererGridpaneVecteur() {
+        GridPane gridPane = genererGridpane();
+
+        for (int i = 1; i <= 3; i++) {
+            TextField textField = (TextField) gridPane.getChildren().get(i - 1);
+            int m = i;
+            if (i == 1)
+                textField.setPromptText(nom + "x");
+            else if (i == 2)
+                textField.setPromptText(nom + "y");
+            else
+                textField.setPromptText(nom + "z");
+            textField.setOnAction(event -> {
+                if (!textField.getText().equals("")) {
+                    matrice.setElement(m, 1, Double.parseDouble(textField.getText()));
+                    gridPane.getChildren().remove(textField);
+                    gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(m, 1))),0, m - 1);
+                    verif++;
+
+                    if (verif == gridPane.getChildren().size()) {
+                        gridPane.setHgap(30);
+                        gridPane.setVgap(20);
+                    }
+                }
+            });
+            gridPane.getChildren().set(i - 1, textField);
+        }
+
         return gridPane;
     }
 
@@ -152,6 +183,11 @@ public class MatriceAffichage extends HBox {
         vBox.setSpacing(10);
 
         getChildren().addAll(moinsN, Forme.genererBordure(matrice), vBox, Forme.genererBordure(matrice), plusN);
+        return this;
+    }
+
+    public MatriceAffichage afficherVecteur() {
+        getChildren().addAll(Forme.genererCrochetGauche(matrice), genererGridpaneVecteur(), Forme.genererCrochetDroite(matrice));
         return this;
     }
 

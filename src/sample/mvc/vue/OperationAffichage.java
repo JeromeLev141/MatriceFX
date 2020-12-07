@@ -3,7 +3,6 @@ package sample.mvc.vue;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sample.mvc.controlleur.Operation;
@@ -36,7 +35,17 @@ public class OperationAffichage {
         MenuItem determinant = new MenuItem("Déterminant");
 
         MenuItem matrice = new MenuItem("Matrice");
-        matrice.setOnAction(event -> operation.getChildren().add(new MatriceAffichage(new Matrice(3, 3)).afficherMatrice()));
+        matrice.setOnAction(event -> {
+            int lettre = 0;
+            Character[] alphabet = new Character[]{'a','b','c','d','e','f','g','h','i','j','k','l',
+                    'm','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+            for (int i = 0; i < operation.getChildren().size(); i++)
+                if (operation.getChildren().get(i).getId().equals("matrice"))
+                    lettre++;
+                if (lettre > 25)
+                    lettre = 0;
+            operation.getChildren().add(new MatriceAffichage(new Matrice(3, 3),  alphabet[lettre]).afficherMatrice());
+        });
 
         MenuItem matriceTransposee = new MenuItem("Matrice transposée");
         MenuItem matriceExposee = new MenuItem("Matrice exposée");
@@ -72,14 +81,14 @@ public class OperationAffichage {
     }
 
     public static void addition(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.addition(a.getMatrice(), b.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -93,17 +102,19 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Addition de deux matrices de même format\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA + B = [ aij + bij ]mxn")));
     }
 
-    public static HBox soustraction(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+    public static void soustraction(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.soustraction(a.getMatrice(), b.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -116,17 +127,19 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceSoustraction(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Soustraction de deux matrices de même format\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA - B = [ aij - bij ]mxn")));
     }
 
-    public static HBox multiplication(InterfaceUtilisateur iu) {
+    public static void multiplication(InterfaceUtilisateur iu) {
         ScalaireAffichage k = new ScalaireAffichage();
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && k.estValide()) {
-                    iu.setCenter(new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -136,11 +149,13 @@ public class OperationAffichage {
         HBox hbox = new HBox(k, Forme.genererIndiceMultiplication(), a.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Multiplication d'une matrice par un scalaire\n" +
+                "Soit A = [ aij ]mxn et K = un nombre réel \nKA = [ Kaij ]mxn")));
     }
 
-    public static HBox puissance(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+    public static void puissance(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
         VBox indicePuissance = Forme.genererIndicePuissance();
 
         Button egale = new Button("=");
@@ -148,7 +163,7 @@ public class OperationAffichage {
             ScalaireAffichage k = (ScalaireAffichage) indicePuissance.getChildren().get(0);
             if (a.getMatrice().estValide() && k.estValide()) {
                 if (Operation.puissance(a.getMatrice(), k.getValeur()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -161,16 +176,16 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), indicePuissance, egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox transposition(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+    public static void transposition(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide())
-                iu.setCenter(new MatriceAffichage(Operation.transposition(a.getMatrice())).afficherMatriceResultat());
+                iu.setCenter(new MatriceAffichage(Operation.transposition(a.getMatrice()), 'r').afficherMatriceResultat());
             else
                 iu.setMessage("Matrice incomplète!", "erreur");
         });
@@ -178,17 +193,19 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Transposée d'une matrice\n" +
+                "Soit A = [ aij ]mxn\nAt = [ aji ]nxm")));
     }
 
-    public static HBox inversion(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+    public static void inversion(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide()) {
                 if (Operation.inverse(a.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.inverse(a.getMatrice())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.inverse(a.getMatrice()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -201,18 +218,18 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox produitMatriciel(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+    public static void produitMatriciel(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitMatriciel(a.getMatrice(), b.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -225,18 +242,20 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(),Forme.genererIndiceMultiplication(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Produit de deux matrices de formats compatibles\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]nxp\nA mxn * B nxp = C mxp = [ cij ] où cij = la somme des éléments de k = 1 à k = n de aik * bkj")));
     }
 
-    public static HBox produitVectoriel(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 1));
-        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 1));
+    public static void produitVectoriel(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 1), 'a');
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 1), 'b');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitVectoriel(a.getMatrice(), b.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -246,21 +265,21 @@ public class OperationAffichage {
                 iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatriceResultat(), Forme.genererIndiceVectoriel(), b.afficherMatriceResultat(), egale);
+        HBox hbox = new HBox(a.afficherVecteur(), Forme.genererIndiceVectoriel(), b.afficherVecteur(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox produitHadamard(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+    public static void produitHadamard(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitDHadamard(a.getMatrice(), b.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                    iu.setCenter(new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -273,17 +292,17 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceHadamard(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox produitTensoriel(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
-        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3));
+    public static void produitTensoriel(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
+        MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
-                iu.setCenter(new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice())).afficherMatriceResultat());
+                iu.setCenter(new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -293,11 +312,11 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTensoriel(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox determinant(InterfaceUtilisateur iu) {
-        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3));
+    public static void determinant(InterfaceUtilisateur iu) {
+        MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
@@ -313,6 +332,9 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatriceDeterminant(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Déterminant d'une matrice carrée\n" +
+                "Soit A = [ aij ]nxn et Aij = (-1)i+j * Mij (Mij étant le miner de l'élément aij)\n" +
+                "det A = |A| = la somme de k = 1 à k = n de aik * Aik ou akj * Akj")));
     }
 }

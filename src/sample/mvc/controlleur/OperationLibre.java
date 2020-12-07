@@ -28,13 +28,13 @@ public class OperationLibre {
                         if (b.getMatrice().estValide()) {
                             switch (operation.getChildren().get(pemda).getId()) {
                                 case "addition":
-                                    resultatMatrice = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()));
+                                    resultatMatrice = new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()), 'r');
                                     break;
                                 case "soustraction":
-                                    resultatMatrice = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()));
+                                    resultatMatrice = new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()), 'r');
                                     break;
                                 case "multiplication":
-                                    resultatMatrice = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()));
+                                    resultatMatrice = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()), 'r');
                                     break;
                             }
                         }
@@ -43,7 +43,7 @@ public class OperationLibre {
                         ScalaireAffichage k = (ScalaireAffichage) operation.getChildren().get(pemda + 1);
                         if (k.estValide()) {
                             if (operation.getChildren().get(pemda).getId().equals("multiplication"))
-                                resultatMatrice = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
+                                resultatMatrice = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()), 'r');
                         }
                     }
                 }
@@ -55,7 +55,7 @@ public class OperationLibre {
                         MatriceAffichage a = (MatriceAffichage) operation.getChildren().get(pemda + 1);
                         if (a.getMatrice().estValide())
                             if (operation.getChildren().get(pemda).getId().equals("multiplication"))
-                                resultatMatrice = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()));
+                                resultatMatrice = new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()), 'r');
                     }
                     else if (operation.getChildren().get(pemda + 1).getId().equals("scalaire")) {
                         ScalaireAffichage k2 = (ScalaireAffichage) operation.getChildren().get(pemda + 1);

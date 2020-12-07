@@ -1,5 +1,6 @@
 package sample.mvc.vue;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,13 +11,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import sample.mvc.modele.Matrice;
 
 public class Forme {
 
     public static Label genererScalaire(String nombre) {
-        if (nombre.equals("-0"))
-            nombre = "0";
         Label scalaire = new Label(nombre);
         scalaire.setTextFill(Color.GREY);
         scalaire.setScaleX(1.5);
@@ -43,6 +43,25 @@ public class Forme {
 
     public static Rectangle genererBordure(Matrice matrice) {
         return new Rectangle(4, 35 * matrice.getM(), Color.GREY);
+    }
+
+    public static StackPane genererAide(Tooltip tooltip) {
+        Circle fond = new Circle(12);
+        fond.setFill(Color.LIGHTGREY);
+        fond.setStroke(Color.GREY);
+
+        Label devant = new Label("?");
+        devant.setScaleY(2);
+        devant.setScaleX(3);
+        devant.setTextFill(Color.GREY);
+        tooltip.setShowDuration(Duration.INDEFINITE);
+        devant.setTooltip(tooltip);
+        devant.setPadding(new Insets(3,5,0,0));
+
+        StackPane aide = new StackPane(fond, devant);
+        aide.setAlignment(Pos.TOP_RIGHT);
+        aide.setPadding(new Insets(10,10,10,10));
+        return aide;
     }
 
     public static StackPane genererIndiceAddition() {
