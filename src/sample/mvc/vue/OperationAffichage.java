@@ -102,12 +102,11 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
-
-        Tooltip tooltip = new Tooltip("ceci est un test\nallo");
-        iu.setRight(Forme.genererAide(tooltip));
+        iu.setRight(Forme.genererAide(new Tooltip("Addition de deux matrices de même format\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA + B = [ aij + bij ]mxn")));
     }
 
-    public static HBox soustraction(InterfaceUtilisateur iu) {
+    public static void soustraction(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
@@ -128,10 +127,12 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceSoustraction(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Soustraction de deux matrices de même format\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA - B = [ aij - bij ]mxn")));
     }
 
-    public static HBox multiplication(InterfaceUtilisateur iu) {
+    public static void multiplication(InterfaceUtilisateur iu) {
         ScalaireAffichage k = new ScalaireAffichage();
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
@@ -148,10 +149,12 @@ public class OperationAffichage {
         HBox hbox = new HBox(k, Forme.genererIndiceMultiplication(), a.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Multiplication d'une matrice par un scalaire\n" +
+                "Soit A = [ aij ]mxn et K = un nombre réel \nKA = [ Kaij ]mxn")));
     }
 
-    public static HBox puissance(InterfaceUtilisateur iu) {
+    public static void puissance(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
         VBox indicePuissance = Forme.genererIndicePuissance();
 
@@ -173,10 +176,10 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), indicePuissance, egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox transposition(InterfaceUtilisateur iu) {
+    public static void transposition(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
         Button egale = new Button("=");
@@ -190,10 +193,12 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Transposée d'une matrice\n" +
+                "Soit A = [ aij ]mxn\nAt = [ aji ]nxm")));
     }
 
-    public static HBox inversion(InterfaceUtilisateur iu) {
+    public static void inversion(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
         Button egale = new Button("=");
@@ -213,10 +218,10 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox produitMatriciel(InterfaceUtilisateur iu) {
+    public static void produitMatriciel(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
@@ -237,10 +242,12 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(),Forme.genererIndiceMultiplication(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Produit de deux matrices de formats compatibles\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]nxp\nA mxn * B nxp = C mxp = [ cij ] où cij = la somme des éléments de k = 1 à k = n de aik * bkj")));
     }
 
-    public static HBox produitVectoriel(InterfaceUtilisateur iu) {
+    public static void produitVectoriel(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 1), 'a');
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 1), 'b');
 
@@ -261,10 +268,10 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatriceResultat(), Forme.genererIndiceVectoriel(), b.afficherMatriceResultat(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox produitHadamard(InterfaceUtilisateur iu) {
+    public static void produitHadamard(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
@@ -285,10 +292,10 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceHadamard(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox produitTensoriel(InterfaceUtilisateur iu) {
+    public static void produitTensoriel(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
         MatriceAffichage b = new MatriceAffichage(new Matrice(3, 3), 'b');
 
@@ -305,10 +312,10 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTensoriel(), b.afficherMatrice(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
-        return hbox;
+        iu.setCenter(hbox);
     }
 
-    public static HBox determinant(InterfaceUtilisateur iu) {
+    public static void determinant(InterfaceUtilisateur iu) {
         MatriceAffichage a = new MatriceAffichage(new Matrice(3, 3), 'a');
 
         Button egale = new Button("=");
@@ -325,6 +332,9 @@ public class OperationAffichage {
         HBox hbox = new HBox(a.afficherMatriceDeterminant(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
-        return hbox;
+        iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Déterminant d'une matrice carrée\n" +
+                "Soit A = [ aij ]nxn et Aij = (-1)i+j * Mij (Mij étant le miner de l'élément aij)\n" +
+                "det A = |A| = la somme de k = 1 à k = n de aik * Aik ou akj * Akj")));
     }
 }

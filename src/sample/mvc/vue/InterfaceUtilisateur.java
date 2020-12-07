@@ -28,34 +28,34 @@ public class InterfaceUtilisateur extends BorderPane{
         addition.setOnAction(event -> OperationAffichage.addition(this));
 
         MenuItem soustraction = new MenuItem("Soustraction");
-        soustraction.setOnAction(event -> setCenter(OperationAffichage.soustraction(this)));
+        soustraction.setOnAction(event -> OperationAffichage.soustraction(this));
 
         MenuItem multiplication = new MenuItem("multiplication par un scalaire");
-        multiplication.setOnAction(event -> setCenter(OperationAffichage.multiplication(this)));
+        multiplication.setOnAction(event -> OperationAffichage.multiplication(this));
 
         MenuItem puissance = new MenuItem("Puissance");
-        puissance.setOnAction(event -> setCenter(OperationAffichage.puissance(this)));
+        puissance.setOnAction(event -> OperationAffichage.puissance(this));
 
         MenuItem transposition = new MenuItem("Transposition");
-        transposition.setOnAction(event -> setCenter(OperationAffichage.transposition(this)));
+        transposition.setOnAction(event -> OperationAffichage.transposition(this));
 
         MenuItem inversion = new MenuItem("Inversion");
-        inversion.setOnAction(event -> setCenter(OperationAffichage.inversion(this)));
+        inversion.setOnAction(event -> OperationAffichage.inversion(this));
 
         MenuItem produitMatriciel = new MenuItem("Produit Matriciel");
-        produitMatriciel.setOnAction(event -> setCenter(OperationAffichage.produitMatriciel(this)));
+        produitMatriciel.setOnAction(event -> OperationAffichage.produitMatriciel(this));
 
         MenuItem produitVectoriel = new MenuItem("Produit Vectoriel");
-        produitVectoriel.setOnAction(event -> setCenter(OperationAffichage.produitVectoriel(this)));
+        produitVectoriel.setOnAction(event -> OperationAffichage.produitVectoriel(this));
 
         MenuItem produitHadamard = new MenuItem("Produit d'Hadamard");
-        produitHadamard.setOnAction(event -> setCenter(OperationAffichage.produitHadamard(this)));
+        produitHadamard.setOnAction(event -> OperationAffichage.produitHadamard(this));
 
         MenuItem produitTensoriel = new MenuItem("Produit Tensoriel");
-        produitTensoriel.setOnAction(event -> setCenter(OperationAffichage.produitTensoriel(this)));
+        produitTensoriel.setOnAction(event -> OperationAffichage.produitTensoriel(this));
 
         MenuItem determinant = new MenuItem("Calcul du déterminant");
-        determinant.setOnAction(event -> setCenter(OperationAffichage.determinant(this)));
+        determinant.setOnAction(event -> OperationAffichage.determinant(this));
 
         operations.getItems().addAll(libre, addition, soustraction, multiplication, puissance,
                 transposition, inversion, produitMatriciel, produitVectoriel,

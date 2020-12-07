@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import sample.mvc.modele.Matrice;
 
 public class Forme {
@@ -51,10 +52,11 @@ public class Forme {
 
         Label devant = new Label("?");
         devant.setScaleY(2);
-        devant.setScaleX(2);
+        devant.setScaleX(3);
         devant.setTextFill(Color.GREY);
+        tooltip.setShowDuration(Duration.INDEFINITE);
         devant.setTooltip(tooltip);
-        devant.setPadding(new Insets(3,6,0,0));
+        devant.setPadding(new Insets(3,5,0,0));
 
         StackPane aide = new StackPane(fond, devant);
         aide.setAlignment(Pos.TOP_RIGHT);
