@@ -265,7 +265,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatriceResultat(), Forme.genererIndiceVectoriel(), b.afficherMatriceResultat(), egale);
+        HBox hbox = new HBox(a.afficherVecteur(), Forme.genererIndiceVectoriel(), b.afficherVecteur(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);

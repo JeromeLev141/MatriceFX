@@ -75,6 +75,37 @@ public class MatriceAffichage extends HBox {
         return gridPane;
     }
 
+    private GridPane genererGridpaneVecteur() {
+        GridPane gridPane = genererGridpane();
+
+        for (int i = 1; i <= 3; i++) {
+            TextField textField = (TextField) gridPane.getChildren().get(i - 1);
+            int m = i;
+            if (i == 1)
+                textField.setPromptText(nom + "x");
+            else if (i == 2)
+                textField.setPromptText(nom + "y");
+            else
+                textField.setPromptText(nom + "z");
+            textField.setOnAction(event -> {
+                if (!textField.getText().equals("")) {
+                    matrice.setElement(m, 1, Double.parseDouble(textField.getText()));
+                    gridPane.getChildren().remove(textField);
+                    gridPane.add(Forme.genererScalaire(Operation.doubleAFraction(matrice.getElement(m, 1))),0, m - 1);
+                    verif++;
+
+                    if (verif == gridPane.getChildren().size()) {
+                        gridPane.setHgap(30);
+                        gridPane.setVgap(20);
+                    }
+                }
+            });
+            gridPane.getChildren().set(i - 1, textField);
+        }
+
+        return gridPane;
+    }
+
     public MatriceAffichage afficherMatrice() {
 
         Button plusM = new Button("+");
@@ -152,6 +183,11 @@ public class MatriceAffichage extends HBox {
         vBox.setSpacing(10);
 
         getChildren().addAll(moinsN, Forme.genererBordure(matrice), vBox, Forme.genererBordure(matrice), plusN);
+        return this;
+    }
+
+    public MatriceAffichage afficherVecteur() {
+        getChildren().addAll(Forme.genererCrochetGauche(matrice), genererGridpaneVecteur(), Forme.genererCrochetDroite(matrice));
         return this;
     }
 
