@@ -45,6 +45,11 @@ public class MatriceAffichage extends HBox {
                 textfield.setPromptText(nom + "" + m + "" + n);
                 textfield.setPrefColumnCount(2);
                 textfield.setOnAction(event -> {
+                    try {
+                        Double.parseDouble(textfield.getText());
+                    }catch (Exception entreInvalide) {
+                        textfield.setText("");
+                    }
                     if (!textfield.getText().equals("")) {
                         int mToken = Integer.parseInt(textfield.getPromptText().substring(1, 2));
                         int nToken = Integer.parseInt(textfield.getPromptText().substring(2, 3));
