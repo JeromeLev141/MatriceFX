@@ -13,7 +13,8 @@ public class Operation {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
                 r.getElements().set(x, a.getElements().get(x) + b.getElements().get(x));
-            return r;
+
+            return resultat0negatif(r);
         }
         else return null;
     }
@@ -23,7 +24,7 @@ public class Operation {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
                 r.getElements().set(x, a.getElements().get(x) - b.getElements().get(x));
-            return r;
+            return resultat0negatif(r);
         }
         else return null;
     }
@@ -39,7 +40,7 @@ public class Operation {
         for (int m = 1; m <= t.getM(); m++)
             for (int n = 1; n <= t.getN(); n++)
                 t.setElement(m, n, a.getElement(n, m));
-        return t;
+        return resultat0negatif(t);
     }
 
     public static Matrice produitTensoriel(Matrice a, Matrice b){
@@ -49,7 +50,10 @@ public class Operation {
                 for (int m2 = 1; m2 <= b.getM(); m2++)
                     for (int n2 = 1; n2 <= b.getN(); n2++)
                         r.setElement(m * b.getM() + m2,(n * b.getN()) + n2,a.getElement(m+1,n+1)*b.getElement(m2,n2));
-        return r;
+        return resultat0negatif(r);
+
+
+
     }
 
     public static Matrice produitMatriciel(Matrice a, Matrice b) {
@@ -64,7 +68,7 @@ public class Operation {
                     r.setElement(m, n, sommeProduits);
                 }
             }
-            return r;
+            return resultat0negatif(r);
         }
         else return null;
     }
@@ -75,7 +79,7 @@ public class Operation {
             r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
             r.setElement(2,1, -1 * (a.getElement(1,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(1,1)));
             r.setElement(3,1,a.getElement(1,1) * b.getElement(2,1) - a.getElement(2,1) * b.getElement(1,1));
-            return r;
+            return resultat0negatif(r);
         }
         else return null;
     }
@@ -87,7 +91,7 @@ public class Operation {
             for (int m = 1; m <= a.getM(); m++)
                 for (int n = 1; n <= a.getN(); n++)
                     r.setElement(m,n,a.getElement(m,n) * b.getElement(m,n));
-            return r;
+            return resultat0negatif(r);
         }
         else return null;
     }
@@ -114,7 +118,7 @@ public class Operation {
             if (det == 0)
                 return null;
             adj = Operation.transposition(adj);
-            return Operation.multiplication(adj, 1/det);
+            return resultat0negatif(Operation.multiplication(adj, 1/det));
         }
         else return null;
     }
@@ -126,13 +130,13 @@ public class Operation {
 
             Matrice r = new Matrice(1, 1);
             r.setElement(1,1,a.getElements().get(0));
-            return r;
+            return resultat0negatif(r);
         }
         else if (a.getM() == 2 && a.isEstCarre()){
 
             Matrice r = new Matrice(1, 1);
             r.setElement(1,1,((a.getElement(1, 1) * a.getElement(2,2)) - (a.getElement(1,2) * a.getElement(2,1))));
-            return r;
+            return resultat0negatif(r);
         }
 
         else if (a.isEstCarre()){
@@ -161,7 +165,7 @@ public class Operation {
 
             Matrice t = new Matrice(1, 1);
             t.setElement(1, 1, resultat);
-            return t;
+            return resultat0negatif(t);
         }
         else
             return null;
@@ -250,7 +254,7 @@ public class Operation {
 
                 r = Operation.inverse(r);
             }
-            return r;
+            return resultat0negatif(r);
         }
         else return null;
     }
@@ -276,6 +280,15 @@ public class Operation {
             a.setElement(ligne1,n,a.getElement(ligne2,n) * -1);
             a.setElement(ligne2,n,element);
         }
+        return a;
+    }
+
+    public static Matrice resultat0negatif(Matrice a){
+        a.setElements(a.getElements().stream().map((n)-> {
+            if (n == -0.0)
+                n = 0.0;
+            return n;
+        }).collect(Collectors.toList()));
         return a;
     }
 
