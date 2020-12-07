@@ -15,8 +15,6 @@ import sample.mvc.modele.Matrice;
 public class Forme {
 
     public static Label genererScalaire(String nombre) {
-        if (nombre.equals("-0"))
-            nombre = "0";
         Label scalaire = new Label(nombre);
         scalaire.setTextFill(Color.GREY);
         scalaire.setScaleX(1.5);

@@ -1,9 +1,7 @@
 package sample.mvc.vue;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -13,10 +11,12 @@ import sample.mvc.modele.Matrice;
 
 public class MatriceAffichage extends HBox {
 
+    private Character nom;
     private Matrice matrice;
     private int verif;
 
-    public MatriceAffichage(Matrice matrice) {
+    public MatriceAffichage(Matrice matrice, Character nom) {
+        this.nom = nom;
         this.matrice = matrice;
         setAlignment(Pos.CENTER);
         setSpacing(10);
@@ -42,7 +42,7 @@ public class MatriceAffichage extends HBox {
             for (int n = 1; n <= matrice.getN(); n++) {
 
                 TextField textfield = new TextField();
-                textfield.setPromptText("a" + m + "" + n);
+                textfield.setPromptText(nom + "" + m + "" + n);
                 textfield.setPrefColumnCount(2);
                 textfield.setOnAction(event -> {
                     if (!textfield.getText().equals("")) {
