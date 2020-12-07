@@ -1,5 +1,6 @@
 package sample.mvc.vue;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -41,6 +42,24 @@ public class Forme {
 
     public static Rectangle genererBordure(Matrice matrice) {
         return new Rectangle(4, 35 * matrice.getM(), Color.GREY);
+    }
+
+    public static StackPane genererAide(Tooltip tooltip) {
+        Circle fond = new Circle(12);
+        fond.setFill(Color.LIGHTGREY);
+        fond.setStroke(Color.GREY);
+
+        Label devant = new Label("?");
+        devant.setScaleY(2);
+        devant.setScaleX(2);
+        devant.setTextFill(Color.GREY);
+        devant.setTooltip(tooltip);
+        devant.setPadding(new Insets(3,6,0,0));
+
+        StackPane aide = new StackPane(fond, devant);
+        aide.setAlignment(Pos.TOP_RIGHT);
+        aide.setPadding(new Insets(10,10,10,10));
+        return aide;
     }
 
     public static StackPane genererIndiceAddition() {

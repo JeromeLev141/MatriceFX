@@ -102,6 +102,9 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+
+        Tooltip tooltip = new Tooltip("ceci est un test\nallo");
+        iu.setRight(Forme.genererAide(tooltip));
     }
 
     public static HBox soustraction(InterfaceUtilisateur iu) {
