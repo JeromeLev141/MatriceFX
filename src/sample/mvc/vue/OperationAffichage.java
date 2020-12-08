@@ -178,9 +178,9 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             ScalaireAffichage k = (ScalaireAffichage) indicePuissance.getChildren().get(0);
             if (a.getMatrice().estValide() && k.estValide()) {
-                if (Operation.puissance(a.getMatrice(), (int) k.getValeur()) != null) {
+                if (Operation.puissance(a.getMatrice(), k.getValeur()) != null) {
                     if (k.getValeur() == (int) k.getValeur()) {
-                        iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), (int) k.getValeur()), 'r').afficherMatriceResultat());
+                        iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
                         iu.setMessage("Opération effectué avec succès!", "informative");
                     }
                     else

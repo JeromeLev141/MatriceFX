@@ -1,6 +1,7 @@
 package sample.mvc.controlleur;
 
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import sample.mvc.vue.InterfaceUtilisateur;
 import sample.mvc.vue.MatriceAffichage;
 import sample.mvc.vue.ScalaireAffichage;
@@ -15,15 +16,36 @@ public class OperationLibre {
 
         if (operation.getChildren().size() >= 3) {
 
-            for (int i = 0; i < operation.getChildren().size(); i++) {
-                if (operation.getChildren().get(i).getId().equals("multiplication"))
+            //Prioritée des opérations
+            for (int i = operation.getChildren().size() - 1; i > 0; i--) {
+                if (operation.getChildren().get(i).getId().equals("multiplication") ||
+                        operation.getChildren().get(i).getId().equals("vectoriel") ||
+                        operation.getChildren().get(i).getId().equals("hadamard") ||
+                        operation.getChildren().get(i).getId().equals("tensoriel"))
+                    pemda = i;
+            }
+            for (int i = operation.getChildren().size() - 1; i > 0; i--) {
+                if (operation.getChildren().get(i).getId().equals("puissance") ||
+                        operation.getChildren().get(i).getId().equals("transpose") ||
+                        operation.getChildren().get(i).getId().equals("inverse"))
                     pemda = i;
             }
 
+            //Opération qui commence avec un matrice
             if (operation.getChildren().get(pemda - 1).getId().equals("matrice")) {
                 MatriceAffichage a = (MatriceAffichage) operation.getChildren().get(pemda - 1);
                 if (a.getMatrice().estValide()) {
-                    if (operation.getChildren().get(pemda + 1).getId().equals("matrice")) {
+                    if (operation.getChildren().get(pemda).getId().equals("puissance")) {
+                        VBox indicePuissance = (VBox) operation.getChildren().get(pemda);
+                        ScalaireAffichage k = (ScalaireAffichage) indicePuissance.getChildren().get(0);
+                        if (k.estValide())
+                            resultatMatrice = new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r');
+                    }
+                    else if (operation.getChildren().get(pemda).getId().equals("transpose"))
+                        resultatMatrice = new MatriceAffichage(Operation.transposition(a.getMatrice()), 'r');
+                    else if (operation.getChildren().get(pemda).getId().equals("inverse"))
+                        resultatMatrice = new MatriceAffichage(Operation.inverse(a.getMatrice()), 'r');
+                    else if (operation.getChildren().get(pemda + 1).getId().equals("matrice")) {
                         MatriceAffichage b = (MatriceAffichage) operation.getChildren().get(pemda + 1);
                         if (b.getMatrice().estValide()) {
                             switch (operation.getChildren().get(pemda).getId()) {
@@ -35,6 +57,15 @@ public class OperationLibre {
                                     break;
                                 case "multiplication":
                                     resultatMatrice = new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()), 'r');
+                                    break;
+                                case "vectoriel":
+                                    resultatMatrice = new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice()), 'r');
+                                    break;
+                                case "hadamard":
+                                    resultatMatrice = new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice()), 'r');
+                                    break;
+                                case "tensoriel":
+                                    resultatMatrice = new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice()), 'r');
                                     break;
                             }
                         }
@@ -48,10 +79,19 @@ public class OperationLibre {
                     }
                 }
             }
+            //Opération qui commence avec un scalaire
             else if (operation.getChildren().get(pemda - 1).getId().equals("scalaire")) {
                 ScalaireAffichage k = (ScalaireAffichage) operation.getChildren().get(pemda - 1);
                 if (k.estValide()) {
-                    if (operation.getChildren().get(pemda + 1).getId().equals("matrice")) {
+                    if (operation.getChildren().get(pemda).getId().equals("puissance")) {
+                        VBox indicePuissance = (VBox) operation.getChildren().get(pemda);
+                        ScalaireAffichage n = (ScalaireAffichage) indicePuissance.getChildren().get(0);
+                        if (n.estValide())
+                            resultatScalaire = new ScalaireAffichage(String.valueOf(Math.pow(k.getValeur(), n.getValeur())));
+                    }
+                    else if (operation.getChildren().get(pemda).getId().equals("inverse"))
+                        resultatScalaire = new ScalaireAffichage(String.valueOf(Math.pow(k.getValeur(), -1)));
+                    else if (operation.getChildren().get(pemda + 1).getId().equals("matrice")) {
                         MatriceAffichage a = (MatriceAffichage) operation.getChildren().get(pemda + 1);
                         if (a.getMatrice().estValide())
                             if (operation.getChildren().get(pemda).getId().equals("multiplication"))
@@ -75,14 +115,20 @@ public class OperationLibre {
                     }
                 }
             }
-            if (resultatMatrice.getMatrice() == null && resultatScalaire == null)
+
+            if (resultatMatrice == null && resultatScalaire == null)
                 iu.setMessage("Opération impossible!", "erreur");
-            if (resultatMatrice.getMatrice() != null || resultatScalaire != null) {
-                operation.getChildren().remove(pemda - 1, pemda + 2);
+            if (resultatMatrice != null || resultatScalaire != null) {
+                if (operation.getChildren().get(pemda).getId().equals("puissance") ||
+                        operation.getChildren().get(pemda).getId().equals("transpose") ||
+                        operation.getChildren().get(pemda).getId().equals("inverse"))
+                    operation.getChildren().remove(pemda - 1, pemda + 1);
+                else
+                    operation.getChildren().remove(pemda - 1, pemda + 2);
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
 
-            if (resultatMatrice.getMatrice() != null)
+            if (resultatMatrice != null)
                 operation.getChildren().add(pemda - 1, resultatMatrice.afficherMatrice());
             else if (resultatScalaire != null)
                 operation.getChildren().add(pemda - 1, resultatScalaire);

@@ -90,6 +90,7 @@ public class Forme {
         VBox vBox = new VBox(indicePuissance, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);
+        vBox.setId("puissance");
         return vBox;
     }
 
@@ -101,6 +102,7 @@ public class Forme {
         VBox vBox = new VBox(indiceTransposition, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);
+        vBox.setId("transpose");
         return vBox;
     }
 
@@ -112,6 +114,7 @@ public class Forme {
         VBox vBox = new VBox(indiceInverse, new Label());
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(80);
+        vBox.setId("inverse");
         return vBox;
     }
 
@@ -120,6 +123,7 @@ public class Forme {
         indiceVectoriel.setTextFill(Color.GREY);
         indiceVectoriel.setScaleY(4);
         indiceVectoriel.setScaleX(4);
+        indiceVectoriel.setId("vectoriel");
         return indiceVectoriel;
     }
 
@@ -128,6 +132,7 @@ public class Forme {
         indiceHadamard.setTextFill(Color.GREY);
         indiceHadamard.setScaleY(2);
         indiceHadamard.setScaleX(2);
+        indiceHadamard.setId("hadamard");
         return indiceHadamard;
     }
 
@@ -136,6 +141,7 @@ public class Forme {
         indiceTensoriel.setTextFill(Color.GREY);
         indiceTensoriel.setScaleY(5);
         indiceTensoriel.setScaleX(5);
+        indiceTensoriel.setId("tensoriel");
         return indiceTensoriel;
     }
 }
