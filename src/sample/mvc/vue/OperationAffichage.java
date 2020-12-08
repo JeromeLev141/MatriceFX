@@ -110,7 +110,7 @@ public class OperationAffichage {
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA + B = [ aij + bij ]mxn")));
         iu.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
-                System.out.println("oui");
+                addition(iu);
         });
     }
 

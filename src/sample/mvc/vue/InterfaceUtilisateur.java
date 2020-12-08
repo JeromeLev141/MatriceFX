@@ -81,6 +81,7 @@ public class InterfaceUtilisateur extends BorderPane{
         setBottom(informations);
         application = new Scene(this, 1000, 600);
 
+        //animation en continu
         patience = new Timeline();
         patience.setCycleCount(Animation.INDEFINITE);
         patience.getKeyFrames().add(new KeyFrame(Duration.millis(60000),
