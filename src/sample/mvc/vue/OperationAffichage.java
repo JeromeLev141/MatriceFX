@@ -209,8 +209,10 @@ public class OperationAffichage {
 
         Button egale = new Button("=");
         egale.setOnAction(event -> {
-            if (a.getMatrice().estValide())
+            if (a.getMatrice().estValide()) {
                 iu.setCenter(new MatriceAffichage(Operation.transposition(a.getMatrice()), 'r').afficherMatriceResultat());
+                iu.setMessage("Opération effectué avec succès!", "informative");
+            }
             else
                 iu.setMessage("Matrice incomplète!", "erreur");
         });
@@ -374,8 +376,10 @@ public class OperationAffichage {
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide())
-                if (Operation.determinant(a.getMatrice()) != null)
+                if (Operation.determinant(a.getMatrice()) != null) {
                     iu.setCenter(new ScalaireAffichage(String.valueOf(Operation.determinantOp(a.getMatrice()))));
+                    iu.setMessage("Opération effectué avec succès!", "informative");
+                }
                 else
                     iu.setMessage("Opération impossible!", "erreur");
             else

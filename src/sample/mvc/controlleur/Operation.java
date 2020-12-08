@@ -145,7 +145,6 @@ public class Operation {
             for (int m = 1; m <= a.getM(); m++) {
                 Matrice r = new Matrice(a.getM()-1, a.getN()-1);
                 r.getElements().clear();
-                System.out.println(r.getElements().size());
                 for (int m2 = 1; m2 <= a.getM(); m2++) {
                     for (int n = 1; n <= a.getN(); n++) {
                         if (n != 1 && m2 != m) {
@@ -297,16 +296,16 @@ public class Operation {
     }
 
     public static String doubleAFraction(double d) {
-        boolean negatif = false;
-        if (d < 0) {
-            negatif = true;
-            d = d * -1;
-        }
         String nombre = String.format("%.2f", d);
         String entier = nombre.substring(0, nombre.indexOf(','));
         String decimal = nombre.substring(nombre.indexOf(',') + 1);
 
         if (!decimal.equals("00")) {
+            boolean negatif = false;
+            if (d < 0) {
+                negatif = true;
+                d = d * -1;
+            }
             for (int x = 100; x > 0; x--) {
 
                 String numerateur = String.valueOf((double) Integer.parseInt(decimal) / x);
