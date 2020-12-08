@@ -83,9 +83,9 @@ public class InterfaceUtilisateur extends BorderPane{
 
         patience = new Timeline();
         patience.setCycleCount(Animation.INDEFINITE);
-        patience.getKeyFrames().add(new KeyFrame(Duration.millis(30000),
+        patience.getKeyFrames().add(new KeyFrame(Duration.millis(40000),
                 new KeyValue(anime.getChildren().get(0).visibleProperty(), true)));
-        patience.getKeyFrames().add(new KeyFrame(Duration.millis(35000),
+        patience.getKeyFrames().add(new KeyFrame(Duration.millis(45000),
                 new KeyValue(anime.getChildren().get(0).visibleProperty(), false)));
         patience.play();
     }
