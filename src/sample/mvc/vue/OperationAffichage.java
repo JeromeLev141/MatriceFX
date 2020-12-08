@@ -163,8 +163,12 @@ public class OperationAffichage {
             ScalaireAffichage k = (ScalaireAffichage) indicePuissance.getChildren().get(0);
             if (a.getMatrice().estValide() && k.estValide()) {
                 if (Operation.puissance(a.getMatrice(), k.getValeur()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
-                    iu.setMessage("Opération effectué avec succès!", "informative");
+                    if (k.getValeur() == (int) k.getValeur()) {
+                        iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
+                        iu.setMessage("Opération effectué avec succès!", "informative");
+                    }
+                    else
+                        iu.setMessage("Veuillez entrer un nombre entier comme exposant!", "erreur");
                 }
                 else
                     iu.setMessage("Opération impossible!", "erreur");
@@ -177,6 +181,7 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.setRight(null);
     }
 
     public static void transposition(InterfaceUtilisateur iu) {
@@ -269,6 +274,7 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
+        iu.setRight(null);
     }
 
     public static void produitHadamard(InterfaceUtilisateur iu) {
@@ -293,6 +299,7 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
+        iu.setRight(null);
     }
 
     public static void produitTensoriel(InterfaceUtilisateur iu) {
@@ -313,6 +320,7 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
+        iu.setRight(null);
     }
 
     public static void determinant(InterfaceUtilisateur iu) {

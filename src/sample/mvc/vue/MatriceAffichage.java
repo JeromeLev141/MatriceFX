@@ -35,7 +35,7 @@ public class MatriceAffichage extends HBox {
     private GridPane genererGridpane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
+        gridPane.setHgap(15);
         gridPane.setVgap(10);
 
         for (int m = 1; m <= matrice.getM(); m++) {
@@ -47,7 +47,7 @@ public class MatriceAffichage extends HBox {
                 textfield.setOnAction(event -> {
                     try {
                         Double.parseDouble(textfield.getText());
-                    }catch (Exception entreInvalide) {
+                    }catch (Exception entreeInvalide) {
                         textfield.setText("");
                     }
                     if (!textfield.getText().equals("")) {
@@ -114,9 +114,13 @@ public class MatriceAffichage extends HBox {
     public MatriceAffichage afficherMatrice() {
 
         Button plusM = new Button("+");
+        plusM.setFocusTraversable(false);
         Button moinsM = new Button("-");
+        moinsM.setFocusTraversable(false);
         Button plusN = new Button("+");
+        plusN.setFocusTraversable(false);
         Button moinsN = new Button("-");
+        moinsN.setFocusTraversable(false);
 
         plusM.setOnAction(event -> {
             matrice.setM(matrice.getM() + 1);
@@ -154,9 +158,13 @@ public class MatriceAffichage extends HBox {
     public MatriceAffichage afficherMatriceDeterminant() {
 
         Button plusM = new Button("+");
+        plusM.setFocusTraversable(false);
         Button moinsM = new Button("-");
+        moinsM.setFocusTraversable(false);
         Button plusN = new Button("+");
+        plusN.setFocusTraversable(false);
         Button moinsN = new Button("-");
+        moinsN.setFocusTraversable(false);
 
         plusM.setOnAction(event -> {
             matrice.setM(matrice.getM() + 1);
