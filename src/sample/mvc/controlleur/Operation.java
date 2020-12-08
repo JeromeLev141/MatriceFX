@@ -297,6 +297,11 @@ public class Operation {
     }
 
     public static String doubleAFraction(double d) {
+        boolean negatif = false;
+        if (d < 0) {
+            negatif = true;
+            d = d * -1;
+        }
         String nombre = String.format("%.2f", d);
         String entier = nombre.substring(0, nombre.indexOf(','));
         String decimal = nombre.substring(nombre.indexOf(',') + 1);
@@ -313,7 +318,11 @@ public class Operation {
                     int numerateurInt = Integer.parseInt(numerateur.substring(0, numerateur.indexOf('.')));
                     int denominateurInt = Integer.parseInt(denominateur.substring(0, denominateur.indexOf('.')));
 
-                    return Integer.parseInt(entier) * denominateurInt + numerateurInt + "/" + denominateurInt;
+                    String reponse = Integer.parseInt(entier) * denominateurInt + numerateurInt + "/" + denominateurInt;
+
+                    if (negatif)
+                        return "-" + reponse;
+                    return reponse;
                 }
             }
         }

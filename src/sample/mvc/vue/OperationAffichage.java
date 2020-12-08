@@ -3,6 +3,7 @@ package sample.mvc.vue;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sample.mvc.controlleur.Operation;
@@ -26,29 +27,17 @@ public class OperationAffichage {
         centre.setSpacing(20);
         iu.setCenter(centre);
 
-        Menu scalaires = new Menu("Scalaires");
-        Menu matrices = new Menu("Matrices");
+        Menu elements = new Menu("Éléments");
         Menu indices = new Menu("Indices d'opération");
 
         MenuItem nombre = new MenuItem("Nombre");
         nombre.setOnAction(event -> operation.getChildren().add(new ScalaireAffichage()));
         MenuItem determinant = new MenuItem("Déterminant");
-
+        determinant.setOnAction(event -> operation.getChildren().add(new MatriceAffichage(new Matrice(3, 3),
+                OperationLibre.genererNom(operation)).afficherMatriceDeterminant()));
         MenuItem matrice = new MenuItem("Matrice");
-        matrice.setOnAction(event -> {
-            int lettre = 0;
-            Character[] alphabet = new Character[]{'a','b','c','d','e','f','g','h','i','j','k','l',
-                    'm','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-            for (int i = 0; i < operation.getChildren().size(); i++)
-                if (operation.getChildren().get(i).getId().equals("matrice"))
-                    lettre++;
-                if (lettre > 25)
-                    lettre = 0;
-            operation.getChildren().add(new MatriceAffichage(new Matrice(3, 3),  alphabet[lettre]).afficherMatrice());
-        });
-
-        MenuItem matriceTransposee = new MenuItem("Matrice transposée");
-        MenuItem matriceExposee = new MenuItem("Matrice exposée");
+        matrice.setOnAction(event -> operation.getChildren().add(new MatriceAffichage(new Matrice(3, 3),
+                OperationLibre.genererNom(operation)).afficherMatrice()));
 
         MenuItem addition = new MenuItem("Addition");
         addition.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceAddition()));
@@ -56,12 +45,24 @@ public class OperationAffichage {
         soustraction.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceSoustraction()));
         MenuItem multiplication = new MenuItem("Multiplication");
         multiplication.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceMultiplication()));
+        MenuItem puissance = new MenuItem("Puissance");
+        puissance.setOnAction(event -> operation.getChildren().add(Forme.genererIndicePuissance()));
+        MenuItem transposition = new MenuItem("Transposition");
+        transposition.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceTransposition()));
+        MenuItem inverse = new MenuItem("Inverse");
+        inverse.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceInverse()));
+        MenuItem produitVectoriel = new MenuItem("Produit vectoriel");
+        produitVectoriel.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceVectoriel()));
+        MenuItem produitHadamard = new MenuItem("Produit d'Hadamard");
+        produitHadamard.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceHadamard()));
+        MenuItem produitTensoriel = new MenuItem("Produit tensoriel");
+        produitTensoriel.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceTensoriel()));
 
-        scalaires.getItems().addAll(nombre, determinant);
-        matrices.getItems().addAll(matrice, matriceTransposee, matriceExposee);
-        indices.getItems().addAll(addition, soustraction, multiplication);
+        elements.getItems().addAll(nombre, determinant, matrice);
+        indices.getItems().addAll(addition, soustraction, multiplication, puissance, transposition, inverse,
+                produitVectoriel, produitHadamard, produitTensoriel);
 
-        ContextMenu contextMenu = new ContextMenu(scalaires, matrices, indices);
+        ContextMenu contextMenu = new ContextMenu(elements, indices);
 
         iu.getCenter().setOnContextMenuRequested(event -> contextMenu.show(iu.getCenter(), event.getScreenX(), event.getScreenY()));
 
@@ -69,13 +70,16 @@ public class OperationAffichage {
             if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
                 if (operation.getChildren().size() != 0)
                 operation.getChildren().remove(operation.getChildren().size() - 1);
-                if (operation.getChildren().size()  < 3)
+                if (operation.getChildren().size() == 0)
                     egale.setVisible(false);
             }
+            else if (keyEvent.getCode() == KeyCode.R)
+                libre(iu);
         });
+
         
         iu.setOnMouseMoved(mouseEvent -> {
-            if (operation.getChildren().size()  >= 3)
+            if (operation.getChildren().size()  > 0)
                 egale.setVisible(true);
         });
     }
@@ -104,6 +108,10 @@ public class OperationAffichage {
         iu.setCenter(hbox);
         iu.setRight(Forme.genererAide(new Tooltip("Addition de deux matrices de même format\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA + B = [ aij + bij ]mxn")));
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                System.out.println("oui");
+        });
     }
 
     public static void soustraction(InterfaceUtilisateur iu) {
@@ -130,6 +138,10 @@ public class OperationAffichage {
         iu.setCenter(hbox);
         iu.setRight(Forme.genererAide(new Tooltip("Soustraction de deux matrices de même format\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA - B = [ aij - bij ]mxn")));
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                soustraction(iu);
+        });
     }
 
     public static void multiplication(InterfaceUtilisateur iu) {
@@ -152,6 +164,10 @@ public class OperationAffichage {
         iu.setCenter(hbox);
         iu.setRight(Forme.genererAide(new Tooltip("Multiplication d'une matrice par un scalaire\n" +
                 "Soit A = [ aij ]mxn et K = un nombre réel \nKA = [ Kaij ]mxn")));
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                multiplication(iu);
+        });
     }
 
     public static void puissance(InterfaceUtilisateur iu) {
@@ -182,6 +198,10 @@ public class OperationAffichage {
         hbox.setSpacing(10);
         iu.setCenter(hbox);
         iu.setRight(null);
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                puissance(iu);
+        });
     }
 
     public static void transposition(InterfaceUtilisateur iu) {
@@ -201,6 +221,10 @@ public class OperationAffichage {
         iu.setCenter(hbox);
         iu.setRight(Forme.genererAide(new Tooltip("Transposée d'une matrice\n" +
                 "Soit A = [ aij ]mxn\nAt = [ aji ]nxm")));
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                transposition(iu);
+        });
     }
 
     public static void inversion(InterfaceUtilisateur iu) {
@@ -224,6 +248,10 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                inversion(iu);
+        });
     }
 
     public static void produitMatriciel(InterfaceUtilisateur iu) {
@@ -249,7 +277,12 @@ public class OperationAffichage {
         hbox.setSpacing(20);
         iu.setCenter(hbox);
         iu.setRight(Forme.genererAide(new Tooltip("Produit de deux matrices de formats compatibles\n" +
-                "Soit A = [ aij ]mxn et B = [ bij ]nxp\nA mxn * B nxp = C mxp = [ cij ] où cij = la somme des éléments de k = 1 à k = n de aik * bkj")));
+                "Soit A = [ aij ]mxn et B = [ bij ]nxp\n" +
+                "A mxn * B nxp = C mxp = [ cij ] où cij = la somme des éléments de k = 1 à k = n de aik * bkj")));
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                produitMatriciel(iu);
+        });
     }
 
     public static void produitVectoriel(InterfaceUtilisateur iu) {
@@ -275,6 +308,10 @@ public class OperationAffichage {
         hbox.setSpacing(20);
         iu.setCenter(hbox);
         iu.setRight(null);
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                produitVectoriel(iu);
+        });
     }
 
     public static void produitHadamard(InterfaceUtilisateur iu) {
@@ -299,7 +336,11 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
-        iu.setRight(null);
+
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                produitHadamard(iu);
+        });
     }
 
     public static void produitTensoriel(InterfaceUtilisateur iu) {
@@ -321,6 +362,10 @@ public class OperationAffichage {
         hbox.setSpacing(20);
         iu.setCenter(hbox);
         iu.setRight(null);
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                produitTensoriel(iu);
+        });
     }
 
     public static void determinant(InterfaceUtilisateur iu) {
@@ -344,5 +389,9 @@ public class OperationAffichage {
         iu.setRight(Forme.genererAide(new Tooltip("Déterminant d'une matrice carrée\n" +
                 "Soit A = [ aij ]nxn et Aij = (-1)i+j * Mij (Mij étant le miner de l'élément aij)\n" +
                 "det A = |A| = la somme de k = 1 à k = n de aik * Aik ou akj * Akj")));
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                determinant(iu);
+        });
     }
 }

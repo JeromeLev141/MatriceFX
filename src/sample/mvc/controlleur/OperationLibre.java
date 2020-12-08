@@ -88,4 +88,16 @@ public class OperationLibre {
                 operation.getChildren().add(pemda - 1, resultatScalaire);
         }
     }
+
+    public static Character genererNom(HBox operation) {
+        int lettre = 0;
+        Character[] alphabet = new Character[]{'a','b','c','d','e','f','g','h','i','j','k','l',
+                'm','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+        for (int i = 0; i < operation.getChildren().size(); i++)
+            if (operation.getChildren().get(i).getId().equals("matrice") || operation.getChildren().get(i).getId().equals("determinant"))
+                lettre++;
+        if (lettre > 25)
+            lettre = 0;
+        return alphabet[lettre];
+    }
 }

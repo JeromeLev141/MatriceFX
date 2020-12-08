@@ -156,6 +156,7 @@ public class MatriceAffichage extends HBox {
     }
 
     public MatriceAffichage afficherMatriceDeterminant() {
+        setId("determinant");
 
         Button plusM = new Button("+");
         plusM.setFocusTraversable(false);
