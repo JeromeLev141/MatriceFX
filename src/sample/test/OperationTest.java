@@ -207,6 +207,42 @@ public class OperationTest {
     }
 
     @Test
+    public void puissance(){
+        assertEquals("24 -368 -38 75\n-98 111 150 -42\n32 46 -55 21\n-5 26 -76 286", Operation.puissance(e,3).toString());
+        //   24 -368  -38   75
+        //  -98  111  150  -42
+        //   32   46  -55   21
+        //   -5   26  -76  286
+        assertEquals("1 0 0\n0 1 0\n0 0 1", Operation.puissance(a, 0).toString());
+        // 1 0 0
+        // 0 1 0
+        // 0 0 1
+        assertEquals("468 576 684\n1 062 1 305 1 548\n1 656 2 034 2 412",Operation.puissance(a,3).toString());
+        //  468  576  684
+        // 1062 1305 1548
+        // 1656 2034 2412
+        assertEquals("37 54\n81 118",Operation.puissance(b,3).toString());
+        // 37  54
+        // 81 118
+        assertEquals("1 2 3\n4 5 6\n7 8 9",Operation.puissance(a,1).toString());
+        // 1 2 3
+        // 4 5 6
+        // 7 8 9
+    }
+
+    @Test
+    public void puissanceFormat(){
+        assertNull(Operation.puissance(c,3));
+        assertNull(Operation.puissance(vecteur1,2));
+    }
+
+    @Test
+    public void puissancedet0(){
+        assertNull(Operation.puissance(a,-2));
+        assertNull(Operation.puissance(d,-5));
+    }
+
+    @Test
     public void transposition(){
         assertEquals("3 5 1\n-1 0 0",Operation.transposition(c).toString());
         //  3  5  1
@@ -218,19 +254,27 @@ public class OperationTest {
     }
 
     @Test
-    public void produitTensoriel(){
-        assertEquals("1 2 2 4\n3 4 6 8\n3 6 4 8\n9 12 12 16",Operation.produitTensoriel(b,b).toString());
-        //  1  2  2  4
-        //  3  4  6  8
-        //  3  6  4  8
-        //  9 12 12 16
-        assertEquals("3 -1 6 -2\n5 0 10 0\n1 0 2 0\n9 -3 12 -4\n15 0 20 0\n3 0 4 0", Operation.produitTensoriel(b,c).toString());
-        //  3 -1  6 -2
-        //  5  0 10  0
-        //  1  0  2  0
-        //  9 -3 12 -4
-        // 15  0 20  0
-        //  3  0  4  0
+    public void inverse(){
+        assertEquals("-2 1\n1,5 -0,5",Operation.inverse(b).toString());
+        //-2    1
+        // 1.5 -0.5
+        assertEquals("0,38 0,69 2,12 -0,38\n-0,02 -0,07 0,08 0,14\n0,35 0,56 1,27 -0,11\n0,13 0,08 0,36 -0,15",Operation.inverse(e).toString());
+        //  0.38  0.69  2.12 -0.38
+        // -0.02 -0.07  0.08  0.14
+        //  0.35  0.56  1.27 -0.11
+        //  0.13  0.08  0.36 -0.15
+    }
+
+    @Test
+    public void inversedet0(){
+        assertNull(Operation.inverse(a));
+        assertNull(Operation.inverse(d));
+    }
+
+    @Test
+    public void inverseFormat(){
+        assertNull(Operation.inverse(c));
+        assertNull(Operation.inverse(vecteur1));
     }
 
     @Test
@@ -295,27 +339,19 @@ public class OperationTest {
     }
 
     @Test
-    public void inverse(){
-        assertEquals("-2 1\n1,5 -0,5",Operation.inverse(b).toString());
-        //-2    1
-        // 1.5 -0.5
-        assertEquals("0,38 0,69 2,12 -0,38\n-0,02 -0,07 0,08 0,14\n0,35 0,56 1,27 -0,11\n0,13 0,08 0,36 -0,15",Operation.inverse(e).toString());
-        //  0.38  0.69  2.12 -0.38
-        // -0.02 -0.07  0.08  0.14
-        //  0.35  0.56  1.27 -0.11
-        //  0.13  0.08  0.36 -0.15
-    }
-
-    @Test
-    public void inversedet0(){
-        assertNull(Operation.inverse(a));
-        assertNull(Operation.inverse(d));
-    }
-
-    @Test
-    public void inverseFormat(){
-        assertNull(Operation.inverse(c));
-        assertNull(Operation.inverse(vecteur1));
+    public void produitTensoriel(){
+        assertEquals("1 2 2 4\n3 4 6 8\n3 6 4 8\n9 12 12 16",Operation.produitTensoriel(b,b).toString());
+        //  1  2  2  4
+        //  3  4  6  8
+        //  3  6  4  8
+        //  9 12 12 16
+        assertEquals("3 -1 6 -2\n5 0 10 0\n1 0 2 0\n9 -3 12 -4\n15 0 20 0\n3 0 4 0", Operation.produitTensoriel(b,c).toString());
+        //  3 -1  6 -2
+        //  5  0 10  0
+        //  1  0  2  0
+        //  9 -3 12 -4
+        // 15  0 20  0
+        //  3  0  4  0
     }
 
     @Test
@@ -342,42 +378,6 @@ public class OperationTest {
         assertEquals(0.0, Operation.determinantOp(d));
         assertEquals(-36.0,Operation.determinantOp(f));
         assertEquals(0.0,Operation.determinantOp(g));
-    }
-
-    @Test
-    public void puissance(){
-        assertEquals("24 -368 -38 75\n-98 111 150 -42\n32 46 -55 21\n-5 26 -76 286", Operation.puissance(e,3).toString());
-        //   24 -368  -38   75
-        //  -98  111  150  -42
-        //   32   46  -55   21
-        //   -5   26  -76  286
-        assertEquals("1 0 0\n0 1 0\n0 0 1", Operation.puissance(a, 0).toString());
-        // 1 0 0
-        // 0 1 0
-        // 0 0 1
-        assertEquals("468 576 684\n1 062 1 305 1 548\n1 656 2 034 2 412",Operation.puissance(a,3).toString());
-        //  468  576  684
-        // 1062 1305 1548
-        // 1656 2034 2412
-        assertEquals("37 54\n81 118",Operation.puissance(b,3).toString());
-        // 37  54
-        // 81 118
-        assertEquals("1 2 3\n4 5 6\n7 8 9",Operation.puissance(a,1).toString());
-        // 1 2 3
-        // 4 5 6
-        // 7 8 9
-    }
-
-    @Test
-    public void puissanceFormat(){
-        assertNull(Operation.puissance(c,3));
-        assertNull(Operation.puissance(vecteur1,2));
-    }
-
-    @Test
-    public void puissancedet0(){
-        assertNull(Operation.puissance(a,-2));
-        assertNull(Operation.puissance(d,-5));
     }
 
     @Test
