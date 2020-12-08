@@ -17,7 +17,7 @@ public class Anime {
 
     public static ImageView yesAnimation() {
         ImageView yes = new ImageView("sample/mvc/vue/sonics/sonic.yes.gif");
-        yes.setFitWidth(100);
+        yes.setFitWidth(110);
         yes.setFitHeight(100);
         yes.setVisible(false);
         return yes;

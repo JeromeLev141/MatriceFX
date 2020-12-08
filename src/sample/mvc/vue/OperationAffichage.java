@@ -197,7 +197,8 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
-        iu.setRight(null);
+        iu.setRight(Forme.genererAide(new Tooltip("Puissance d'une matrice carrée\n" +
+                "Soit A = [ aij ]nxn et K = un nombre réel\nAk = A * A * ... * A (un nombre k de facteurs A)")));
         iu.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 puissance(iu);
@@ -250,6 +251,9 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.setRight(Forme.genererAide(new Tooltip("Inverse d'une matrice carrée\n" +
+                "Soit A = [ aij ]nxn et In = matrice identitée d'ordre n\n" +
+                "A *  A-1 = A-1 * A = In")));
         iu.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 inversion(iu);
@@ -309,7 +313,9 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
-        iu.setRight(null);
+        iu.setRight(Forme.genererAide(new Tooltip("Produit vectoriel de deux vecteurs\n" +
+                "Soit A = [xa ya za]t et B = [xb yb zb]t\n" +
+                "A ^ B = [ya*zb-za*yb za*xb-xa*zb xa*yb-ya*xb]t")));
         iu.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 produitVectoriel(iu);
@@ -338,7 +344,8 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
-
+        iu.setRight(Forme.genererAide(new Tooltip("Produit d'Hademard de deux matrices de même format\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA o B = [ aij * bij ]mxn")));
         iu.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 produitHadamard(iu);
@@ -363,7 +370,9 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
-        iu.setRight(null);
+        iu.setRight(Forme.genererAide(new Tooltip("Produit tensoriel de deux espaces vectoriels\n" +
+                "Soit A = [ aij ]m*n et B = [ bij ]m*n\n" +
+                "A ⊗ B = [ aij * B ](ma*mb)*(na*nb)")));
         iu.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 produitTensoriel(iu);
