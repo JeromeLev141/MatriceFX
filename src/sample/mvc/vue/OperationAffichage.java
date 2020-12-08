@@ -3,7 +3,6 @@ package sample.mvc.vue;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sample.mvc.controlleur.Operation;
@@ -76,8 +75,10 @@ public class OperationAffichage {
             else if (keyEvent.getCode() == KeyCode.R)
                 libre(iu);
         });
-
-        
+        iu.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.R)
+                libre(iu);
+        });
         iu.setOnMouseMoved(mouseEvent -> {
             if (operation.getChildren().size()  > 0)
                 egale.setVisible(true);
@@ -96,7 +97,7 @@ public class OperationAffichage {
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de même format!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -126,7 +127,7 @@ public class OperationAffichage {
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de même format!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -272,7 +273,7 @@ public class OperationAffichage {
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de formats compatibles!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -334,7 +335,7 @@ public class OperationAffichage {
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de même format!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -390,7 +391,7 @@ public class OperationAffichage {
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utilisé une matrice carrée", "erreur");
             else
                 iu.setMessage("Matrice incomplète!", "erreur");
         });
