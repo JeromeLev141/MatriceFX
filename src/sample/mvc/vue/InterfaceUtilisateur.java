@@ -1,5 +1,6 @@
 package sample.mvc.vue;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -15,6 +16,8 @@ public class InterfaceUtilisateur extends BorderPane{
 
     private Scene application;
     private HBox informations;
+    private StackPane anime;
+    private Timeline patience;
 
     public InterfaceUtilisateur() {
 
@@ -62,6 +65,11 @@ public class InterfaceUtilisateur extends BorderPane{
                 produitHadamard, produitTensoriel, determinant);
         MenuBar menuBar = new MenuBar(operations, fichier);
 
+        //animation
+        anime = Anime.animations();
+        anime.setPadding(new Insets(0, 0, 0, 20));
+        setLeft(anime);
+
         //information
         Label information = new Label("");
         informations = new HBox(information);
@@ -72,22 +80,46 @@ public class InterfaceUtilisateur extends BorderPane{
         setTop(menuBar);
         setBottom(informations);
         application = new Scene(this, 1000, 600);
+
+        //animation en continu
+        patience = new Timeline();
+        patience.setCycleCount(Animation.INDEFINITE);
+        patience.getKeyFrames().add(new KeyFrame(Duration.millis(60000),
+                new KeyValue(anime.getChildren().get(0).visibleProperty(), true)));
+        patience.getKeyFrames().add(new KeyFrame(Duration.millis(65000),
+                new KeyValue(anime.getChildren().get(0).visibleProperty(), false)));
+        patience.play();
     }
 
     public Scene getApplication() { return application; }
 
     public void setMessage(String message, String type) {
         Label information = new Label(message);
-        if (type.equals("informative"))
+        if (type.equals("informative")) {
             information.setTextFill(Color.GREEN);
-        if (type.equals("erreur"))
+            patience.playFromStart();
+            anime.getChildren().get(0).setVisible(false);
+            anime.getChildren().get(2).setVisible(false);
+            anime.getChildren().set(1, Anime.yesAnimation()); //animation avec un debut
+            anime.getChildren().get(1).setVisible(true);
+        }
+        if (type.equals("erreur")) {
             information.setTextFill(Color.RED);
+            patience.playFromStart();
+            anime.getChildren().get(0).setVisible(false);
+            anime.getChildren().get(1).setVisible(false);
+            anime.getChildren().get(2).setVisible(true);
+        }
         informations.getChildren().set(0, information);
 
         Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(5000),
                 new KeyValue(informations.getChildren().get(0).visibleProperty(), false)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(5000),
+                new KeyValue(anime.getChildren().get(1).visibleProperty(), false)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(5000),
+                new KeyValue(anime.getChildren().get(2).visibleProperty(), false)));
         timeline.play();
     }
 }

@@ -1,5 +1,6 @@
 package sample.mvc.vue;
 
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -17,10 +18,17 @@ public class ScalaireAffichage extends HBox {
         scalaire.setPromptText("K");
         scalaire.setPrefColumnCount(2);
         scalaire.setOnAction(event -> {
-            getChildren().remove(scalaire);
-            valeur = Double.parseDouble(scalaire.getText());
-            getChildren().add(Forme.genererScalaire(Operation.doubleAFraction(this.valeur)));
-            valide = true;
+            try {
+                Double.parseDouble(scalaire.getText());
+            }catch (Exception entreeInvalide) {
+                scalaire.setText("");
+            }
+            if (!scalaire.getText().equals("")) {
+                getChildren().remove(scalaire);
+                valeur = Double.parseDouble(scalaire.getText());
+                getChildren().add(Forme.genererScalaire(Operation.doubleAFraction(this.valeur)));
+                valide = true;
+            }
         });
         getChildren().add(scalaire);
         setId("scalaire");

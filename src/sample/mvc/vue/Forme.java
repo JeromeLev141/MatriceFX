@@ -60,7 +60,7 @@ public class Forme {
 
         StackPane aide = new StackPane(fond, devant);
         aide.setAlignment(Pos.TOP_RIGHT);
-        aide.setPadding(new Insets(10,10,10,10));
+        aide.setPadding(new Insets(10,10,10,90));
         return aide;
     }
 
