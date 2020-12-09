@@ -10,16 +10,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class InterfaceUtilisateur extends BorderPane{
 
+    private Stage stage;
     private Scene application;
     private HBox informations;
     private StackPane anime;
     private Timeline patience;
 
-    public InterfaceUtilisateur() {
+    public InterfaceUtilisateur(Stage stage) {
+        this.stage = stage;
 
         Menu operations = new Menu("Opérations");
         Menu fichier = new Menu("Fichier");
@@ -96,6 +99,8 @@ public class InterfaceUtilisateur extends BorderPane{
                 new KeyValue(anime.getChildren().get(0).visibleProperty(), false)));
         patience.play();
     }
+
+    public Stage getStage() { return stage; }
 
     public Scene getApplication() { return application; }
 

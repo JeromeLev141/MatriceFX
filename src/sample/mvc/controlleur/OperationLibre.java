@@ -5,10 +5,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import sample.mvc.vue.Forme;
-import sample.mvc.vue.InterfaceUtilisateur;
-import sample.mvc.vue.MatriceAffichage;
-import sample.mvc.vue.ScalaireAffichage;
+import sample.mvc.vue.*;
 
 public class OperationLibre {
 
@@ -140,6 +137,7 @@ public class OperationLibre {
             if (resultatMatrice == null && resultatScalaire == null) {
                 iu.setMessage("Opération impossible!", "erreur");
                 iu.setCenter(demarche);
+                OperationAffichage.genererImprimer(iu);
                 iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
             }
             else {
@@ -170,6 +168,7 @@ public class OperationLibre {
 
                 if (operation.getChildren().size() == 1) {
                     iu.setCenter(demarche);
+                    OperationAffichage.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 }
                 else {
