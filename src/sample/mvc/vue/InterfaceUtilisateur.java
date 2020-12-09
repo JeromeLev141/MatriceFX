@@ -68,7 +68,10 @@ public class InterfaceUtilisateur extends BorderPane{
         //animation
         anime = Anime.animations();
         anime.setPadding(new Insets(0, 0, 0, 20));
-        setLeft(anime);
+
+        //aide invisible pour le centrage
+        StackPane aide = Forme.genererAide(new Tooltip(null));
+        aide.setVisible(false);
 
         //information
         Label information = new Label("");
@@ -78,10 +81,13 @@ public class InterfaceUtilisateur extends BorderPane{
 
         //finalisation
         setTop(menuBar);
+        setCenter(Anime.intro());
+        setLeft(anime);
+        setRight(aide);
         setBottom(informations);
         application = new Scene(this, 1000, 600);
 
-        //animation en continu
+        //animation en continue
         patience = new Timeline();
         patience.setCycleCount(Animation.INDEFINITE);
         patience.getKeyFrames().add(new KeyFrame(Duration.millis(60000),

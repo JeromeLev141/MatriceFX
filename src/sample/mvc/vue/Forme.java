@@ -18,7 +18,7 @@ public class Forme {
 
     public static Label genererScalaire(String nombre) {
         Label scalaire = new Label(nombre);
-        scalaire.setTextFill(Color.GREY);
+        scalaire.setTextFill(Color.rgb(37, 37, 86));
         scalaire.setScaleX(1.5);
         scalaire.setScaleY(1.5);
         scalaire.setMaxWidth(30);
@@ -28,8 +28,8 @@ public class Forme {
     }
 
     public static VBox genererCrochetGauche(Matrice matrice) {
-        Rectangle dessus = new Rectangle(10, 4, Color.GREY);
-        Rectangle dessous = new Rectangle(10, 4, Color.GREY);
+        Rectangle dessus = new Rectangle(10, 4, Color.rgb(37, 37, 86));
+        Rectangle dessous = new Rectangle(10, 4, Color.rgb(37, 37, 86));
         VBox vBox = new VBox(dessus, genererBordure(matrice), dessous);
         vBox.setAlignment(Pos.CENTER_LEFT);
         return vBox;
@@ -42,18 +42,18 @@ public class Forme {
     }
 
     public static Rectangle genererBordure(Matrice matrice) {
-        return new Rectangle(4, 35 * matrice.getM(), Color.GREY);
+        return new Rectangle(4, 35 * matrice.getM(), Color.rgb(37, 37, 86));
     }
 
     public static StackPane genererAide(Tooltip tooltip) {
         Circle fond = new Circle(12);
         fond.setFill(Color.LIGHTGREY);
-        fond.setStroke(Color.GREY);
+        fond.setStroke(Color.rgb(37, 37, 86));
 
         Label devant = new Label("?");
         devant.setScaleY(2);
         devant.setScaleX(3);
-        devant.setTextFill(Color.GREY);
+        devant.setTextFill(Color.rgb(37, 37, 86));
         tooltip.setShowDuration(Duration.INDEFINITE);
         devant.setTooltip(tooltip);
         devant.setPadding(new Insets(3,5,0,0));
@@ -65,8 +65,8 @@ public class Forme {
     }
 
     public static VBox genererIndiceEgalite() {
-        Rectangle a = new Rectangle(20, 5, Color.GREY);
-        Rectangle b = new Rectangle(20, 5, Color.GREY);
+        Rectangle a = new Rectangle(20, 5, Color.rgb(37, 37, 86));
+        Rectangle b = new Rectangle(20, 5, Color.rgb(37, 37, 86));
         VBox vBox = new VBox(a, b);
         vBox.setSpacing(1);
         vBox.setAlignment(Pos.CENTER);
@@ -74,22 +74,22 @@ public class Forme {
     }
 
     public static StackPane genererIndiceAddition() {
-        Rectangle x = new Rectangle(20, 5, Color.GREY);
-        Rectangle y = new Rectangle(5, 20, Color.GREY);
+        Rectangle x = new Rectangle(20, 5, Color.rgb(37, 37, 86));
+        Rectangle y = new Rectangle(5, 20, Color.rgb(37, 37, 86));
         StackPane indiceAddition = new StackPane(x, y);
         indiceAddition.setId("addition");
         return indiceAddition;
     }
 
     public static Rectangle genererIndiceSoustraction() {
-        Rectangle indiceSoustraction = new Rectangle(20, 5, Color.GREY);
+        Rectangle indiceSoustraction = new Rectangle(20, 5, Color.rgb(37, 37, 86));
         indiceSoustraction.setId("soustraction");
         return indiceSoustraction;
     }
 
     public static Circle genererIndiceMultiplication() {
         Circle indiceMultiplication = new Circle(5);
-        indiceMultiplication.setFill(Color.GREY);
+        indiceMultiplication.setFill(Color.rgb(37, 37, 86));
         indiceMultiplication.setId("multiplication");
         return indiceMultiplication;
     }
@@ -105,7 +105,7 @@ public class Forme {
 
     public static VBox genererIndiceTransposition() {
         Label indiceTransposition = new Label("t");
-        indiceTransposition.setTextFill(Color.GREY);
+        indiceTransposition.setTextFill(Color.rgb(37, 37, 86));
         indiceTransposition.setScaleY(3);
         indiceTransposition.setScaleX(3);
         VBox vBox = new VBox(indiceTransposition, new Label());
@@ -117,7 +117,7 @@ public class Forme {
 
     public static VBox genererIndiceInverse() {
         Label indiceInverse = new Label(" -1");
-        indiceInverse.setTextFill(Color.GREY);
+        indiceInverse.setTextFill(Color.rgb(37, 37, 86));
         indiceInverse.setScaleY(2);
         indiceInverse.setScaleX(2);
         VBox vBox = new VBox(indiceInverse, new Label());
@@ -129,7 +129,7 @@ public class Forme {
 
     public static Label genererIndiceVectoriel() {
         Label indiceVectoriel = new Label("^");
-        indiceVectoriel.setTextFill(Color.GREY);
+        indiceVectoriel.setTextFill(Color.rgb(37, 37, 86));
         indiceVectoriel.setScaleY(4);
         indiceVectoriel.setScaleX(4);
         indiceVectoriel.setId("vectoriel");
@@ -138,7 +138,7 @@ public class Forme {
 
     public static Label genererIndiceHadamard() {
         Label indiceHadamard = new Label("o");
-        indiceHadamard.setTextFill(Color.GREY);
+        indiceHadamard.setTextFill(Color.rgb(37, 37, 86));
         indiceHadamard.setScaleY(2);
         indiceHadamard.setScaleX(2);
         indiceHadamard.setId("hadamard");
@@ -147,7 +147,7 @@ public class Forme {
 
     public static Label genererIndiceTensoriel() {
         Label indiceTensoriel = new Label("⊗");
-        indiceTensoriel.setTextFill(Color.GREY);
+        indiceTensoriel.setTextFill(Color.rgb(37, 37, 86));
         indiceTensoriel.setScaleY(5);
         indiceTensoriel.setScaleX(5);
         indiceTensoriel.setId("tensoriel");
