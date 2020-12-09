@@ -14,8 +14,8 @@ import javafx.util.Duration;
 public class Anime {
 
     public static StackPane intro(InterfaceUtilisateur iu) {
-        ImageView logo = new ImageView("sample/mvc/vue/sonics/MatriceFX_Logo.png");
-        ImageView glint = new ImageView("sample/mvc/vue/sonics/glint.png");
+        ImageView logo = new ImageView("sample/mvc/vue/visuels/MatriceFX_Logo.png");
+        ImageView glint = new ImageView("sample/mvc/vue/visuels/glint.png");
 
         BoxBlur boxBlur = new BoxBlur();
         boxBlur.setHeight(10);
@@ -44,7 +44,7 @@ public class Anime {
     public static StackPane animations() { return new StackPane(waitAnimation(), yesAnimation(), noAnimation()); }
 
     private static ImageView waitAnimation() {
-        ImageView wait =  new ImageView("sample/mvc/vue/sonics/sonic.wait.gif");
+        ImageView wait =  new ImageView("sample/mvc/vue/visuels/sonic.wait.gif");
         wait.setFitWidth(80);
         wait.setFitHeight(100);
         wait.setEffect(new DropShadow(10, 0, 5, Color.GREY));
@@ -53,7 +53,7 @@ public class Anime {
     }
 
     public static ImageView yesAnimation() {
-        ImageView yes = new ImageView("sample/mvc/vue/sonics/sonic.yes.gif");
+        ImageView yes = new ImageView("sample/mvc/vue/visuels/sonic.yes.gif");
         yes.setFitWidth(110);
         yes.setFitHeight(100);
         yes.setEffect(new DropShadow(10, 0, 5, Color.GREY));
@@ -62,7 +62,7 @@ public class Anime {
     }
 
     private static ImageView noAnimation() {
-        ImageView no = new ImageView("sample/mvc/vue/sonics/sonic.no.gif");
+        ImageView no = new ImageView("sample/mvc/vue/visuels/sonic.no.gif");
         no.setFitWidth(80);
         no.setFitHeight(100);
         no.setEffect(new DropShadow(10, 0, 5, Color.GREY));
