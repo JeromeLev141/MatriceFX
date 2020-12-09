@@ -209,4 +209,10 @@ public class MatriceAffichage extends HBox {
         getChildren().addAll(Forme.genererCrochetGauche(matrice), genererGridpane(), Forme.genererCrochetDroite(matrice));
         return this;
     }
+
+    public MatriceAffichage afficherDeterminantResultat() {
+        setId("determinant");
+        getChildren().addAll(Forme.genererBordure(matrice), genererGridpane(), Forme.genererBordure(matrice));
+        return this;
+    }
 }

@@ -64,6 +64,15 @@ public class Forme {
         return aide;
     }
 
+    public static VBox genererIndiceEgalite() {
+        Rectangle a = new Rectangle(20, 5, Color.GREY);
+        Rectangle b = new Rectangle(20, 5, Color.GREY);
+        VBox vBox = new VBox(a, b);
+        vBox.setSpacing(1);
+        vBox.setAlignment(Pos.CENTER);
+        return vBox;
+    }
+
     public static StackPane genererIndiceAddition() {
         Rectangle x = new Rectangle(20, 5, Color.GREY);
         Rectangle y = new Rectangle(5, 20, Color.GREY);

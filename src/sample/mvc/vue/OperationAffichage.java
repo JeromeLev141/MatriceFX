@@ -1,5 +1,6 @@
 package sample.mvc.vue;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -15,11 +16,16 @@ public class OperationAffichage {
 
         HBox operation = new HBox();
         operation.setAlignment(Pos.CENTER);
-        operation.setSpacing(10);
+        operation.setSpacing(20);
 
         Button egale = new Button("=");
         egale.setVisible(false);
-        egale.setOnAction(event -> OperationLibre.calculer(operation, iu));
+        egale.setOnAction(event -> {
+            VBox demarche = new VBox();
+            demarche.setAlignment(Pos.CENTER);
+            demarche.setSpacing(20);
+            OperationLibre.calculer(operation, demarche, iu, true);
+        });
 
         HBox centre = new HBox(operation, egale);
         centre.setAlignment(Pos.CENTER);
@@ -64,7 +70,10 @@ public class OperationAffichage {
         ContextMenu contextMenu = new ContextMenu(elements, indices);
 
         iu.getCenter().setOnContextMenuRequested(event -> contextMenu.show(iu.getCenter(), event.getScreenX(), event.getScreenY()));
-
+        iu.setRight(Forme.genererAide(new Tooltip("Bienvenu sur le terrain libre!\n" +
+                "Ici vous pouvez assembler des opérations mixtes!\n" +
+                "- Veuillez utiliser le clic de droit pour accéder au menu des éléments\n" +
+                "- Veuillez utiliser 'Backspace' afin d'effacer un élément")));
         iu.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
                 if (operation.getChildren().size() != 0)
