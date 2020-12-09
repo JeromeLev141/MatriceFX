@@ -81,7 +81,7 @@ public class InterfaceUtilisateur extends BorderPane{
 
         //finalisation
         setTop(menuBar);
-        setCenter(Anime.intro());
+        setCenter(Anime.intro(this));
         setLeft(anime);
         setRight(aide);
         setBottom(informations);

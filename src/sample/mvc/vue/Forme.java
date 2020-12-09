@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -49,6 +51,8 @@ public class Forme {
         Circle fond = new Circle(12);
         fond.setFill(Color.LIGHTGREY);
         fond.setStroke(Color.rgb(37, 37, 86));
+        fond.setStrokeWidth(2);
+        fond.setEffect(new BoxBlur(2,2,1));
 
         Label devant = new Label("?");
         devant.setScaleY(2);

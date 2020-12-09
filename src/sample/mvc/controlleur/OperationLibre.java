@@ -1,8 +1,10 @@
 package sample.mvc.controlleur;
 
 import javafx.geometry.Pos;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import sample.mvc.vue.Forme;
 import sample.mvc.vue.InterfaceUtilisateur;
 import sample.mvc.vue.MatriceAffichage;
@@ -138,6 +140,7 @@ public class OperationLibre {
             if (resultatMatrice == null && resultatScalaire == null) {
                 iu.setMessage("Opération impossible!", "erreur");
                 iu.setCenter(demarche);
+                iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
             }
             else {
                 if (determinant)
@@ -165,8 +168,10 @@ public class OperationLibre {
 
                 demarche.getChildren().add(token);
 
-                if (operation.getChildren().size() == 1)
+                if (operation.getChildren().size() == 1) {
                     iu.setCenter(demarche);
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
+                }
                 else {
                     calculer(operation, demarche, iu, false);
                 }
