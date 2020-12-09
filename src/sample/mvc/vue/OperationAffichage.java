@@ -2,10 +2,11 @@ package sample.mvc.vue;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.controlleur.OperationLibre;
 import sample.mvc.modele.Matrice;
@@ -16,16 +17,22 @@ public class OperationAffichage {
 
         HBox operation = new HBox();
         operation.setAlignment(Pos.CENTER);
-        operation.setSpacing(10);
+        operation.setSpacing(20);
 
         Button egale = new Button("=");
         egale.setVisible(false);
-        egale.setOnAction(event -> OperationLibre.calculer(operation, iu));
+        egale.setOnAction(event -> {
+            VBox demarche = new VBox();
+            demarche.setAlignment(Pos.CENTER);
+            demarche.setSpacing(20);
+            OperationLibre.calculer(operation, demarche, iu, true);
+        });
 
         HBox centre = new HBox(operation, egale);
         centre.setAlignment(Pos.CENTER);
         centre.setSpacing(20);
         iu.setCenter(centre);
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
 
         Menu elements = new Menu("Éléments");
         Menu indices = new Menu("Indices d'opération");
@@ -65,19 +72,21 @@ public class OperationAffichage {
         ContextMenu contextMenu = new ContextMenu(elements, indices);
 
         iu.getCenter().setOnContextMenuRequested(event -> contextMenu.show(iu.getCenter(), event.getScreenX(), event.getScreenY()));
-
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.setRight(Forme.genererAide(new Tooltip("Bienvenu sur le terrain libre!\n" +
+                "Ici vous pouvez assembler des opérations mixtes!\n" +
+                "- Veuillez utiliser le clic de droit pour accéder au menu des éléments\n" +
+                "- Veuillez utiliser 'Backspace' afin d'effacer un élément")));
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
-                if (operation.getChildren().size() != 0)
-                operation.getChildren().remove(operation.getChildren().size() - 1);
+                if (operation.getChildren().size() != 0) {
+                    operation.getChildren().remove(operation.getChildren().size() - 1);
+                }
                 if (operation.getChildren().size() == 0)
                     egale.setVisible(false);
             }
             else if (keyEvent.getCode() == KeyCode.R)
                 libre(iu);
         });
-
-        
         iu.setOnMouseMoved(mouseEvent -> {
             if (operation.getChildren().size()  > 0)
                 egale.setVisible(true);
@@ -93,10 +102,11 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.addition(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de même format!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -106,9 +116,10 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
         iu.setRight(Forme.genererAide(new Tooltip("Addition de deux matrices de même format\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA + B = [ aij + bij ]mxn")));
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 addition(iu);
         });
@@ -123,10 +134,11 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.soustraction(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de même format!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -136,9 +148,10 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
         iu.setRight(Forme.genererAide(new Tooltip("Soustraction de deux matrices de même format\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA - B = [ aij - bij ]mxn")));
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 soustraction(iu);
         });
@@ -152,6 +165,7 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && k.estValide()) {
                     iu.setCenter(new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -162,9 +176,10 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         iu.setCenter(hbox);
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
         iu.setRight(Forme.genererAide(new Tooltip("Multiplication d'une matrice par un scalaire\n" +
                 "Soit A = [ aij ]mxn et K = un nombre réel \nKA = [ Kaij ]mxn")));
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 multiplication(iu);
         });
@@ -178,9 +193,10 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             ScalaireAffichage k = (ScalaireAffichage) indicePuissance.getChildren().get(0);
             if (a.getMatrice().estValide() && k.estValide()) {
-                if (Operation.puissance(a.getMatrice(), (int) k.getValeur()) != null) {
+                if (Operation.puissance(a.getMatrice(), k.getValeur()) != null) {
                     if (k.getValeur() == (int) k.getValeur()) {
-                        iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), (int) k.getValeur()), 'r').afficherMatriceResultat());
+                        iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
+                        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                         iu.setMessage("Opération effectué avec succès!", "informative");
                     }
                     else
@@ -197,8 +213,10 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
-        iu.setRight(null);
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
+        iu.setRight(Forme.genererAide(new Tooltip("Puissance d'une matrice carrée\n" +
+                "Soit A = [ aij ]nxn et K = un nombre réel\nAk = A * A * ... * A (un nombre k de facteurs A)")));
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 puissance(iu);
         });
@@ -211,6 +229,7 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide()) {
                 iu.setCenter(new MatriceAffichage(Operation.transposition(a.getMatrice()), 'r').afficherMatriceResultat());
+                iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -221,9 +240,10 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
         iu.setRight(Forme.genererAide(new Tooltip("Transposée d'une matrice\n" +
                 "Soit A = [ aij ]mxn\nAt = [ aji ]nxm")));
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 transposition(iu);
         });
@@ -237,6 +257,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide()) {
                 if (Operation.inverse(a.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.inverse(a.getMatrice()), 'r').afficherMatriceResultat());
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -250,7 +271,11 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
+        iu.setRight(Forme.genererAide(new Tooltip("Inverse d'une matrice carrée\n" +
+                "Soit A = [ aij ]nxn et In = matrice identitée d'ordre n\n" +
+                "A *  A-1 = A-1 * A = In")));
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 inversion(iu);
         });
@@ -265,10 +290,11 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitMatriciel(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de formats compatibles!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -278,10 +304,11 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
         iu.setRight(Forme.genererAide(new Tooltip("Produit de deux matrices de formats compatibles\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]nxp\n" +
                 "A mxn * B nxp = C mxp = [ cij ] où cij = la somme des éléments de k = 1 à k = n de aik * bkj")));
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 produitMatriciel(iu);
         });
@@ -296,6 +323,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitVectoriel(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -309,8 +337,11 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
-        iu.setRight(null);
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
+        iu.setRight(Forme.genererAide(new Tooltip("Produit vectoriel de deux vecteurs\n" +
+                "Soit A = [xa ya za]t et B = [xb yb zb]t\n" +
+                "A ^ B = [ya*zb-za*yb za*xb-xa*zb xa*yb-ya*xb]t")));
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 produitVectoriel(iu);
         });
@@ -325,10 +356,11 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitDHadamard(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utiliser des matrices de même format!", "erreur");
             }
             else
                 iu.setMessage("Matrices incomplètes!", "erreur");
@@ -338,8 +370,10 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
-
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
+        iu.setRight(Forme.genererAide(new Tooltip("Produit d'Hademard de deux matrices de même format\n" +
+                "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA o B = [ aij * bij ]mxn")));
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 produitHadamard(iu);
         });
@@ -353,6 +387,7 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 iu.setCenter(new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -363,8 +398,11 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
-        iu.setRight(null);
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
+        iu.setRight(Forme.genererAide(new Tooltip("Produit tensoriel de deux espaces vectoriels\n" +
+                "Soit A = [ aij ]m*n et B = [ bij ]m*n\n" +
+                "A ⊗ B = [ aij * B ](ma*mb)*(na*nb)")));
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 produitTensoriel(iu);
         });
@@ -378,10 +416,11 @@ public class OperationAffichage {
             if (a.getMatrice().estValide())
                 if (Operation.determinant(a.getMatrice()) != null) {
                     iu.setCenter(new ScalaireAffichage(String.valueOf(Operation.determinantOp(a.getMatrice()))));
+                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
-                    iu.setMessage("Opération impossible!", "erreur");
+                    iu.setMessage("Veuillez utilisé une matrice carrée", "erreur");
             else
                 iu.setMessage("Matrice incomplète!", "erreur");
         });
@@ -390,10 +429,11 @@ public class OperationAffichage {
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
+        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
         iu.setRight(Forme.genererAide(new Tooltip("Déterminant d'une matrice carrée\n" +
                 "Soit A = [ aij ]nxn et Aij = (-1)i+j * Mij (Mij étant le miner de l'élément aij)\n" +
                 "det A = |A| = la somme de k = 1 à k = n de aik * Aik ou akj * Akj")));
-        iu.setOnKeyPressed(keyEvent -> {
+        iu.getScene().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.R)
                 determinant(iu);
         });
