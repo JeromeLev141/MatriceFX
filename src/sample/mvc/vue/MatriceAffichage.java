@@ -6,14 +6,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
+
+import java.io.File;
 
 public class MatriceAffichage extends HBox {
 
     private Character nom;
     private Matrice matrice;
     private int verif;
+    private MediaView bruit;
 
     public MatriceAffichage(Matrice matrice, Character nom) {
         this.nom = nom;
@@ -22,6 +28,7 @@ public class MatriceAffichage extends HBox {
         setSpacing(10);
         setId("matrice");
         verif = 0;
+        bruit = new MediaView();
     }
 
     public Matrice getMatrice() {
@@ -126,24 +133,32 @@ public class MatriceAffichage extends HBox {
             matrice.setM(matrice.getM() + 1);
             getChildren().clear();
             afficherMatrice();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
         });
         moinsM.setOnAction(event -> {
             if (matrice.getM() > 1) {
                 matrice.setM(matrice.getM() - 1);
                 getChildren().clear();
                 afficherMatrice();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
             getChildren().clear();
             afficherMatrice();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
         });
         moinsN.setOnAction(event -> {
             if (matrice.getN() > 1) {
                 matrice.setN(matrice.getN() - 1);
                 getChildren().clear();
                 afficherMatrice();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
 
@@ -171,24 +186,32 @@ public class MatriceAffichage extends HBox {
             matrice.setM(matrice.getM() + 1);
             getChildren().clear();
             afficherMatriceDeterminant();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
         });
         moinsM.setOnAction(event -> {
             if (matrice.getM() > 1) {
                 matrice.setM(matrice.getM() - 1);
                 getChildren().clear();
                 afficherMatriceDeterminant();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
             getChildren().clear();
             afficherMatriceDeterminant();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
         });
         moinsN.setOnAction(event -> {
             if (matrice.getN() > 1) {
                 matrice.setN(matrice.getN() - 1);
                 getChildren().clear();
                 afficherMatriceDeterminant();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
 
