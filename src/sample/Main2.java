@@ -4,6 +4,7 @@ import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Main2 {
 
         //System.out.println(df.format(1244550.0512));
 
-        LecteurDeFichier test = new LecteurDeFichier();
+        LecteurDeFichier test = new LecteurDeFichier(new File("test2.csv"));
         Matrice a = LecteurDeFichier.stringtoMatrice(test.getliste().get(0));
         List<String> liste = LecteurDeFichier.stringToOperation(test.getliste().get(1));
         System.out.println(a);

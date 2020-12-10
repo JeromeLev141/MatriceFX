@@ -17,8 +17,8 @@ public class LecteurDeFichier {
     private List<String> liste;
 
 
-    public LecteurDeFichier(/*Stage primaryStage*/) throws IOException {
-        file = new File("test2.csv");
+    public LecteurDeFichier(File file) throws IOException {
+        this.file = file;
         liste = Files.readAllLines(file.toPath());
     }
 
