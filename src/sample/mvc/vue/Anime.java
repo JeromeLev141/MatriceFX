@@ -55,7 +55,7 @@ public class Anime {
                 "Veuillez utiliser la touche R pour réinitialiser une opération au besoin\n" +
                 "Glissez votre curseur vers le '?' en cas de questionnement\n" +
                 "Enjoy:)\n\n\n" +
-                "@JLJG");
+                "@JL JG");
         info.setStyle("-fx-font-family: 'Bauhaus 93';");
         info.setTextFill(Color.rgb(37, 37, 86));
         info.setScaleX(2);
