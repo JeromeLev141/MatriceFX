@@ -1,22 +1,23 @@
 package sample;
 
-import sample.mvc.controlleur.GenererMatrice;
+import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
-import java.text.DecimalFormat;
+import java.io.IOException;
+import java.util.List;
 
 public class Main2 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         /*Matrice test = new Matrice(2,2);
         System.out.println(test.toString());
         System.out.println(test.estValide());*/
-        Matrice a = GenererMatrice.genererMatrice(3,3);
+        /*Matrice a = GenererMatrice.genererMatrice(3,3);
         System.out.println(a.getElements().toString());
         System.out.println(a.toString());
-        System.out.println(Operation.determinantOp(a));
+        System.out.println(Operation.determinantOp(a));*/
         /*System.out.println(a.estValide());
         System.out.println(Operation.listeFraction(a).toString());
         System.out.println(Operation.transposition(a).toString());
@@ -44,6 +45,12 @@ public class Main2 {
         //DecimalFormat df = new DecimalFormat("#,##0.##");
 
         //System.out.println(df.format(1244550.0512));
+
+        LecteurDeFichier test = new LecteurDeFichier();
+        Matrice a = LecteurDeFichier.stringtoMatrice(test.getliste().get(0));
+        List<String> liste = LecteurDeFichier.stringToOperation(test.getliste().get(1));
+        System.out.println(a);
+        liste.forEach(System.out::println);
 
     }
 }

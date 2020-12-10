@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 public class Operation {
 
     public static Matrice addition(Matrice a, Matrice b) {
+        if (a == null || b == null)
+            return null;
         if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
@@ -21,6 +23,8 @@ public class Operation {
     }
 
     public static Matrice soustraction(Matrice a, Matrice b) {
+        if (a == null || b == null)
+            return null;
         if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++)
@@ -31,12 +35,16 @@ public class Operation {
     }
 
     public static Matrice multiplication(Matrice a, double k) {
+        if (a == null)
+            return null;
         Matrice r = new Matrice(a.getM(), a.getN());
         r.setElements(a.getElements().stream().map((nombre) -> nombre * k).collect(Collectors.toList()));
         return r;
     }
 
     public static Matrice puissance(Matrice a , double pow){
+        if (a == null)
+            return null;
         boolean negatif = false;
         if (pow < 0) {
             negatif = true;
@@ -78,6 +86,8 @@ public class Operation {
     }
 
     public static Matrice transposition(Matrice a) {
+        if (a == null)
+            return null;
         Matrice t = new Matrice(a.getN(), a.getM());
         for (int m = 1; m <= t.getM(); m++)
             for (int n = 1; n <= t.getN(); n++)
@@ -86,23 +96,21 @@ public class Operation {
     }
 
     public static Matrice inverse(Matrice a){
+        if (a == null)
+            return null;
         Matrice adj = new Matrice(a.getM(),a.getN());
         Matrice r = new Matrice(a.getM()-1, a.getN()-1);
         r.getElements().clear();
         if (a.isEstCarre()){
-            for (int m1 = 1; m1 <= a.getM(); m1++){
+            for (int m1 = 1; m1 <= a.getM(); m1++)
                 for (int n1 = 1; n1 <= a.getN(); n1++){
-
-                    for(int m2 = 1; m2 <= a.getM(); m2++){
-                        for (int n2 = 1; n2 <= a.getN(); n2++){
+                    for(int m2 = 1; m2 <= a.getM(); m2++)
+                        for (int n2 = 1; n2 <= a.getN(); n2++)
                             if (m2 != m1 && n2 != n1)
                                 r.getElements().add(a.getElement(m2, n2));
-                        }
-                    }
                     adj.setElement(m1,n1,Operation.determinantOp(r) * Math.pow(-1,m1+n1));
                     r.getElements().clear();
                 }
-            }
             double det = Operation.determinantOp(a);
             if (det == 0)
                 return null;
@@ -115,23 +123,25 @@ public class Operation {
 
 
     public static Matrice produitMatriciel(Matrice a, Matrice b) {
+        if (a == null)
+            return null;
         Matrice r = new Matrice(a.getM(), b.getN());
         if (bonFormat(a, b)) {
-            for(int m = 1; m <= a.getM(); m++) {
+            for(int m = 1; m <= a.getM(); m++)
                 for(int n = 1; n <= b.getN(); n++) {
                     double sommeProduits = 0;
-                    for(int x = 1; x <= a.getN(); x++) {
+                    for(int x = 1; x <= a.getN(); x++)
                         sommeProduits += a.getElement(m, x) * b.getElement(x, n);
-                    }
                     r.setElement(m, n, sommeProduits);
                 }
-            }
             return resultat0negatif(r);
         }
         else return null;
     }
 
     public static Matrice produitVectoriel(Matrice a, Matrice b){
+        if (a == null || b == null)
+            return null;
         Matrice r = new Matrice(3,1 );
         if (Operation.isVecteur(a) && Operation.isVecteur(b)){
             r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
@@ -143,7 +153,8 @@ public class Operation {
     }
 
     public static Matrice produitDHadamard(Matrice a, Matrice b){
-
+        if (a == null || b == null)
+            return null;
         if (memeFormat(a,b)) {
             Matrice r = new Matrice(a.getM(), a.getN());
             for (int m = 1; m <= a.getM(); m++)
@@ -155,6 +166,8 @@ public class Operation {
     }
 
     public static Matrice produitTensoriel(Matrice a, Matrice b){
+        if (a == null || b == null)
+            return null;
         Matrice r = new Matrice(a.getM()*b.getM(), a.getN()*b.getN());
         for (int m = 0; m < a.getM(); m++)
             for (int n = 0; n < a.getN(); n++)
@@ -165,7 +178,8 @@ public class Operation {
     }
 
     public static Matrice determinant(Matrice a){
-
+        if (a == null)
+            return null;
 
         if (a.getM() == 1 && a.isEstCarre()){
 
@@ -187,22 +201,17 @@ public class Operation {
                 Matrice r = new Matrice(a.getM()-1, a.getN()-1);
                 r.getElements().clear();
                 System.out.println(r.getElements().size());
-                for (int m2 = 1; m2 <= a.getM(); m2++) {
-                    for (int n = 1; n <= a.getN(); n++) {
-                        if (n != 1 && m2 != m) {
 
+                for (int m2 = 1; m2 <= a.getM(); m2++)
+                    for (int n = 1; n <= a.getN(); n++)
+                        if (n != 1 && m2 != m)
                             r.getElements().add(a.getElement(m2, n));
-                        }
-                    }
-                }
+
                 r = Operation.multiplication(Objects.requireNonNull(Operation.determinant(r)), a.getElement(m, 1) * (Math.pow(-1, m+1)));
                 liste.add(r);
-
             }
-            for (Matrice t: liste
-                 ) { resultat += t.getElements().get(0);
-
-            }
+            for (Matrice t: liste)
+                resultat += t.getElements().get(0);
 
             Matrice t = new Matrice(1, 1);
             t.setElement(1, 1, resultat);
@@ -213,6 +222,8 @@ public class Operation {
     }
 
     public static double determinantOp(Matrice a){
+        if (a == null)
+            return 0.0;
         double r = 0;
         Matrice tempo = new Matrice(a.getM(),a.getN());
         for (int m = 1; m <= a.getM();m++)
@@ -239,9 +250,9 @@ public class Operation {
                 else if (tempo.getElement(m, m) == 0){
                     for (int n = m; n < tempo.getN();n++){
                         changerligne(tempo, n, n + 1);
-                        if (tempo.getElement(m,m) != 0){
-                         break;
-                        }
+                        if (tempo.getElement(m,m) != 0)
+                            break;
+
                         if (tempo.getN()-1 == n)
                             return 0.0;
                     }
