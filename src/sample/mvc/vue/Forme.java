@@ -55,12 +55,13 @@ public class Forme {
         fond.setEffect(new BoxBlur(2,2,1));
 
         Label devant = new Label("?");
+        devant.setStyle("-fx-font-family: 'Bauhaus 93';");
         devant.setScaleY(2);
-        devant.setScaleX(3);
+        devant.setScaleX(2);
         devant.setTextFill(Color.rgb(37, 37, 86));
         tooltip.setShowDuration(Duration.INDEFINITE);
         devant.setTooltip(tooltip);
-        devant.setPadding(new Insets(3,5,0,0));
+        devant.setPadding(new Insets(3,7,0,0));
 
         StackPane aide = new StackPane(fond, devant);
         aide.setAlignment(Pos.TOP_RIGHT);
