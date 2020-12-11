@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,9 +21,11 @@ public class InterfaceUtilisateur extends BorderPane{
     private HBox informations;
     private StackPane anime;
     private Timeline patience;
+    private MediaView bruit;
 
     public InterfaceUtilisateur(Stage stage) {
         this.stage = stage;
+        bruit = new MediaView();
 
         Menu operations = new Menu("Opérations");
         Menu fichier = new Menu("Fichier");
@@ -113,6 +116,8 @@ public class InterfaceUtilisateur extends BorderPane{
             anime.getChildren().get(2).setVisible(false);
             anime.getChildren().set(1, Anime.yesAnimation()); //animation avec un debut
             anime.getChildren().get(1).setVisible(true);
+            bruit.setMediaPlayer(Son.egaleSon());
+            bruit.getMediaPlayer().play();
         }
         if (type.equals("erreur")) {
             information.setTextFill(Color.RED);
@@ -120,6 +125,8 @@ public class InterfaceUtilisateur extends BorderPane{
             anime.getChildren().get(0).setVisible(false);
             anime.getChildren().get(1).setVisible(false);
             anime.getChildren().get(2).setVisible(true);
+            bruit.setMediaPlayer(Son.erreurSon());
+            bruit.getMediaPlayer().play();
         }
         informations.getChildren().set(0, information);
 

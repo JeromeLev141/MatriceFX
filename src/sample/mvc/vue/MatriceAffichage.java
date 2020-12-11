@@ -7,17 +7,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
-
-import java.io.IOException;
 
 public class MatriceAffichage extends HBox {
 
     private Character nom;
     private Matrice matrice;
     private int verif;
+    private MediaView bruit;
 
     public MatriceAffichage(Matrice matrice, Character nom) {
         this.nom = nom;
@@ -26,6 +24,7 @@ public class MatriceAffichage extends HBox {
         setSpacing(10);
         setId("matrice");
         verif = 0;
+        bruit = new MediaView();
     }
 
     public Matrice getMatrice() {
@@ -71,9 +70,8 @@ public class MatriceAffichage extends HBox {
                     }
                 });
 
-                if (!matrice.estValide()) {
+                if (!matrice.estValide())
                     gridPane.add(textfield, n - 1, m - 1);
-                }
                 else {
                     gridPane.setHgap(30);
                     gridPane.setVgap(20);
@@ -130,6 +128,9 @@ public class MatriceAffichage extends HBox {
         plusM.setOnAction(event -> {
             matrice.setM(matrice.getM() + 1);
             getChildren().clear();
+            afficherMatrice();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
             afficherMatrice(iu);
         });
         moinsM.setOnAction(event -> {
@@ -137,18 +138,27 @@ public class MatriceAffichage extends HBox {
                 matrice.setM(matrice.getM() - 1);
                 getChildren().clear();
                 afficherMatrice(iu);
+                afficherMatrice();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
             getChildren().clear();
             afficherMatrice(iu);
+            afficherMatrice();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
         });
         moinsN.setOnAction(event -> {
             if (matrice.getN() > 1) {
                 matrice.setN(matrice.getN() - 1);
                 getChildren().clear();
                 afficherMatrice(iu);
+                afficherMatrice();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
 
@@ -180,6 +190,9 @@ public class MatriceAffichage extends HBox {
         plusM.setOnAction(event -> {
             matrice.setM(matrice.getM() + 1);
             getChildren().clear();
+            afficherMatriceDeterminant();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
             afficherMatriceDeterminant(iu);
         });
         moinsM.setOnAction(event -> {
@@ -187,18 +200,27 @@ public class MatriceAffichage extends HBox {
                 matrice.setM(matrice.getM() - 1);
                 getChildren().clear();
                 afficherMatriceDeterminant(iu);
+                afficherMatriceDeterminant();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
             getChildren().clear();
             afficherMatriceDeterminant(iu);
+            afficherMatriceDeterminant();
+            bruit.setMediaPlayer(Son.plusSon());
+            bruit.getMediaPlayer().play();
         });
         moinsN.setOnAction(event -> {
             if (matrice.getN() > 1) {
                 matrice.setN(matrice.getN() - 1);
                 getChildren().clear();
                 afficherMatriceDeterminant(iu);
+                afficherMatriceDeterminant();
+                bruit.setMediaPlayer(Son.moinsSon());
+                bruit.getMediaPlayer().play();
             }
         });
 
