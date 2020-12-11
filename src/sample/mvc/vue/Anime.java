@@ -7,8 +7,10 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
 
 public class Anime {
 
@@ -45,6 +47,10 @@ public class Anime {
         intro.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
                 new KeyValue(info.visibleProperty(), true)));
         intro.play();
+
+        MediaView bruit = new MediaView();
+        bruit.setMediaPlayer(Son.introSon());
+        bruit.getMediaPlayer().play();
 
         return new StackPane(info, logo, glint);
     }

@@ -137,7 +137,7 @@ public class OperationLibre {
             if (resultatMatrice == null && resultatScalaire == null) {
                 iu.setMessage("Opération impossible!", "erreur");
                 iu.setCenter(demarche);
-                OperationAffichage.genererImprimer(iu);
+                LecteurDeFichier.genererImprimer(iu);
                 iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
             }
             else {
@@ -152,7 +152,7 @@ public class OperationLibre {
                 iu.setMessage("Opération effectué avec succès!", "informative");
 
                 if (resultatMatrice != null)
-                    operation.getChildren().add(pemda - 1, resultatMatrice.afficherMatrice());
+                    operation.getChildren().add(pemda - 1, resultatMatrice.afficherMatrice(iu));
                 else {
                     if (determinant)
                         operation.getChildren().add(pemda, resultatScalaire);
@@ -168,7 +168,7 @@ public class OperationLibre {
 
                 if (operation.getChildren().size() == 1) {
                     iu.setCenter(demarche);
-                    OperationAffichage.genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 }
                 else {
