@@ -7,12 +7,10 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-import java.io.File;
 
 public class Anime {
 
@@ -20,10 +18,6 @@ public class Anime {
         ImageView logo = new ImageView("sample/mvc/vue/visuels/MatriceFX_Logo.png");
         ImageView glint = new ImageView("sample/mvc/vue/visuels/glint.png");
         Label info = info();
-
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(
-                new File("src/sample/mvc/vue/audios/intro.mp3").toURI().toString()));
-        mediaPlayer.play();
 
         BoxBlur boxBlur = new BoxBlur();
         boxBlur.setHeight(10);
@@ -53,6 +47,10 @@ public class Anime {
         intro.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
                 new KeyValue(info.visibleProperty(), true)));
         intro.play();
+
+        MediaView bruit = new MediaView();
+        bruit.setMediaPlayer(Son.introSon());
+        bruit.getMediaPlayer().play();
 
         return new StackPane(info, logo, glint);
     }

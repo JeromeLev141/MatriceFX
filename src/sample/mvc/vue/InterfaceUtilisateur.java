@@ -116,6 +116,8 @@ public class InterfaceUtilisateur extends BorderPane{
             anime.getChildren().get(2).setVisible(false);
             anime.getChildren().set(1, Anime.yesAnimation()); //animation avec un debut
             anime.getChildren().get(1).setVisible(true);
+            bruit.setMediaPlayer(Son.egaleSon());
+            bruit.getMediaPlayer().play();
         }
         if (type.equals("erreur")) {
             information.setTextFill(Color.RED);

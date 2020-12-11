@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -127,8 +128,12 @@ public class OperationAffichage {
                 if (operation.getChildren().size() == 0)
                     egale.setVisible(false);
             }
-            else if (keyEvent.getCode() == KeyCode.R)
+            else if (keyEvent.getCode() == KeyCode.R) {
                 libre(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
         iu.setOnMouseMoved(mouseEvent -> {
             if (operation.getChildren().size()  > 0)
@@ -164,8 +169,12 @@ public class OperationAffichage {
         iu.setRight(Forme.genererAide(new Tooltip("Addition de deux matrices de même format\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA + B = [ aij + bij ]mxn")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 addition(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -197,8 +206,12 @@ public class OperationAffichage {
         iu.setRight(Forme.genererAide(new Tooltip("Soustraction de deux matrices de même format\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA - B = [ aij - bij ]mxn")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 soustraction(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -226,8 +239,12 @@ public class OperationAffichage {
         iu.setRight(Forme.genererAide(new Tooltip("Multiplication d'une matrice par un scalaire\n" +
                 "Soit A = [ aij ]mxn et K = un nombre réel \nKA = [ Kaij ]mxn")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 multiplication(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -264,8 +281,12 @@ public class OperationAffichage {
         iu.setRight(Forme.genererAide(new Tooltip("Puissance d'une matrice carrée\n" +
                 "Soit A = [ aij ]nxn et K = un nombre réel\nAk = A * A * ... * A (un nombre k de facteurs A)")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 puissance(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -292,8 +313,12 @@ public class OperationAffichage {
         iu.setRight(Forme.genererAide(new Tooltip("Transposée d'une matrice\n" +
                 "Soit A = [ aij ]mxn\nAt = [ aji ]nxm")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 transposition(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -325,8 +350,12 @@ public class OperationAffichage {
                 "Soit A = [ aij ]nxn et In = matrice identitée d'ordre n\n" +
                 "A *  A-1 = A-1 * A = In")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 inversion(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -359,8 +388,12 @@ public class OperationAffichage {
                 "Soit A = [ aij ]mxn et B = [ bij ]nxp\n" +
                 "A mxn * B nxp = C mxp = [ cij ] où cij = la somme des éléments de k = 1 à k = n de aik * bkj")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 produitMatriciel(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -393,8 +426,12 @@ public class OperationAffichage {
                 "Soit A = [xa ya za]t et B = [xb yb zb]t\n" +
                 "A ^ B = [ya*zb-za*yb za*xb-xa*zb xa*yb-ya*xb]t")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 produitVectoriel(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -426,8 +463,12 @@ public class OperationAffichage {
         iu.setRight(Forme.genererAide(new Tooltip("Produit d'Hademard de deux matrices de même format\n" +
                 "Soit A = [ aij ]mxn et B = [ bij ]mxn\nA o B = [ aij * bij ]mxn")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 produitHadamard(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -456,8 +497,12 @@ public class OperationAffichage {
                 "Soit A = [ aij ]m*n et B = [ bij ]m*n\n" +
                 "A ⊗ B = [ aij * B ](ma*mb)*(na*nb)")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 produitTensoriel(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 
@@ -488,8 +533,12 @@ public class OperationAffichage {
                 "Soit A = [ aij ]nxn et Aij = (-1)i+j * Mij (Mij étant le miner de l'élément aij)\n" +
                 "det A = |A| = la somme de k = 1 à k = n de aik * Aik ou akj * Akj")));
         iu.getScene().setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.R)
+            if (keyEvent.getCode() == KeyCode.R) {
                 determinant(iu);
+                MediaView bruit = new MediaView();
+                bruit.setMediaPlayer(Son.reloadSon());
+                bruit.getMediaPlayer().play();
+            }
         });
     }
 }

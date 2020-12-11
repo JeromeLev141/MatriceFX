@@ -7,9 +7,24 @@ import java.io.File;
 
 public class Son {
 
+    public static MediaPlayer introSon() {
+        return new MediaPlayer(new Media(
+                new File("src/sample/mvc/vue/audios/intro.mp3").toURI().toString()));
+    }
+
+    public static MediaPlayer egaleSon() {
+        return new MediaPlayer(new Media(
+                new File("src/sample/mvc/vue/audios/egale.mp3").toURI().toString()));
+    }
+
     public static MediaPlayer erreurSon() {
         return new MediaPlayer(new Media(
                 new File("src/sample/mvc/vue/audios/erreur.mp3").toURI().toString()));
+    }
+
+    public static MediaPlayer reloadSon() {
+        return new MediaPlayer(new Media(
+                new File("src/sample/mvc/vue/audios/reload.mp3").toURI().toString()));
     }
 
     public static MediaPlayer plusSon() {
