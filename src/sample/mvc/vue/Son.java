@@ -36,4 +36,14 @@ public class Son {
         return new MediaPlayer(new Media(
                 new File("src/sample/mvc/vue/audios/moins.mp3").toURI().toString()));
     }
+
+    public static MediaPlayer entreSon() {
+        return new MediaPlayer(new Media(
+                new File("src/sample/mvc/vue/audios/entre.mp3").toURI().toString()));
+    }
+
+    public static MediaPlayer fermeSon() {
+        return new MediaPlayer(new Media(
+                new File("src/sample/mvc/vue/audios/ferme.mp3").toURI().toString()));
+    }
 }

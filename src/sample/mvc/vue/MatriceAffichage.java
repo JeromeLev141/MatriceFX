@@ -12,6 +12,7 @@ import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MatriceAffichage extends HBox {
@@ -249,19 +250,29 @@ public class MatriceAffichage extends HBox {
         return this;
     }
 
-    public Button ajouterBoutonImporterTest(InterfaceUtilisateur iu) {
+    private Button ajouterBoutonImporterTest(InterfaceUtilisateur iu) {
         Button importer = new Button("Importer");
         importer.setFocusTraversable(false);
         importer.setOnAction(event -> {
+            bruit.setMediaPlayer(Son.entreSon());
+            bruit.getMediaPlayer().play();
             LecteurDeFichier ldf;
             try {
-                ldf = new LecteurDeFichier(LecteurDeFichier.chercherFichier(iu.getStage()));
-                setMatrice(LecteurDeFichier.stringtoMatrice(ldf.getliste().get(0)));
+                File fichier = LecteurDeFichier.chercherFichier(iu.getStage());
+                if (fichier != null) {
+                    ldf = new LecteurDeFichier(fichier);
+                    setMatrice(LecteurDeFichier.stringtoMatrice(ldf.getliste().get(0)));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            bruit.setMediaPlayer(Son.fermeSon());
+            bruit.getMediaPlayer().play();
             getChildren().clear();
-            afficherMatrice(iu);
+            if (getId().equals("matrice"))
+                afficherMatrice(iu);
+            else
+                afficherMatriceDeterminant(iu);
         });
         return importer;
     }
