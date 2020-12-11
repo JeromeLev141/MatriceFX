@@ -1,9 +1,18 @@
 package sample.mvc.controlleur;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Pos;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Button;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.mvc.modele.Matrice;
+import sample.mvc.vue.InterfaceUtilisateur;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -102,5 +111,37 @@ public class LecteurDeFichier {
 
     public List<String> getliste() {
         return liste;
+    }
+
+    public static void genererImprimer(InterfaceUtilisateur iu) {
+        Button imprimer = new Button("Imprimer");
+        imprimer.setFocusTraversable(false);
+        imprimer.setOnAction(event -> {
+            imprimer.setVisible(false);
+            imprimerFicher(iu);
+            imprimer.setVisible(true);
+        });
+
+        VBox reponse = new VBox(iu.getCenter(), imprimer);
+        reponse.setAlignment(Pos.CENTER);
+        reponse.setSpacing(30);
+        iu.setCenter(reponse);
+    }
+
+    public static void imprimerFicher(InterfaceUtilisateur iu) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Veuillez choisir l'emplacement du fichier");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image de format .png", "*." + "png"));
+        WritableImage image = iu.getCenter().snapshot(new SnapshotParameters(), null);
+        BufferedImage awtImage = new BufferedImage((int)image.getWidth(),(int)image.getHeight(),BufferedImage.TYPE_INT_RGB);
+        File fichier = fc.showSaveDialog(iu.getStage());
+        if (fichier != null) {
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, awtImage), "png", fichier);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

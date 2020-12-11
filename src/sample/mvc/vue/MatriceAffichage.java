@@ -1,13 +1,17 @@
 package sample.mvc.vue;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
+
+import java.io.IOException;
 
 public class MatriceAffichage extends HBox {
 
@@ -67,8 +71,9 @@ public class MatriceAffichage extends HBox {
                     }
                 });
 
-                if (!matrice.estValide())
+                if (!matrice.estValide()) {
                     gridPane.add(textfield, n - 1, m - 1);
+                }
                 else {
                     gridPane.setHgap(30);
                     gridPane.setVgap(20);
@@ -111,7 +116,7 @@ public class MatriceAffichage extends HBox {
         return gridPane;
     }
 
-    public MatriceAffichage afficherMatrice() {
+    public MatriceAffichage afficherMatrice(InterfaceUtilisateur iu) {
 
         Button plusM = new Button("+");
         plusM.setFocusTraversable(false);
@@ -125,37 +130,42 @@ public class MatriceAffichage extends HBox {
         plusM.setOnAction(event -> {
             matrice.setM(matrice.getM() + 1);
             getChildren().clear();
-            afficherMatrice();
+            afficherMatrice(iu);
         });
         moinsM.setOnAction(event -> {
             if (matrice.getM() > 1) {
                 matrice.setM(matrice.getM() - 1);
                 getChildren().clear();
-                afficherMatrice();
+                afficherMatrice(iu);
             }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
             getChildren().clear();
-            afficherMatrice();
+            afficherMatrice(iu);
         });
         moinsN.setOnAction(event -> {
             if (matrice.getN() > 1) {
                 matrice.setN(matrice.getN() - 1);
                 getChildren().clear();
-                afficherMatrice();
+                afficherMatrice(iu);
             }
         });
 
         VBox vBox = new VBox(moinsM, genererGridpane(), plusM);
         vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(10);
+        vBox.setSpacing(20);
 
-        getChildren().addAll(moinsN, Forme.genererCrochetGauche(matrice), vBox, Forme.genererCrochetDroite(matrice), plusN);
+        VBox centre = new VBox(vBox, ajouterBoutonImporterTest(iu));
+        centre.setAlignment(Pos.CENTER);
+        centre.setSpacing(30);
+        centre.setTranslateY(vBox.getTranslateY() + 28);
+
+        getChildren().addAll(moinsN, Forme.genererCrochetGauche(matrice), centre, Forme.genererCrochetDroite(matrice), plusN);
         return this;
     }
 
-    public MatriceAffichage afficherMatriceDeterminant() {
+    public MatriceAffichage afficherMatriceDeterminant(InterfaceUtilisateur iu) {
         setId("determinant");
 
         Button plusM = new Button("+");
@@ -170,25 +180,25 @@ public class MatriceAffichage extends HBox {
         plusM.setOnAction(event -> {
             matrice.setM(matrice.getM() + 1);
             getChildren().clear();
-            afficherMatriceDeterminant();
+            afficherMatriceDeterminant(iu);
         });
         moinsM.setOnAction(event -> {
             if (matrice.getM() > 1) {
                 matrice.setM(matrice.getM() - 1);
                 getChildren().clear();
-                afficherMatriceDeterminant();
+                afficherMatriceDeterminant(iu);
             }
         });
         plusN.setOnAction(event -> {
             matrice.setN(matrice.getN() + 1);
             getChildren().clear();
-            afficherMatriceDeterminant();
+            afficherMatriceDeterminant(iu);
         });
         moinsN.setOnAction(event -> {
             if (matrice.getN() > 1) {
                 matrice.setN(matrice.getN() - 1);
                 getChildren().clear();
-                afficherMatriceDeterminant();
+                afficherMatriceDeterminant(iu);
             }
         });
 
@@ -196,7 +206,12 @@ public class MatriceAffichage extends HBox {
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(10);
 
-        getChildren().addAll(moinsN, Forme.genererBordure(matrice), vBox, Forme.genererBordure(matrice), plusN);
+        VBox centre = new VBox(vBox, ajouterBoutonImporterTest(iu));
+        centre.setAlignment(Pos.CENTER);
+        centre.setSpacing(30);
+        centre.setTranslateY(vBox.getTranslateY() + 28);
+
+        getChildren().addAll(moinsN, Forme.genererBordure(matrice), centre, Forme.genererBordure(matrice), plusN);
         return this;
     }
 
@@ -214,5 +229,22 @@ public class MatriceAffichage extends HBox {
         setId("determinant");
         getChildren().addAll(Forme.genererBordure(matrice), genererGridpane(), Forme.genererBordure(matrice));
         return this;
+    }
+
+    public Button ajouterBoutonImporterTest(InterfaceUtilisateur iu) {
+        Button importer = new Button("Importer");
+        importer.setFocusTraversable(false);
+        importer.setOnAction(event -> {
+            LecteurDeFichier ldf;
+            try {
+                ldf = new LecteurDeFichier(LecteurDeFichier.chercherFichier(iu.getStage()));
+                setMatrice(LecteurDeFichier.stringtoMatrice(ldf.getliste().get(0)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            getChildren().clear();
+            afficherMatrice(iu);
+        });
+        return importer;
     }
 }

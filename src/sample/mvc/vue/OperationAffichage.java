@@ -1,60 +1,18 @@
 package sample.mvc.vue;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.controlleur.OperationLibre;
 import sample.mvc.modele.Matrice;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
 public class OperationAffichage {
-
-    public static void genererImprimer(InterfaceUtilisateur iu) {
-        Button imprimer = new Button("Imprimer");
-        imprimer.setFocusTraversable(false);
-        imprimer.setOnAction(event -> {
-            imprimer.setVisible(false);
-            imprimerFicher(iu);
-            imprimer.setVisible(true);
-        });
-
-        VBox reponse = new VBox(iu.getCenter(), imprimer);
-        reponse.setAlignment(Pos.CENTER);
-        reponse.setSpacing(30);
-        iu.setCenter(reponse);
-    }
-
-    public static void imprimerFicher(InterfaceUtilisateur iu) {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Veuillez choisir l'emplacement du fichier");
-        fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image de format .png", "*." + "png"));
-        WritableImage image = iu.getCenter().snapshot(new SnapshotParameters(), null);
-        BufferedImage awtImage = new BufferedImage((int)image.getWidth(),(int)image.getHeight(),BufferedImage.TYPE_INT_RGB);
-        File fichier = fc.showSaveDialog(iu.getStage());
-        if (fichier != null) {
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(image, awtImage), "png", fichier);
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public static void libre(InterfaceUtilisateur iu) {
 
@@ -84,10 +42,10 @@ public class OperationAffichage {
         nombre.setOnAction(event -> operation.getChildren().add(new ScalaireAffichage()));
         MenuItem determinant = new MenuItem("Déterminant");
         determinant.setOnAction(event -> operation.getChildren().add(new MatriceAffichage(new Matrice(3, 3),
-                OperationLibre.genererNom(operation)).afficherMatriceDeterminant()));
+                OperationLibre.genererNom(operation)).afficherMatriceDeterminant(iu)));
         MenuItem matrice = new MenuItem("Matrice");
         matrice.setOnAction(event -> operation.getChildren().add(new MatriceAffichage(new Matrice(3, 3),
-                OperationLibre.genererNom(operation)).afficherMatrice()));
+                OperationLibre.genererNom(operation)).afficherMatrice(iu)));
 
         MenuItem addition = new MenuItem("Addition");
         addition.setOnAction(event -> operation.getChildren().add(Forme.genererIndiceAddition()));
@@ -145,7 +103,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.addition(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
@@ -156,7 +114,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox( a.afficherMatrice(), Forme.genererIndiceAddition(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox( a.afficherMatrice(iu), Forme.genererIndiceAddition(), b.afficherMatrice(iu), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
@@ -178,7 +136,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.soustraction(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
@@ -189,7 +147,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceSoustraction(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox(a.afficherMatrice(iu), Forme.genererIndiceSoustraction(), b.afficherMatrice(iu), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
@@ -210,7 +168,7 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && k.estValide()) {
                     iu.setCenter(new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
             }
@@ -218,7 +176,7 @@ public class OperationAffichage {
                 iu.setMessage("Élements incomplets!", "erreur");
         });
 
-        HBox hbox = new HBox(k, Forme.genererIndiceMultiplication(), a.afficherMatrice(), egale);
+        HBox hbox = new HBox(k, Forme.genererIndiceMultiplication(), a.afficherMatrice(iu), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         iu.setCenter(hbox);
@@ -242,7 +200,7 @@ public class OperationAffichage {
                 if (Operation.puissance(a.getMatrice(), k.getValeur()) != null) {
                     if (k.getValeur() == (int) k.getValeur()) {
                         iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
-                        genererImprimer(iu);
+                        LecteurDeFichier.genererImprimer(iu);
                         iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                         iu.setMessage("Opération effectué avec succès!", "informative");
                     }
@@ -256,7 +214,7 @@ public class OperationAffichage {
                 iu.setMessage("Élements incomplets!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), indicePuissance, egale);
+        HBox hbox = new HBox(a.afficherMatrice(iu), indicePuissance, egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
@@ -276,7 +234,7 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide()) {
                 iu.setCenter(new MatriceAffichage(Operation.transposition(a.getMatrice()), 'r').afficherMatriceResultat());
-                genererImprimer(iu);
+                LecteurDeFichier.genererImprimer(iu);
                 iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
@@ -284,7 +242,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrice incomplète!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTransposition(), egale);
+        HBox hbox = new HBox(a.afficherMatrice(iu), Forme.genererIndiceTransposition(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
@@ -305,7 +263,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide()) {
                 if (Operation.inverse(a.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.inverse(a.getMatrice()), 'r').afficherMatriceResultat());
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
@@ -316,7 +274,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrice incomplète!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceInverse(), egale);
+        HBox hbox = new HBox(a.afficherMatrice(iu), Forme.genererIndiceInverse(), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
@@ -339,7 +297,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitMatriciel(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.produitMatriciel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
@@ -350,7 +308,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(),Forme.genererIndiceMultiplication(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox(a.afficherMatrice(iu),Forme.genererIndiceMultiplication(), b.afficherMatrice(iu), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
@@ -373,7 +331,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitVectoriel(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.produitVectoriel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
@@ -407,7 +365,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.produitDHadamard(a.getMatrice(), b.getMatrice()) != null) {
                     iu.setCenter(new MatriceAffichage(Operation.produitDHadamard(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
@@ -418,7 +376,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceHadamard(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox(a.afficherMatrice(iu), Forme.genererIndiceHadamard(), b.afficherMatrice(iu), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
@@ -439,7 +397,7 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 iu.setCenter(new MatriceAffichage(Operation.produitTensoriel(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
-                genererImprimer(iu);
+                LecteurDeFichier.genererImprimer(iu);
                 iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
@@ -447,7 +405,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrices incomplètes!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatrice(), Forme.genererIndiceTensoriel(), b.afficherMatrice(), egale);
+        HBox hbox = new HBox(a.afficherMatrice(iu), Forme.genererIndiceTensoriel(), b.afficherMatrice(iu), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(20);
         iu.setCenter(hbox);
@@ -469,7 +427,7 @@ public class OperationAffichage {
             if (a.getMatrice().estValide())
                 if (Operation.determinant(a.getMatrice()) != null) {
                     iu.setCenter(new ScalaireAffichage(String.valueOf(Operation.determinantOp(a.getMatrice()))));
-                    genererImprimer(iu);
+                    LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
@@ -479,7 +437,7 @@ public class OperationAffichage {
                 iu.setMessage("Matrice incomplète!", "erreur");
         });
 
-        HBox hbox = new HBox(a.afficherMatriceDeterminant(), egale);
+        HBox hbox = new HBox(a.afficherMatriceDeterminant(iu), egale);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         iu.setCenter(hbox);
