@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LecteurDeFichier {
@@ -18,8 +17,8 @@ public class LecteurDeFichier {
 
 
     public LecteurDeFichier(File file) throws IOException {
-        this.file = file;
-        liste = Files.readAllLines(file.toPath());
+            this.file = file;
+            liste = Files.readAllLines(file.toPath());
     }
 
     public static File chercherFichier(Stage primaryStage){
@@ -67,7 +66,7 @@ public class LecteurDeFichier {
     public static List<String> stringToOperation(String operation) {
         List<String> listeOperation = new ArrayList<>();
         int x = 0;
-        int position =0;
+        int position;
         while(operation.length() != 0) {
             if (x % 2 == 0) {
                 position = operation.indexOf(']');
