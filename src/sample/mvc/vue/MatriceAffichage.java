@@ -1,6 +1,5 @@
 package sample.mvc.vue;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -239,12 +238,14 @@ public class MatriceAffichage extends HBox {
     }
 
     public MatriceAffichage afficherMatriceResultat() {
+        getChildren().clear();
         getChildren().addAll(Forme.genererCrochetGauche(matrice), genererGridpane(), Forme.genererCrochetDroite(matrice));
         return this;
     }
 
     public MatriceAffichage afficherDeterminantResultat() {
         setId("determinant");
+        getChildren().clear();
         getChildren().addAll(Forme.genererBordure(matrice), genererGridpane(), Forme.genererBordure(matrice));
         return this;
     }

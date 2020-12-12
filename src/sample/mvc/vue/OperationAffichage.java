@@ -12,8 +12,21 @@ import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.controlleur.OperationLibre;
 import sample.mvc.modele.Matrice;
+import sample.mvc.modele.MatriceDemarche;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OperationAffichage {
+
+    public static VBox genererDemarche(HBox operation, List<MatriceDemarche> matrices) {
+        operation.setEffect(null);
+        VBox demarche = new VBox(operation);
+        demarche.setAlignment(Pos.CENTER);
+        demarche.setSpacing(20);
+        for (MatriceDemarche matrix : matrices) demarche.getChildren().add(new MatriceDemarcheAffichage(matrix).afficherMatrice());
+        return demarche;
+    }
 
     public static void libre(InterfaceUtilisateur iu) {
 
@@ -107,7 +120,11 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.addition(a.getMatrice(), b.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.addition(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                    HBox operation = (HBox) iu.getCenter();
+                    operation.getChildren().remove(3);
+                    operation.getChildren().set(0, a.afficherMatriceResultat());
+                    operation.getChildren().set(2, b.afficherMatriceResultat());
+                    iu.setCenter(genererDemarche(operation, Operation.additionDemarche(a.getMatrice(), b.getMatrice())));
                     LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
@@ -144,7 +161,11 @@ public class OperationAffichage {
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && b.getMatrice().estValide()) {
                 if (Operation.soustraction(a.getMatrice(), b.getMatrice()) != null) {
-                    iu.setCenter(new MatriceAffichage(Operation.soustraction(a.getMatrice(), b.getMatrice()), 'r').afficherMatriceResultat());
+                    HBox operation = (HBox) iu.getCenter();
+                    operation.getChildren().remove(3);
+                    operation.getChildren().set(0, a.afficherMatriceResultat());
+                    operation.getChildren().set(2, b.afficherMatriceResultat());
+                    iu.setCenter(genererDemarche(operation, Operation.soustractionDemarche(a.getMatrice(), b.getMatrice())));
                     LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
@@ -180,10 +201,13 @@ public class OperationAffichage {
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide() && k.estValide()) {
-                    iu.setCenter(new MatriceAffichage(Operation.multiplication(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
-                    LecteurDeFichier.genererImprimer(iu);
-                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
-                    iu.setMessage("Opération effectué avec succès!", "informative");
+                HBox operation = (HBox) iu.getCenter();
+                operation.getChildren().remove(3);
+                operation.getChildren().set(2, a.afficherMatriceResultat());
+                iu.setCenter(genererDemarche(operation, Operation.multiplicationDemarche(new ArrayList<>(), a.getMatrice(), k.getValeur())));
+                LecteurDeFichier.genererImprimer(iu);
+                iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
+                iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
                 iu.setMessage("Élements incomplets!", "erreur");
@@ -216,7 +240,10 @@ public class OperationAffichage {
             if (a.getMatrice().estValide() && k.estValide()) {
                 if (Operation.puissance(a.getMatrice(), k.getValeur()) != null) {
                     if (k.getValeur() == (int) k.getValeur()) {
-                        iu.setCenter(new MatriceAffichage(Operation.puissance(a.getMatrice(), k.getValeur()), 'r').afficherMatriceResultat());
+                        HBox operation = (HBox) iu.getCenter();
+                        operation.getChildren().remove(2);
+                        operation.getChildren().set(0, a.afficherMatriceResultat());
+                        iu.setCenter(genererDemarche(operation, Operation.puissanceDemarche(a.getMatrice(), k.getValeur())));
                         LecteurDeFichier.genererImprimer(iu);
                         iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                         iu.setMessage("Opération effectué avec succès!", "informative");
@@ -254,7 +281,10 @@ public class OperationAffichage {
         Button egale = new Button("=");
         egale.setOnAction(event -> {
             if (a.getMatrice().estValide()) {
-                iu.setCenter(new MatriceAffichage(Operation.transposition(a.getMatrice()), 'r').afficherMatriceResultat());
+                HBox operation = (HBox) iu.getCenter();
+                operation.getChildren().remove(2);
+                operation.getChildren().set(0, a.afficherMatriceResultat());
+                iu.setCenter(genererDemarche(operation, Operation.transpositionDemarche(new ArrayList<>(), a.getMatrice())));
                 LecteurDeFichier.genererImprimer(iu);
                 iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");

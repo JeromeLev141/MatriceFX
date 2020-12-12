@@ -1,5 +1,6 @@
 package sample.mvc.controlleur;
 
+import javafx.scene.layout.HBox;
 import sample.mvc.modele.Matrice;
 import sample.mvc.modele.MatriceDemarche;
 
@@ -25,7 +26,8 @@ public class Operation {
         else return null;
     }
 
-    public static List<MatriceDemarche> additionDemarche(List<MatriceDemarche> liste,Matrice a, Matrice b) {
+    public static List<MatriceDemarche> additionDemarche(Matrice a, Matrice b) {
+        List<MatriceDemarche> liste = new ArrayList<>();
         if (a == null || b == null)
             return null;
         if (memeFormat(a,b)) {
@@ -54,7 +56,8 @@ public class Operation {
         else return null;
     }
 
-    public static List<MatriceDemarche> soustractionDemarche(List<MatriceDemarche> liste,Matrice a, Matrice b) {
+    public static List<MatriceDemarche> soustractionDemarche(Matrice a, Matrice b) {
+        List<MatriceDemarche> liste = new ArrayList<>();
         if (a == null || b == null)
             return null;
         if (memeFormat(a,b)) {
@@ -84,8 +87,8 @@ public class Operation {
             return null;
         MatriceDemarche d = new MatriceDemarche(a.getM(), a.getN());
         MatriceDemarche r = new MatriceDemarche(a.getM(), a.getN());
-        d.setElements(a.getElements().stream().map((nombre) -> retourdouble(nombre) + "*" +  retourdouble(k)).collect(Collectors.toList()));
-        r.setElements(a.getElements().stream().map((nombre) -> retourdouble(nombre*k)).collect(Collectors.toList()));
+        d.setElements(a.getElements().stream().map((nombre) -> retourdouble(k) + "*" + retourdouble(nombre)).collect(Collectors.toList()));
+        r.setElements(a.getElements().stream().map((nombre) -> retourdouble(k*nombre)).collect(Collectors.toList()));
         liste.add(d);
         liste.add(r);
         return liste;
@@ -134,7 +137,8 @@ public class Operation {
         else return null;
     }
 
-    public static List<MatriceDemarche> puissanceDemarche(List<MatriceDemarche> liste,Matrice a , double pow){
+    public static List<MatriceDemarche> puissanceDemarche(Matrice a , double pow){
+        List<MatriceDemarche> liste = new ArrayList<>();
         if (a == null)
             return null;
         boolean negatif = false;
@@ -189,7 +193,18 @@ public class Operation {
         return resultat0negatif(t);
     }
 
-    public static List<MatriceDemarche> transpositionDemarche(List<MatriceDemarche> liste,MatriceDemarche a) {
+    public static List<MatriceDemarche> transpositionDemarche(List<MatriceDemarche> liste, Matrice a) {
+        if (a == null)
+            return null;
+        MatriceDemarche t = new MatriceDemarche(a.getN(), a.getM());
+        for (int m = 1; m <= t.getM(); m++)
+            for (int n = 1; n <= t.getN(); n++)
+                t.setElement(m, n, String.valueOf(a.getElement(n, m)));
+        liste.add(t);
+        return liste;
+    }
+
+    public static List<MatriceDemarche> transpositionDemarche(List<MatriceDemarche> liste, MatriceDemarche a) {
         if (a == null)
             return null;
         MatriceDemarche t = new MatriceDemarche(a.getN(), a.getM());
@@ -225,7 +240,7 @@ public class Operation {
         else return null;
     }
 
-    public static List<MatriceDemarche> inverseDemarche(List<MatriceDemarche> liste,Matrice a){
+    public static List<MatriceDemarche> inverseDemarche(List<MatriceDemarche> liste, Matrice a){
         if (a == null)
             return null;
         Matrice adj = new Matrice(a.getM(),a.getN());
@@ -279,7 +294,7 @@ public class Operation {
         else return null;
     }
 
-    public static List<MatriceDemarche> produitMatricielDemarche(List<MatriceDemarche> liste,Matrice a, Matrice b) {
+    public static List<MatriceDemarche> produitMatricielDemarche(List<MatriceDemarche> liste, Matrice a, Matrice b) {
         if (a == null)
             return null;
         MatriceDemarche d = new MatriceDemarche(a.getM(),a.getN());
@@ -322,7 +337,8 @@ public class Operation {
         else return null;
     }
 
-    public static List<MatriceDemarche> produitVectorielDemarche(List<MatriceDemarche> liste,Matrice a, Matrice b){
+    public static List<MatriceDemarche> produitVectorielDemarche(Matrice a, Matrice b){
+        List<MatriceDemarche> liste = new ArrayList<>();
         if (a == null || b == null)
             return null;
         MatriceDemarche d = new MatriceDemarche(3,1);
@@ -358,7 +374,8 @@ public class Operation {
         else return null;
     }
 
-    public static List<MatriceDemarche> produitDHadamardDemarche(List<MatriceDemarche> liste,Matrice a, Matrice b){
+    public static List<MatriceDemarche> produitDHadamardDemarche(Matrice a, Matrice b){
+        List<MatriceDemarche> liste = new ArrayList<>();
         if (a == null || b == null)
             return null;
         if (memeFormat(a,b)) {
@@ -389,7 +406,8 @@ public class Operation {
         return resultat0negatif(r);
     }
 
-    public static List<MatriceDemarche> produitTensorielDemarche(List<MatriceDemarche> liste,Matrice a, Matrice b){
+    public static List<MatriceDemarche> produitTensorielDemarche(Matrice a, Matrice b){
+        List<MatriceDemarche> liste = new ArrayList<>();
         if (a == null || b == null)
             return null;
         Matrice r = new Matrice(a.getM()*b.getM(), a.getN()*b.getN());
@@ -618,8 +636,6 @@ public class Operation {
     private static boolean isVecteur(Matrice a){
         return a.getM() == 3 && a.getN() == 1;
     }
-
-
 
     private static Matrice resultat0negatif(Matrice a){
         a.setElements(a.getElements().stream().map((n)-> {
