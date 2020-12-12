@@ -6,10 +6,12 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.mvc.modele.Matrice;
 import sample.mvc.vue.InterfaceUtilisateur;
+import sample.mvc.vue.Son;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -134,6 +136,9 @@ public class LecteurDeFichier {
                 new FileChooser.ExtensionFilter("Image de format .png", "*." + "png"));
         WritableImage image = iu.getCenter().snapshot(new SnapshotParameters(), null);
         BufferedImage awtImage = new BufferedImage((int)image.getWidth(),(int)image.getHeight(),BufferedImage.TYPE_INT_RGB);
+        MediaView bruit = new MediaView();
+        bruit.setMediaPlayer(Son.entreSon());
+        bruit.getMediaPlayer().play();
         File fichier = fc.showSaveDialog(iu.getStage());
         if (fichier != null) {
             try {
@@ -142,5 +147,7 @@ public class LecteurDeFichier {
                 e.printStackTrace();
             }
         }
+        bruit.setMediaPlayer(Son.fermeSon());
+        bruit.getMediaPlayer().play();
     }
 }
