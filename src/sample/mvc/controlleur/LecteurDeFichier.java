@@ -4,9 +4,12 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.mvc.modele.Matrice;
@@ -117,11 +120,8 @@ public class LecteurDeFichier {
     public static void genererImprimer(InterfaceUtilisateur iu) {
         Button imprimer = new Button("Imprimer");
         imprimer.setFocusTraversable(false);
-        imprimer.setOnAction(event -> {
-            imprimer.setVisible(false);
-            imprimerFicher(iu);
-            imprimer.setVisible(true);
-        });
+        imprimer.setEffect(new DropShadow(1, 1, -1, Color.GREY));
+        imprimer.setOnAction(event -> imprimerFicher(iu));
 
         VBox reponse = new VBox(iu.getCenter(), imprimer);
         reponse.setAlignment(Pos.CENTER);
@@ -134,7 +134,9 @@ public class LecteurDeFichier {
         fc.setTitle("Veuillez choisir l'emplacement du fichier");
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image de format .png", "*." + "png"));
-        WritableImage image = iu.getCenter().snapshot(new SnapshotParameters(), null);
+        VBox centre = (VBox) iu.getCenter();
+        ScrollPane sp = (ScrollPane) centre.getChildren().get(0);
+        WritableImage image = sp.getContent().snapshot(new SnapshotParameters(), null);
         BufferedImage awtImage = new BufferedImage((int)image.getWidth(),(int)image.getHeight(),BufferedImage.TYPE_INT_RGB);
         MediaView bruit = new MediaView();
         bruit.setMediaPlayer(Son.entreSon());

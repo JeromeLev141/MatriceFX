@@ -125,7 +125,13 @@ public class OperationAffichage {
                     operation.getChildren().remove(3);
                     operation.getChildren().set(0, a.afficherMatriceResultat());
                     operation.getChildren().set(2, b.afficherMatriceResultat());
-                    iu.setCenter(genererDemarche(operation, Operation.additionDemarche(a.getMatrice(), b.getMatrice())));
+                    ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.additionDemarche(a.getMatrice(), b.getMatrice())));
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    sp.setPrefViewportHeight(400);
+                    sp.setFocusTraversable(false);
+                    iu.setCenter(sp);
+                    sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     LecteurDeFichier.genererImprimer(iu);
                     iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
@@ -166,9 +172,14 @@ public class OperationAffichage {
                     operation.getChildren().remove(3);
                     operation.getChildren().set(0, a.afficherMatriceResultat());
                     operation.getChildren().set(2, b.afficherMatriceResultat());
-                    iu.setCenter(genererDemarche(operation, Operation.soustractionDemarche(a.getMatrice(), b.getMatrice())));
+                    ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.soustractionDemarche(a.getMatrice(), b.getMatrice())));
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    sp.setPrefViewportHeight(400);
+                    sp.setFocusTraversable(false);
+                    iu.setCenter(sp);
+                    sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     LecteurDeFichier.genererImprimer(iu);
-                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -205,9 +216,15 @@ public class OperationAffichage {
                 HBox operation = (HBox) iu.getCenter();
                 operation.getChildren().remove(3);
                 operation.getChildren().set(2, a.afficherMatriceResultat());
-                iu.setCenter(genererDemarche(operation, Operation.multiplicationDemarche(new ArrayList<>(), a.getMatrice(), k.getValeur())));
+                ScrollPane sp = new ScrollPane(genererDemarche(operation,
+                        Operation.multiplicationDemarche(new ArrayList<>(), a.getMatrice(), k.getValeur())));
+                sp.setFitToHeight(true);
+                sp.setFitToWidth(true);
+                sp.setPrefViewportHeight(400);
+                sp.setFocusTraversable(false);
+                iu.setCenter(sp);
+                sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 LecteurDeFichier.genererImprimer(iu);
-                iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -244,9 +261,14 @@ public class OperationAffichage {
                         HBox operation = (HBox) iu.getCenter();
                         operation.getChildren().remove(2);
                         operation.getChildren().set(0, a.afficherMatriceResultat());
-                        iu.setCenter(genererDemarche(operation, Operation.puissanceDemarche(a.getMatrice(), k.getValeur())));
+                        ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.puissanceDemarche(a.getMatrice(), k.getValeur())));
+                        sp.setFitToHeight(true);
+                        sp.setFitToWidth(true);
+                        sp.setPrefViewportHeight(400);
+                        sp.setFocusTraversable(false);
+                        iu.setCenter(sp);
+                        sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                         LecteurDeFichier.genererImprimer(iu);
-                        iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                         iu.setMessage("Opération effectué avec succès!", "informative");
                     }
                     else
@@ -285,9 +307,14 @@ public class OperationAffichage {
                 HBox operation = (HBox) iu.getCenter();
                 operation.getChildren().remove(2);
                 operation.getChildren().set(0, a.afficherMatriceResultat());
-                iu.setCenter(genererDemarche(operation, Operation.transpositionDemarche(new ArrayList<>(), a.getMatrice())));
+                ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.transpositionDemarche(new ArrayList<>(), a.getMatrice())));
+                sp.setFitToHeight(true);
+                sp.setFitToWidth(true);
+                sp.setPrefViewportHeight(400);
+                sp.setFocusTraversable(false);
+                iu.setCenter(sp);
+                sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 LecteurDeFichier.genererImprimer(iu);
-                iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -321,9 +348,14 @@ public class OperationAffichage {
                     HBox operation = (HBox) iu.getCenter();
                     operation.getChildren().remove(2);
                     operation.getChildren().set(0, a.afficherMatriceResultat());
-                    iu.setCenter(genererDemarche(operation, Operation.inverseDemarche(new ArrayList<>(), a.getMatrice())));
+                    ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.inverseDemarche(new ArrayList<>(), a.getMatrice())));
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    sp.setPrefViewportHeight(400);
+                    sp.setFocusTraversable(false);
+                    iu.setCenter(sp);
+                    sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     LecteurDeFichier.genererImprimer(iu);
-                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -363,9 +395,15 @@ public class OperationAffichage {
                     operation.getChildren().remove(3);
                     operation.getChildren().set(0, a.afficherMatriceResultat());
                     operation.getChildren().set(2, b.afficherMatriceResultat());
-                    iu.setCenter(genererDemarche(operation, Operation.produitMatricielDemarche(new ArrayList<>(), a.getMatrice(), b.getMatrice())));
+                    ScrollPane sp = new ScrollPane(genererDemarche(operation,
+                            Operation.produitMatricielDemarche(new ArrayList<>(), a.getMatrice(), b.getMatrice())));
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    sp.setPrefViewportHeight(400);
+                    sp.setFocusTraversable(false);
+                    iu.setCenter(sp);
+                    sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     LecteurDeFichier.genererImprimer(iu);
-                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -405,9 +443,14 @@ public class OperationAffichage {
                     operation.getChildren().remove(3);
                     operation.getChildren().set(0, a.afficherMatriceResultat());
                     operation.getChildren().set(2, b.afficherMatriceResultat());
-                    iu.setCenter(genererDemarche(operation, Operation.produitVectorielDemarche(a.getMatrice(), b.getMatrice())));
+                    ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.produitVectorielDemarche(a.getMatrice(), b.getMatrice())));
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    sp.setPrefViewportHeight(400);
+                    sp.setFocusTraversable(false);
+                    iu.setCenter(sp);
+                    sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     LecteurDeFichier.genererImprimer(iu);
-                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -447,9 +490,14 @@ public class OperationAffichage {
                     operation.getChildren().remove(3);
                     operation.getChildren().set(0, a.afficherMatriceResultat());
                     operation.getChildren().set(2, b.afficherMatriceResultat());
-                    iu.setCenter(genererDemarche(operation, Operation.produitDHadamardDemarche(a.getMatrice(), b.getMatrice())));
+                    ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.produitDHadamardDemarche(a.getMatrice(), b.getMatrice())));
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    sp.setPrefViewportHeight(400);
+                    sp.setFocusTraversable(false);
+                    iu.setCenter(sp);
+                    sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     LecteurDeFichier.genererImprimer(iu);
-                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
@@ -487,9 +535,14 @@ public class OperationAffichage {
                 operation.getChildren().remove(3);
                 operation.getChildren().set(0, a.afficherMatriceResultat());
                 operation.getChildren().set(2, b.afficherMatriceResultat());
-                iu.setCenter(genererDemarche(operation, Operation.produitTensorielDemarche(a.getMatrice(), b.getMatrice())));
+                ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.produitTensorielDemarche(a.getMatrice(), b.getMatrice())));
+                sp.setFitToHeight(true);
+                sp.setFitToWidth(true);
+                sp.setPrefViewportHeight(400);
+                sp.setFocusTraversable(false);
+                iu.setCenter(sp);
+                sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 LecteurDeFichier.genererImprimer(iu);
-                iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                 iu.setMessage("Opération effectué avec succès!", "informative");
             }
             else
@@ -524,9 +577,14 @@ public class OperationAffichage {
                     HBox operation = (HBox) iu.getCenter();
                     operation.getChildren().remove(1);
                     operation.getChildren().set(0, a.afficherDeterminantResultat());
-                    iu.setCenter(genererDemarche(operation, Operation.determinantOpDemarche(new ArrayList<>(), a.getMatrice())));
+                    ScrollPane sp = new ScrollPane(genererDemarche(operation, Operation.determinantOpDemarche(new ArrayList<>(), a.getMatrice())));
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    sp.setPrefViewportHeight(400);
+                    sp.setFocusTraversable(false);
+                    iu.setCenter(sp);
+                    sp.getContent().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     LecteurDeFichier.genererImprimer(iu);
-                    iu.getCenter().setEffect(new DropShadow(1, 1, -1, Color.GREY));
                     iu.setMessage("Opération effectué avec succès!", "informative");
                 }
                 else
