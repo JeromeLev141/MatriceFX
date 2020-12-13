@@ -54,9 +54,6 @@ public class MatriceDemarche{
 
     public boolean isEstCarre() { return n == m;}
 
-
-
-
     @Override
     public String toString() {
         StringBuilder matrice = new StringBuilder();

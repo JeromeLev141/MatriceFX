@@ -199,7 +199,7 @@ public class Operation {
         MatriceDemarche t = new MatriceDemarche(a.getN(), a.getM());
         for (int m = 1; m <= t.getM(); m++)
             for (int n = 1; n <= t.getN(); n++)
-                t.setElement(m, n, String.valueOf(a.getElement(n, m)));
+                t.setElement(m, n, retourdouble(a.getElement(n, m)));
         liste.add(t);
         return liste;
     }
