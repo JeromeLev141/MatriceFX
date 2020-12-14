@@ -26,7 +26,7 @@ public class MatriceDemarcheAffichage extends HBox {
             for (int n = 1; n <= matrice.getN(); n++) {
                 gridPane.setHgap(30);
                 gridPane.setVgap(20);
-                gridPane.add(Forme.genererLabel(matrice.getElement(m, n)),n - 1, m - 1);
+                gridPane.add(Forme.genererScalaire(matrice.getElement(m, n)),n - 1, m - 1);
             }
         }
         return gridPane;

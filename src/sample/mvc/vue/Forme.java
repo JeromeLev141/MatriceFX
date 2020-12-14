@@ -30,18 +30,6 @@ public class Forme {
         return scalaire;
     }
 
-    public static Label genererLabel(String string) {
-        Label label = new Label(string);
-        label.setTextFill(Color.rgb(37, 37, 86));
-        label.setScaleX(1.5);
-        label.setScaleY(1.5);
-        label.setMaxWidth(30);
-        Tooltip tooltip = new Tooltip(string);
-        tooltip.setShowDuration(Duration.INDEFINITE);
-        label.setTooltip(tooltip);
-        return label;
-    }
-
     public static VBox genererCrochetGauche(Matrice matrice) {
         Rectangle dessus = new Rectangle(10, 4, Color.rgb(37, 37, 86));
         Rectangle dessous = new Rectangle(10, 4, Color.rgb(37, 37, 86));
