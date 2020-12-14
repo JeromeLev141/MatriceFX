@@ -23,7 +23,7 @@ public class Forme {
         scalaire.setTextFill(Color.rgb(37, 37, 86));
         scalaire.setScaleX(1.5);
         scalaire.setScaleY(1.5);
-        scalaire.setMaxWidth(30);
+        scalaire.setMaxWidth(35);
         Tooltip tooltip = new Tooltip(nombre);
         tooltip.setShowDuration(Duration.INDEFINITE);
         scalaire.setTooltip(tooltip);

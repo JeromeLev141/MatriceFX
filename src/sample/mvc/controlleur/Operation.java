@@ -650,10 +650,6 @@ public class Operation {
         return a;
     }
 
-    public static List<String> listeFraction(Matrice a) {
-        return a.getElements().stream().map(Operation::doubleAFraction).collect(Collectors.toList());
-    }
-
     public static String doubleAFraction(double d) {
         String nombre = String.format("%.2f", d);
         String entier = nombre.substring(0, nombre.indexOf(','));
