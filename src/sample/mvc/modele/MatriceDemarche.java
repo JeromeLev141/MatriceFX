@@ -43,15 +43,6 @@ public class MatriceDemarche{
         resizeElements();
     }
 
-    public boolean estValide() {
-        for (String element : elements) {
-            if (element == null)
-                return false;
-        }
-        return true;
-    }
-
-    public boolean isEstCarre() { return n == m;}
 
     @Override
     public String toString() {

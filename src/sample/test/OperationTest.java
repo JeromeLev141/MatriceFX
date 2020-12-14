@@ -382,12 +382,13 @@ public class OperationTest {
 
     @Test
     public void changerligne(){
-        Matrice tempo = Operation.changerligne(a,2,3);
-        assertEquals("1 2 3\n-7 -8 -9\n4 5 6",tempo.toString());
+        Matrice test = Operation.changerligne(a,2,3);
+        assertEquals("1 2 3\n-7 -8 -9\n4 5 6",test.toString());
         //  1  2  3
         // -7 -8 -9
         //  4  5  6
-        assertEquals("-4 -5 -6\n-7 -8 -9\n1 2 3",Operation.changerligne(tempo,1,3).toString());
+        test = Operation.changerligne(test,1,3);
+        assertEquals("-4 -5 -6\n-7 -8 -9\n1 2 3",test.toString());
         // -4 -5 -6
         // -7 -8 -9
         //  1  2  3

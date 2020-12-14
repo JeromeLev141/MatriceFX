@@ -75,6 +75,7 @@ public class LecteurDeFichier {
         return a;
     }
 
+    //cancel le projet
     public static List<String> stringToOperation(String operation) {
         List<String> listeOperation = new ArrayList<>();
         int x = 0;
