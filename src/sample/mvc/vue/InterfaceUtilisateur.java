@@ -13,6 +13,8 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sample.mvc.vue.audios.Son;
+import sample.mvc.vue.visuels.Anime;
 
 public class InterfaceUtilisateur extends BorderPane{
 

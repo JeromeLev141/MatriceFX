@@ -10,6 +10,7 @@ import javafx.scene.media.MediaView;
 import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
+import sample.mvc.vue.audios.Son;
 
 import java.io.File;
 import java.io.IOException;

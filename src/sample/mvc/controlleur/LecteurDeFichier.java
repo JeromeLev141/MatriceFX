@@ -14,7 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.mvc.modele.Matrice;
 import sample.mvc.vue.InterfaceUtilisateur;
-import sample.mvc.vue.Son;
+import sample.mvc.vue.audios.Son;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -26,13 +26,11 @@ import java.util.List;
 
 public class LecteurDeFichier {
 
-    private File file;
     private List<String> liste;
 
 
     public LecteurDeFichier(File file) throws IOException {
-            this.file = file;
-            liste = Files.readAllLines(file.toPath());
+        liste = Files.readAllLines(file.toPath());
     }
 
     public static File chercherFichier(Stage primaryStage){

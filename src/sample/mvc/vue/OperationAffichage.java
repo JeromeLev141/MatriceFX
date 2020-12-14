@@ -13,6 +13,7 @@ import sample.mvc.controlleur.Operation;
 import sample.mvc.controlleur.OperationLibre;
 import sample.mvc.modele.Matrice;
 import sample.mvc.modele.MatriceDemarche;
+import sample.mvc.vue.audios.Son;
 
 import java.util.ArrayList;
 import java.util.List;

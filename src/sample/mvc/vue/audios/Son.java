@@ -1,4 +1,4 @@
-package sample.mvc.vue;
+package sample.mvc.vue.audios;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
