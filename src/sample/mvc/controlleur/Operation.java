@@ -1,6 +1,5 @@
 package sample.mvc.controlleur;
 
-import javafx.scene.layout.HBox;
 import sample.mvc.modele.Matrice;
 import sample.mvc.modele.MatriceDemarche;
 
@@ -107,11 +106,7 @@ public class Operation {
 
         if (a.isEstCarre()) {
 
-            Matrice r = new Matrice(a.getM(), a.getN());
-            for (int m = 1; m <= a.getM(); m++)
-                for (int n = 1; n <= a.getN(); n++)
-                    r.setElement(m, n, a.getElement(m, n));
-
+            Matrice r = copieMatrice(a);
             if (pow == 0) {
                 for (int m = 1; m <= a.getM(); m++)
                     for (int n = 1; n <= a.getN(); n++) {
@@ -151,11 +146,7 @@ public class Operation {
 
         if (a.isEstCarre()) {
 
-            Matrice r = new Matrice(a.getM(), a.getN());
-            MatriceDemarche d = new MatriceDemarche(a.getM(), a.getN());
-            for (int m = 1; m <= a.getM(); m++)
-                for (int n = 1; n <= a.getN(); n++)
-                    r.setElement(m, n, a.getElement(m, n));
+            Matrice r = copieMatrice(a);
 
             if (pow == 0) {
                 for (int m = 1; m <= a.getM(); m++)
@@ -208,15 +199,14 @@ public class Operation {
         return liste;
     }
 
-    public static List<MatriceDemarche> transpositionDemarche(List<MatriceDemarche> liste, MatriceDemarche a) {
+    private static void transpositionDemarche(List<MatriceDemarche> liste, MatriceDemarche a) {
         if (a == null)
-            return null;
+            return;
         MatriceDemarche t = new MatriceDemarche(a.getN(), a.getM());
         for (int m = 1; m <= t.getM(); m++)
             for (int n = 1; n <= t.getN(); n++)
                 t.setElement(m, n, a.getElement(n, m));
         liste.add(t);
-        return liste;
     }
 
     public static Matrice inverse(Matrice a){
@@ -251,7 +241,6 @@ public class Operation {
         Matrice r = new Matrice(a.getM()-1, a.getN()-1);
         r.getElements().clear();
         MatriceDemarche d = new MatriceDemarche(a.getM(),a.getN());
-        //MatriceDemarche d2 = new MatriceDemarche(a.getM(),a.getN());
         if (a.isEstCarre()){
             for (int m1 = 1; m1 <= a.getM(); m1++)
                 for (int n1 = 1; n1 <= a.getN(); n1++){
@@ -274,7 +263,6 @@ public class Operation {
             adj = transposition(adj);
 
             multiplicationDemarche(liste,adj,1/det);
-            r = resultat0negatif(multiplication(adj, 1/det));
             return liste;
         }
         else return null;
@@ -499,7 +487,7 @@ public class Operation {
                 }
                 else if (tempo.getElement(m, m) == 0){
                     for (int n = m; n < tempo.getN();n++){
-                        changerligne(tempo, n, n + 1);
+                        tempo = changerligne(tempo, n, n + 1);
                         if (tempo.getElement(m,m) != 0)
                             break;
 
@@ -564,7 +552,7 @@ public class Operation {
                 }
                 else if (tempo.getElement(m, m) == 0){
                     for (int n = m; n < tempo.getN();n++){
-                        changerligne(tempo, n, n + 1);
+                        tempo = changerligne(tempo, n, n + 1);
                         changerligneDemarche(liste,tempo,n,n+1);
                         if (tempo.getElement(m,m) != 0)
                             break;
@@ -610,16 +598,17 @@ public class Operation {
         return null;
     }
 
-    public static Matrice changerligne(Matrice a, int ligne1,int ligne2){
-        for (int n = 1; n <= a.getN(); n++){
-            double element = a.getElement(ligne1,n);
-            a.setElement(ligne1,n,a.getElement(ligne2,n) * -1);
-            a.setElement(ligne2,n,element);
+    public static Matrice changerligne(Matrice a, int ligne1, int ligne2){
+        Matrice r = copieMatrice(a);
+        for (int n = 1; n <= r.getN(); n++){
+            double element = r.getElement(ligne1,n);
+            r.setElement(ligne1,n,r.getElement(ligne2,n) * -1);
+            r.setElement(ligne2,n,element);
         }
-        return a;
+        return r;
     }
 
-    public static List<MatriceDemarche> changerligneDemarche(List<MatriceDemarche> liste,Matrice a, int ligne1,int ligne2){
+    private static void changerligneDemarche(List<MatriceDemarche> liste, Matrice a, int ligne1, int ligne2){
 
         for (int n = 1; n <= a.getN(); n++){
             double element = a.getElement(ligne1,n);
@@ -627,7 +616,6 @@ public class Operation {
             a.setElement(ligne2,n,element);
         }
         liste.add(doubleToString(a));
-        return liste;
     }
     private static boolean memeFormat(Matrice a, Matrice b){
         return a.getM() == b.getM() && a.getN() == b.getN();
@@ -648,10 +636,6 @@ public class Operation {
             return n;
         }).collect(Collectors.toList()));
         return a;
-    }
-
-    public static List<String> listeFraction(Matrice a) {
-        return a.getElements().stream().map(Operation::doubleAFraction).collect(Collectors.toList());
     }
 
     public static String doubleAFraction(double d) {
@@ -678,18 +662,20 @@ public class Operation {
         return entier;
     }
 
+    private static Matrice copieMatrice(Matrice a){
+        Matrice r = new Matrice(a.getM(), a.getN());
+        for (int m = 1; m <= a.getM(); m++)
+            for (int n = 1; n <= a.getN(); n++)
+                r.setElement(m, n, a.getElement(m, n));
+        return r;
+    }
+
     private static String retourdouble(Double element){
         if (element != null) {
             DecimalFormat df = new DecimalFormat("##,##0.##");
             return df.format(element);
         }
         else return null;
-    }
-
-    private static Matrice stringToDouble(MatriceDemarche a){
-        Matrice b = new Matrice(a.getM(),a.getN());
-        b.setElements(a.getElements().stream().map(Double::parseDouble).collect(Collectors.toList()));
-        return b;
     }
 
     private static MatriceDemarche doubleToString(Matrice a){
