@@ -161,7 +161,11 @@ public class Operation {
                         else
                             r.setElement(m, n, 0);
                     }
-            } else if (pow != 1) {
+            }
+            else if (pow == 1){
+                liste.add(doubleToString(r));
+            }
+            else {
                 for (int x = 1; x < pow; x++) {
                     assert r != null;
                     liste = produitMatricielDemarche(liste,r,a);
