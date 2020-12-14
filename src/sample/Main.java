@@ -7,7 +7,7 @@ import sample.mvc.vue.InterfaceUtilisateur;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("MatriceFX");
         primaryStage.setScene(new InterfaceUtilisateur(primaryStage).getApplication());
         primaryStage.show();
