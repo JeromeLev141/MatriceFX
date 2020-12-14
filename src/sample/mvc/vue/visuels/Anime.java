@@ -1,4 +1,4 @@
-package sample.mvc.vue;
+package sample.mvc.vue.visuels;
 
 import javafx.animation.*;
 import javafx.geometry.Pos;
@@ -10,6 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import sample.mvc.vue.InterfaceUtilisateur;
+import sample.mvc.vue.audios.Son;
 
 
 public class Anime {

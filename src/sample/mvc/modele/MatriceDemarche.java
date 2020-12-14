@@ -1,6 +1,5 @@
 package sample.mvc.modele;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +52,6 @@ public class MatriceDemarche{
     }
 
     public boolean isEstCarre() { return n == m;}
-
-
-
 
     @Override
     public String toString() {

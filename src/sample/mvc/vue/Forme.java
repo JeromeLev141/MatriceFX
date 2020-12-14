@@ -25,6 +25,7 @@ public class Forme {
         scalaire.setScaleY(1.5);
         scalaire.setMaxWidth(30);
         Tooltip tooltip = new Tooltip(nombre);
+        tooltip.setShowDuration(Duration.INDEFINITE);
         scalaire.setTooltip(tooltip);
         return scalaire;
     }

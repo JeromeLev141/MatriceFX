@@ -1,6 +1,5 @@
 package sample.mvc.vue;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -11,7 +10,9 @@ import javafx.scene.media.MediaView;
 import sample.mvc.controlleur.LecteurDeFichier;
 import sample.mvc.controlleur.Operation;
 import sample.mvc.modele.Matrice;
+import sample.mvc.vue.audios.Son;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MatriceAffichage extends HBox {
@@ -239,29 +240,41 @@ public class MatriceAffichage extends HBox {
     }
 
     public MatriceAffichage afficherMatriceResultat() {
+        getChildren().clear();
         getChildren().addAll(Forme.genererCrochetGauche(matrice), genererGridpane(), Forme.genererCrochetDroite(matrice));
         return this;
     }
 
     public MatriceAffichage afficherDeterminantResultat() {
         setId("determinant");
+        getChildren().clear();
         getChildren().addAll(Forme.genererBordure(matrice), genererGridpane(), Forme.genererBordure(matrice));
         return this;
     }
 
-    public Button ajouterBoutonImporterTest(InterfaceUtilisateur iu) {
+    private Button ajouterBoutonImporterTest(InterfaceUtilisateur iu) {
         Button importer = new Button("Importer");
         importer.setFocusTraversable(false);
         importer.setOnAction(event -> {
+            bruit.setMediaPlayer(Son.entreSon());
+            bruit.getMediaPlayer().play();
             LecteurDeFichier ldf;
             try {
-                ldf = new LecteurDeFichier(LecteurDeFichier.chercherFichier(iu.getStage()));
-                setMatrice(LecteurDeFichier.stringtoMatrice(ldf.getliste().get(0)));
+                File fichier = LecteurDeFichier.chercherFichier(iu.getStage());
+                if (fichier != null) {
+                    ldf = new LecteurDeFichier(fichier);
+                    setMatrice(LecteurDeFichier.stringtoMatrice(ldf.getliste().get(0)));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            bruit.setMediaPlayer(Son.fermeSon());
+            bruit.getMediaPlayer().play();
             getChildren().clear();
-            afficherMatrice(iu);
+            if (getId().equals("matrice"))
+                afficherMatrice(iu);
+            else
+                afficherMatriceDeterminant(iu);
         });
         return importer;
     }
