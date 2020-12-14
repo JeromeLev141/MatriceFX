@@ -66,13 +66,13 @@ public class Main2 {
         Operation.produitMatricielDemarche(liste2,a,a);
         Operation.produitVectorielDemarche(liste2, v1,v2);
         Operation.produitDHadamardDemarche(liste2,a,a);
-        Operation.produitTensorielDemarche(liste2,a,a);
-        Operation.puissanceDemarche(liste2,a,3);*/
+        Operation.produitTensorielDemarche(liste2,a,a);*/
+        Operation.puissanceDemarche(liste2,a,1);
         //Operation.changerligneDemarche(liste2,a,1,2);
         //Operation.determinantOpDemarche(liste2,a);
-        Operation.inverseDemarche(liste2,b);
+        //Operation.inverseDemarche(liste2,b);
         liste2.forEach(System.out::println);
-        System.out.println(Operation.inverse(b));
+        //System.out.println(Operation.inverse(b));
         //System.out.println(Operation.produitMatriciel(a,a));
 
     }
