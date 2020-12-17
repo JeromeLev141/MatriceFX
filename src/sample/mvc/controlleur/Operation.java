@@ -33,7 +33,7 @@ public class Operation {
             MatriceDemarche d = new MatriceDemarche(a.getM(), a.getN());
             MatriceDemarche r = new MatriceDemarche(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++) {
-                d.getElements().set(x, retourdouble(a.getElements().get(x)) + "+" + retourdouble(b.getElements().get(x)));
+                d.getElements().set(x, retourdouble(resultat0negatif(a.getElements().get(x))) + "+" + retourdouble(resultat0negatif(b.getElements().get(x))));
                 r.getElements().set(x, retourdouble(a.getElements().get(x) + b.getElements().get(x)));
             }
             liste.add(d);
@@ -64,7 +64,7 @@ public class Operation {
             MatriceDemarche r = new MatriceDemarche(a.getM(), a.getN());
             for (int x = 0; x < a.getElements().size(); x++) {
                 d.getElements().set(x, retourdouble(a.getElements().get(x)) + "-" + retourdouble(b.getElements().get(x)));
-                r.getElements().set(x, retourdouble(a.getElements().get(x) - b.getElements().get(x)));
+                r.getElements().set(x, retourdouble(resultat0negatif(a.getElements().get(x)) - resultat0negatif(b.getElements().get(x))));
             }
             liste.add(d);
             liste.add(r);
@@ -86,8 +86,8 @@ public class Operation {
             return null;
         MatriceDemarche d = new MatriceDemarche(a.getM(), a.getN());
         MatriceDemarche r = new MatriceDemarche(a.getM(), a.getN());
-        d.setElements(a.getElements().stream().map((nombre) -> retourdouble(k) + "*" + retourdouble(nombre)).collect(Collectors.toList()));
-        r.setElements(a.getElements().stream().map((nombre) -> retourdouble(k*nombre)).collect(Collectors.toList()));
+        d.setElements(a.getElements().stream().map((nombre) -> retourdouble(k) + "*" + retourdouble(resultat0negatif(nombre))).collect(Collectors.toList()));
+        r.setElements(a.getElements().stream().map((nombre) -> retourdouble(k*resultat0negatif(nombre))).collect(Collectors.toList()));
         liste.add(d);
         liste.add(r);
         return liste;
@@ -252,7 +252,7 @@ public class Operation {
                     double det = determinantOp(r);
                     adj.setElement(m1,n1, det * Math.pow(-1,m1+n1));
                     r.getElements().clear();
-                    d.setElement(m1,n1,retourdouble(det) + "*" + "(-1^" + (m1+n1) + ")");
+                    d.setElement(m1,n1,retourdouble(resultat0negatif(det)) + "*" + "(-1^" + (m1+n1) + ")");
                 }
             liste.add(d);
             double det = determinantOp(a);
@@ -300,9 +300,9 @@ public class Operation {
                     for(int x = 1; x <= a.getN(); x++) {
                         sommeProduits += a.getElement(m, x) * b.getElement(x, n);
                         if (x == 1)
-                            element.append(retourdouble(a.getElement(m, x))).append("*").append(retourdouble(b.getElement(x, n)));
+                            element.append(retourdouble(resultat0negatif(a.getElement(m, x)))).append("*").append(retourdouble(resultat0negatif(b.getElement(x, n))));
                         else
-                            element.append("+").append(retourdouble(a.getElement(m, x))).append("*").append(retourdouble(b.getElement(x, n)));
+                            element.append("+").append(retourdouble(resultat0negatif(a.getElement(m, x)))).append("*").append(retourdouble(resultat0negatif(b.getElement(x, n))));
 
                     }
                     r.setElement(m, n, sommeProduits);
@@ -334,17 +334,15 @@ public class Operation {
         if (a == null || b == null)
             return null;
         MatriceDemarche d = new MatriceDemarche(3,1);
-        Matrice r = new Matrice(3,1 );
+        Matrice r;
         if (Operation.isVecteur(a) && Operation.isVecteur(b)){
-            r.setElement(1,1,a.getElement(2,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(2,1));
-            r.setElement(2,1, -1 * (a.getElement(1,1) * b.getElement(3,1) - a.getElement(3,1) * b.getElement(1,1)));
-            r.setElement(3,1,a.getElement(1,1) * b.getElement(2,1) - a.getElement(2,1) * b.getElement(1,1));
-            d.setElement(1,1,retourdouble(a.getElement(2,1)) + "*" + retourdouble(b.getElement(3,1))
-                    + "-" + retourdouble(a.getElement(3,1)) + "*" + retourdouble(b.getElement(2,1)));
-            d.setElement(2,1, "-1*("+ retourdouble(a.getElement(1,1)) + "*" + retourdouble(b.getElement(3,1))
-                    + "-" + retourdouble(a.getElement(3,1)) + "*" + retourdouble(b.getElement(1,1)) + ")");
-            d.setElement(3,1,retourdouble(a.getElement(1,1)) + "*" + retourdouble(b.getElement(2,1))
-                    + "-" + retourdouble(a.getElement(2,1)) + "*" + retourdouble(b.getElement(1,1)));
+            r = produitVectoriel(a,b);
+            d.setElement(1,1,retourdouble(resultat0negatif(a.getElement(2,1))) + "*" + retourdouble(resultat0negatif(b.getElement(3,1)))
+                    + "-" + retourdouble(resultat0negatif(a.getElement(3,1))) + "*" + retourdouble(resultat0negatif(b.getElement(2,1))));
+            d.setElement(2,1, "-1*("+ retourdouble(resultat0negatif(a.getElement(1,1))) + "*" + retourdouble(resultat0negatif(b.getElement(3,1)))
+                    + "-" + retourdouble(resultat0negatif(a.getElement(3,1))) + "*" + retourdouble(resultat0negatif(b.getElement(1,1))) + ")");
+            d.setElement(3,1,retourdouble(resultat0negatif(a.getElement(1,1))) + "*" + retourdouble(resultat0negatif(b.getElement(2,1)))
+                    + "-" + retourdouble(resultat0negatif(a.getElement(2,1))) + "*" + retourdouble(resultat0negatif(b.getElement(1,1))));
 
             liste.add(d);
             liste.add(doubleToString(resultat0negatif(r)));
@@ -376,7 +374,7 @@ public class Operation {
             for (int m = 1; m <= a.getM(); m++)
                 for (int n = 1; n <= a.getN(); n++) {
                     r.setElement(m, n, a.getElement(m, n) * b.getElement(m, n));
-                    d.setElement(m,n,retourdouble(a.getElement(m,n)) + "*" + retourdouble(b.getElement(m, n)));
+                    d.setElement(m,n,retourdouble(resultat0negatif(a.getElement(m,n))) + "*" + retourdouble(resultat0negatif(b.getElement(m, n))));
                 }
             liste.add(d);
             liste.add(doubleToString(resultat0negatif(r)));
@@ -409,7 +407,8 @@ public class Operation {
                 for (int m2 = 1; m2 <= b.getM(); m2++)
                     for (int n2 = 1; n2 <= b.getN(); n2++) {
                         r.setElement(m * b.getM() + m2, (n * b.getN()) + n2, a.getElement(m + 1, n + 1) * b.getElement(m2, n2));
-                        d.setElement(m * b.getM() + m2, (n * b.getN()) + n2, retourdouble(a.getElement(m + 1, n + 1)) + "*" + retourdouble(b.getElement(m2, n2)));
+                        d.setElement(m * b.getM() + m2, (n * b.getN()) + n2, retourdouble(resultat0negatif(a.getElement(m + 1, n + 1)))
+                                + "*" + retourdouble(resultat0negatif(b.getElement(m2, n2))));
                     }
         liste.add(d);
         liste.add(doubleToString(resultat0negatif(r)));
@@ -530,13 +529,14 @@ public class Operation {
         }
 
         else if (a.getM() == 2 && a.isEstCarre()){
+            resultat0negatif(a);
             r =(a.getElement(1, 1) * a.getElement(2,2)) - (a.getElement(1,2) * a.getElement(2,1));
             d.setM(1);
             d.setN(1);
-            d.setElement(1,1,retourdouble(a.getElement(1,1)) + "*" + retourdouble(a.getElement(2,2))
-                 + "-" + retourdouble(a.getElement(1,2)) + "*" + retourdouble(a.getElement(2,1)));
+            d.setElement(1,1,retourdouble(resultat0negatif(a.getElement(1,1))) + "*" + retourdouble(resultat0negatif(a.getElement(2,2)))
+                 + "-" + retourdouble(resultat0negatif(a.getElement(1,2))) + "*" + retourdouble(resultat0negatif(a.getElement(2,1))));
             liste.add(d);
-            d.setElement(1,1,retourdouble(r));
+            d.setElement(1,1,retourdouble(resultat0negatif(r)));
             liste.add(d);
             return liste;
         }
@@ -547,7 +547,7 @@ public class Operation {
                 d = doubleToString(tempo);
                 if (m == tempo.getM()) {
                     r *= tempo.getElement(m, m);
-                    sb.append("*").append(retourdouble(tempo.getElement(m, m)));
+                    sb.append("*").append(retourdouble(resultat0negatif(tempo.getElement(m, m))));
                     break;
                 }
                 else if (tempo.getElement(m, m) == 0){
@@ -564,21 +564,22 @@ public class Operation {
                 for (int m2 = m + 1; m2 <= tempo.getM(); m2++){
                     constant = -1 * tempo.getElement(m2,m) / tempo.getElement(m,m);
                     for (int n2 = m; n2 <= tempo.getN(); n2++) {
-                        d.setElement(m2,n2,retourdouble(tempo.getElement(m2,n2)) + "+(" + retourdouble(tempo.getElement(m,n2)) + "*" + retourdouble(constant) + ")");
+                        d.setElement(m2,n2,retourdouble(resultat0negatif(tempo.getElement(m2,n2))) + "+("
+                                + retourdouble(resultat0negatif(tempo.getElement(m,n2))) + "*" + retourdouble(resultat0negatif(constant)) + ")");
                         tempo.setElement(m2, n2, tempo.getElement(m2, n2) + (tempo.getElement(m, n2) * constant));
                     }
                 }
                 liste.add(d);
-                d = doubleToString(tempo);
+                d = doubleToString(resultat0negatif(tempo));
                 liste.add(d);
 
                 if (m == 1) {
                     r = tempo.getElement(m, m);
-                    sb.append(retourdouble(tempo.getElement(m,m)));
+                    sb.append(retourdouble(resultat0negatif(tempo.getElement(m,m))));
                 }
                 else {
-                    r *= tempo.getElement(m, m);
-                    sb.append("*").append(retourdouble(tempo.getElement(m, m)));
+                    r *= resultat0negatif(tempo.getElement(m, m));
+                    sb.append("*").append(retourdouble(resultat0negatif(tempo.getElement(m, m))));
                 }
             }
             if (r == -0.0)
@@ -590,7 +591,7 @@ public class Operation {
             d.setElement(1,1,sb.toString());
             liste.add(d);
             d = new MatriceDemarche(1,1);
-            d.setElement(1,1,retourdouble(r));
+            d.setElement(1,1,retourdouble(resultat0negatif(r)));
             liste.add(d);
 
             return liste;
@@ -635,6 +636,12 @@ public class Operation {
                 n = 0.0;
             return n;
         }).collect(Collectors.toList()));
+        return a;
+    }
+
+    private static double resultat0negatif(Double a){
+        if (a == -0.0)
+            a = 0.0;
         return a;
     }
 
