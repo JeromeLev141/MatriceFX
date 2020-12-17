@@ -60,12 +60,12 @@ public class Anime {
     public static Label info() {
         Label info = new Label("Bienvenue sur MatriceFX!\n" +
                 "Ce programme vous permettra d'effectuer diverses opérations sur des matrices\n\n" +
-                "Faites 'enter' pour confirmer une donnée rentrée\n" +
-                "Veuillez utiliser la touche R pour réinitialiser une opération au besoin\n" +
-                "Glissez votre curseur vers le '?' en cas de questionnement\n" +
-                "Consultez le fichier.csv pour les instructions afin de correctement importer une matrice\n" +
-                "Dans le cas où un chiffre est trop grand '...' sera affiché\n" +
-                "Il suffit de de poser le curseur sur le chiffre pour le voir au complet\n\n" +
+                "- Faites 'enter' pour confirmer une donnée entrée\n" +
+                "- Veuillez utiliser la touche R pour réinitialiser une opération au besoin\n" +
+                "- Glissez votre curseur vers le '?' en cas de questionnement\n" +
+                "- Consultez le fichier.csv pour les instructions afin de correctement importer une matrice\n" +
+                "- Dans le cas où un chiffre est trop grand '...' sera affiché\n" +
+                "Il suffit de poser le curseur sur le chiffre pour le voir au complet\n\n" +
                 "Enjoy:)\n\n" +
                 "@JL JG");
         info.setStyle("-fx-font-family: 'Bauhaus 93';");
