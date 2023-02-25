@@ -1,4 +1,4 @@
-# ProjetFinal
+# MatriceFX
 Membre de l'équipe : Jérôme Lévesque et Jérémi Girard
 
 - Le programme fonctionne avec un nombre arbitraire de matrices dynamiques de dimensions arbitraires avec des opérations mixtes
